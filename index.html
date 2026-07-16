@@ -13,6 +13,18 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
     
+    <!-- YouTube Iframe API Load -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <!-- PushAlert Integration Code -->
+    <script type="text/javascript">
+        (function(d, t) {
+                var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+                g.src = "https://cdn.pushalert.co/unified_7926a7a21516895df9023f2688ec3818.js";
+                s.parentNode.insertBefore(g, s);
+        }(document, 'script'));
+    </script>
+    
     <style>
         /* CSS VARIABLE MANAGEMENT FOR MULTI-THEMES */
         :root {
@@ -1035,6 +1047,149 @@
             justify-content: center;
         }
 
+        .player-controls button.play-pause-lg:disabled {
+            opacity: 0.5;
+        }
+
+        .player-artwork-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0 20px 0;
+        }
+
+        .player-artwork {
+            width: 240px;
+            height: 240px;
+            border-radius: 16px;
+            object-fit: cover;
+            box-shadow: 0 10px 22px var(--shadow-color);
+            transition: transform 0.3s ease;
+        }
+
+        .player-artwork.playing {
+            transform: scale(1.02);
+        }
+
+        .player-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .player-meta-info {
+            overflow: hidden;
+            flex: 1;
+            padding-right: 12px;
+        }
+
+        .player-meta-info .title {
+            font-size: 19px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--text-main);
+        }
+
+        .player-meta-info .artist {
+            font-size: 13px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 2px;
+        }
+
+        .player-meta button {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .player-meta button.active-fav {
+            color: var(--primary-color);
+        }
+
+        .progress-area {
+            margin-bottom: 18px;
+        }
+
+        .progress-bar-wrapper {
+            position: relative;
+            width: 100%;
+            height: 5px;
+            background-color: var(--border-color);
+            border-radius: 3px;
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--primary-color);
+            border-radius: 3px;
+            position: relative;
+        }
+
+        .time-stamps {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .player-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+
+        .player-controls button {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.8;
+            width: 40px;
+            height: 40px;
+        }
+
+        .player-controls button.shuffle-btn.active-control,
+        .player-controls button.repeat-btn.active-control {
+            color: var(--primary-color);
+            opacity: 1;
+        }
+
+        .player-controls button.play-pause-lg {
+            width: 58px;
+            height: 58px;
+            background-color: var(--text-main);
+            color: var(--bg-dark);
+            border-radius: 50%;
+            font-size: 20px;
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .player-controls button.play-pause-lg i {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .player-controls button.play-pause-lg:disabled {
+            opacity: 0.5;
+        }
+
         .player-footer-tools {
             display: flex;
             justify-content: space-between;
@@ -1200,6 +1355,9 @@
 <body class="theme-light"> <!-- Starts in Light Theme Default -->
 
     <div class="app-container">
+        <!-- YouTube Dynamic Player Container -->
+        <div id="yt-player" style="display: none;"></div>
+
         <!-- Interactive Custom Android Storage Permission Overlay -->
         <div class="permission-overlay" id="permission-overlay">
             <div class="permission-card">
@@ -1546,44 +1704,38 @@
 
         // EMBEDDED SONG METADATA
         const musicDatabase = [
-            {
-                id: "airtel_theme",
-                title: "My Airtel",
-                artist: "Airtel Music",
-                album: "Airtel Signature",
-                cover: "https://images.unsplash.com/photo-1614149162883-504ce4d13909?w=400&q=80",
-                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+         {
+                id: "olyst.m2026",
+                title: "Siir Siir (FIFA world cup 2026)",
+                artist: "Nora Fatehi, Vegedream, Sanjoy FIFA Sound - Siir Siir (FIFA world cup 2026™)",
+                album: "",
+                cover: "https://i.postimg.cc/KvQPVfGv/20260715-222030.png",
+                src: "https://files.catbox.moe/gkapgc",
                 lyrics: [
-                    "[00:00] Express Yourself with Airtel",
-                    "[00:05] Airtel brings you closer to the rhythm of life",
-                    "[00:15] Enjoy uninterrupted beats, anytime, anywhere..."
+
                 ]
             },
             {
-                id: "track1",
-                title: "Golden Days",
-                artist: "Mannadey Classic",
-                album: "Nostalgic Collection",
-                cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&q=80",
-                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                id: "olyst.m2",
+                title: "DNA - ( FIFA world cup 2026™)",
+                artist: "",
+                album: "Andres Bocelli, David Guetta, EJAE, Megan Thee Stallion",
+                cover: "https://i.postimg.cc/0ymHv732/20260609-025259.png",
+                src: "https://files.catbox.moe/ijoxxz",
                 lyrics: [
-                    "[00:00] Walking down those golden memory lanes",
-                    "[00:05] All the friends we had in old times",
-                    "[00:15] Never fade away from our hearts..."
+
                 ]
             },
             {
-                id: "track2",
-                title: "Melody of Breeze",
-                artist: "Acoustic Whispers",
-                album: "Soft Melodies",
-                cover: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&q=80",
-                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+                id: "olyst.m1",
+                title: "VEGEDREAM",
+                artist: "VEGEDREAM - Ramenez La coupe A La Maison",
+                album: "",
+                cover: "https://i.postimg.cc/HnWnFVCC/20260716-024324.png",
+                src: "https://files.catbox.moe/ha2yc9",
                 lyrics: [
-                    "[00:00] Listen closely to the whisper of the wind",
-                    "[00:10] It speaks of paths untraveled, stories untold"
-                ]
-            }
+                 ]
+            },
         ];
 
         // 15 HIGH-QUALITY PREMIUM FALLBACK COVERS
@@ -1616,6 +1768,12 @@
         let generatedObjectUrls = []; 
         let lyricsArray = []; 
         let likedPosts = []; // Stores IDs of notification posts liked locally
+
+        // YOUTUBE INTEGRATION ENGINES
+        let ytPlayer = null;
+        let isYTAPIReady = false;
+        let currentActivePlayer = 'native'; // 'native' or 'youtube'
+        let ytProgressInterval = null;
 
         // Retrieve local storage configs safely
         let favorites = [];
@@ -1673,6 +1831,20 @@
         const durationTimeEl = document.getElementById('total-duration');
         const volumeSlider = document.getElementById('volume-slider');
 
+        // Helper function to extract YouTube Video ID
+        function getYouTubeId(url) {
+            if (!url) return null;
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        // YouTube Iframe API state triggers
+        function onYouTubeIframeAPIReady() {
+            isYTAPIReady = true;
+            console.log("YouTube Player API is ready.");
+        }
+
         // Helper function for fallback covers
         function getFallbackCover(id) {
             const index = Math.abs(id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)) % fallbackCovers.length;
@@ -1686,7 +1858,8 @@
             initAudioEngineEvents();
             setupMediaSessionSupport();
             listenFirebaseNotifications(); // Start Live Firebase feed
-            
+            registerPWAOfflineWorker(); // Register Service Worker for seamless offline access
+
             const searchInput = document.getElementById('search-input');
             if (searchInput) {
                 searchInput.addEventListener('input', (e) => {
@@ -1694,6 +1867,15 @@
                 });
             }
         });
+
+        // REGISTER OFFLINE PWA SERVICE WORKER
+        function registerPWAOfflineWorker() {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('./sw.js')
+                .then(reg => console.log('Olyst Offline Worker Loaded!', reg))
+                .catch(err => console.warn('PWA Worker creation blocked or unavailable:', err));
+            }
+        }
 
         // MULTI-THEME CONFIGURATION
         function initAppTheme() {
@@ -1747,6 +1929,13 @@
             
             if(tabId === 'favorites') renderFavoritesScreen();
             if(tabId === 'downloads') renderDownloadsScreen();
+        }
+
+        // PERMANENT SYSTEM SCANNER & INTERNALS
+        function checkAndTriggerStorageDialog() {
+            if (storageAccessGranted !== 'true') {
+                document.getElementById('permission-overlay').style.display = 'flex';
+            }
         }
 
         // PERMANENT SYSTEM SCANNER & INTERNALS
@@ -2276,7 +2465,7 @@
             });
         }
 
-        // PLAYBACK LOGIC SYNCED WITH INDEXEDDB BLOBS
+        // PLAYBACK LOGIC SYNCED WITH INDEXEDDB BLOBS & YOUTUBE API
         async function loadTrack(index, playImmediate = true) {
             if (index < 0 || index >= currentPlaylist.length) return;
             currentTrackIndex = index;
@@ -2285,31 +2474,56 @@
             generatedObjectUrls.forEach(url => URL.revokeObjectURL(url));
             generatedObjectUrls = [];
 
-            if (track.isOfflineStored) {
-                const dbTrack = await olystDB.getOfflineTrack(track.id);
-                if (dbTrack) {
-                    const audioUrl = URL.createObjectURL(dbTrack.audioBlob);
-                    generatedObjectUrls.push(audioUrl);
-                    audio.src = audioUrl;
-
-                    if (dbTrack.coverBlob) {
-                        const coverUrl = URL.createObjectURL(dbTrack.coverBlob);
-                        generatedObjectUrls.push(coverUrl);
-                        miniCover.src = coverUrl;
-                        playerCover.src = coverUrl;
-                    } else {
-                        const fallbackImg = getFallbackCover(track.id);
-                        miniCover.src = fallbackImg;
-                        playerCover.src = fallbackImg;
-                    }
-                }
-            } else {
-                audio.src = track.src;
-                miniCover.src = track.cover;
-                playerCover.src = track.cover;
+            // Reset YouTube interface variables
+            if (ytProgressInterval) {
+                clearInterval(ytProgressInterval);
+                ytProgressInterval = null;
             }
-            
-            audio.load();
+
+            const ytId = getYouTubeId(track.src);
+
+            if (ytId) {
+                // Route playback through YouTube API Engine
+                currentActivePlayer = 'youtube';
+                audio.pause(); // Standard audio client release
+                
+                miniCover.src = track.cover || getFallbackCover(track.id);
+                playerCover.src = track.cover || getFallbackCover(track.id);
+
+                initOrLoadYTPlayer(ytId, playImmediate);
+            } else {
+                // Route playback through Native HTML5 Client Engine
+                currentActivePlayer = 'native';
+                if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
+                    ytPlayer.pauseVideo();
+                }
+
+                if (track.isOfflineStored) {
+                    const dbTrack = await olystDB.getOfflineTrack(track.id);
+                    if (dbTrack) {
+                        const audioUrl = URL.createObjectURL(dbTrack.audioBlob);
+                        generatedObjectUrls.push(audioUrl);
+                        audio.src = audioUrl;
+
+                        if (dbTrack.coverBlob) {
+                            const coverUrl = URL.createObjectURL(dbTrack.coverBlob);
+                            generatedObjectUrls.push(coverUrl);
+                            miniCover.src = coverUrl;
+                            playerCover.src = coverUrl;
+                        } else {
+                            const fallbackImg = getFallbackCover(track.id);
+                            miniCover.src = fallbackImg;
+                            playerCover.src = fallbackImg;
+                        }
+                    }
+                } else {
+                    audio.src = track.src;
+                    miniCover.src = track.cover || getFallbackCover(track.id);
+                    playerCover.src = track.cover || getFallbackCover(track.id);
+                }
+                
+                audio.load();
+            }
 
             miniTitle.textContent = track.title;
             miniArtist.textContent = track.artist;
@@ -2324,31 +2538,130 @@
             const activeItem = document.getElementById(`item-${track.id}`);
             if(activeItem) activeItem.classList.add('playing');
 
-            if (playImmediate) {
+            if (playImmediate && currentActivePlayer === 'native') {
                 playTrack();
             }
         }
 
+        // Initialize and control the dynamic hidden YouTube Player Client
+        function initOrLoadYTPlayer(videoId, playImmediate) {
+            if (!isYTAPIReady) {
+                showToast("Loading YouTube playback client...");
+                setTimeout(() => initOrLoadYTPlayer(videoId, playImmediate), 1000);
+                return;
+            }
+
+            if (!ytPlayer) {
+                ytPlayer = new YT.Player('yt-player', {
+                    height: '0',
+                    width: '0',
+                    videoId: videoId,
+                    playerVars: {
+                        'playsinline': 1,
+                        'controls': 0,
+                        'disablekb': 1,
+                        'fs': 0,
+                        'rel': 0
+                    },
+                    events: {
+                        'onReady': (event) => {
+                            if (playImmediate) {
+                                event.target.playVideo();
+                                startYTProgressTracking();
+                            }
+                        },
+                        'onStateChange': handleYTPlayerStateChange
+                    }
+                });
+            } else {
+                if (playImmediate) {
+                    ytPlayer.loadVideoById(videoId);
+                    ytPlayer.playVideo();
+                    startYTProgressTracking();
+                } else {
+                    ytPlayer.cueVideoById(videoId);
+                }
+            }
+        }
+
+        // Sync and handle state transitions of the YouTube core player
+        function handleYTPlayerStateChange(event) {
+            // YT.PlayerState.ENDED (0)
+            if (event.data === YT.PlayerState.ENDED) {
+                if (isRepeat) {
+                    ytPlayer.seekTo(0, true);
+                    ytPlayer.playVideo();
+                } else {
+                    nextTrack();
+                }
+            }
+
+            // Sync app UI based on play state
+            if (event.data === YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                syncPlaybackUIState(true);
+            } else {
+                isPlaying = false;
+                syncPlaybackUIState(false);
+            }
+        }
+
+        // Track and render YouTube playback runtime coordinates
+        function startYTProgressTracking() {
+            if (ytProgressInterval) clearInterval(ytProgressInterval);
+            ytProgressInterval = setInterval(() => {
+                if (currentActivePlayer === 'youtube' && ytPlayer && typeof ytPlayer.getCurrentTime === 'function') {
+                    const current = ytPlayer.getCurrentTime();
+                    const duration = ytPlayer.getDuration();
+                    if (duration) {
+                        const progressPercent = (current / duration) * 100;
+                        progressBar.style.width = `${progressPercent}%`;
+                        currentTimeEl.textContent = formatTime(current);
+                        durationTimeEl.textContent = formatTime(duration);
+                        updateLyricsHighlight(current);
+                    }
+                }
+            }, 300);
+        }
+
         function playTrack() {
             isPlaying = true;
-            audio.play().then(() => {
-                miniPlayer.classList.add('active');
-                miniPlayPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-                playerPlayPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-                playerCover.classList.add('playing');
-                updateMediaSessionMetadata();
-            }).catch(err => {
-                console.log("Audio block exception override.", err);
-                isPlaying = false;
-            });
+            if (currentActivePlayer === 'native') {
+                audio.play().then(() => {
+                    syncPlaybackUIState(true);
+                }).catch(err => {
+                    console.warn("Audio block exception override.", err);
+                    isPlaying = false;
+                });
+            } else if (currentActivePlayer === 'youtube' && ytPlayer && typeof ytPlayer.playVideo === 'function') {
+                ytPlayer.playVideo();
+                startYTProgressTracking();
+                syncPlaybackUIState(true);
+            }
         }
 
         function pauseTrack() {
             isPlaying = false;
-            audio.pause();
-            miniPlayPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
-            playerPlayPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
-            playerCover.classList.remove('playing');
+            if (currentActivePlayer === 'native') {
+                audio.pause();
+            } else if (currentActivePlayer === 'youtube' && ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
+                ytPlayer.pauseVideo();
+                if (ytProgressInterval) clearInterval(ytProgressInterval);
+            }
+            syncPlaybackUIState(false);
+        }
+
+        function syncPlaybackUIState(playing) {
+            const playIconClass = playing ? '<i class="fa-solid fa-pause"></i>' : '<i class="fa-solid fa-play"></i>';
+            miniPlayPauseBtn.innerHTML = playIconClass;
+            playerPlayPauseBtn.innerHTML = playIconClass;
+            if (playing) {
+                miniPlayer.classList.add('active');
+                playerCover.classList.add('playing');
+                updateMediaSessionMetadata();
+            } else {
+                playerCover.classList.remove('playing');
+            }
         }
 
         function togglePlayPause() {
@@ -2381,7 +2694,7 @@
         // AUDIO ENGINE CONTROL EVENT LISTENERS
         function initAudioEngineEvents() {
             audio.addEventListener('timeupdate', () => {
-                if(audio.duration) {
+                if(audio.duration && currentActivePlayer === 'native') {
                     const progressPercent = (audio.currentTime / audio.duration) * 100;
                     progressBar.style.width = `${progressPercent}%`;
                     currentTimeEl.textContent = formatTime(audio.currentTime);
@@ -2392,11 +2705,13 @@
             });
 
             audio.addEventListener('ended', () => {
-                if (isRepeat) {
-                    audio.currentTime = 0;
-                    playTrack();
-                } else {
-                    nextTrack();
+                if (currentActivePlayer === 'native') {
+                    if (isRepeat) {
+                        audio.currentTime = 0;
+                        playTrack();
+                    } else {
+                        nextTrack();
+                    }
                 }
             });
 
@@ -2417,9 +2732,18 @@
             progressContainer.addEventListener('click', (e) => {
                 const width = progressContainer.clientWidth;
                 const clickX = e.offsetX;
-                const duration = audio.duration;
-                if(duration) {
-                    audio.currentTime = (clickX / width) * duration;
+                
+                if (currentActivePlayer === 'native') {
+                    const duration = audio.duration;
+                    if(duration) {
+                        audio.currentTime = (clickX / width) * duration;
+                    }
+                } else if (currentActivePlayer === 'youtube' && ytPlayer && typeof ytPlayer.getDuration === 'function') {
+                    const duration = ytPlayer.getDuration();
+                    if (duration) {
+                        const targetTime = (clickX / width) * duration;
+                        ytPlayer.seekTo(targetTime, true);
+                    }
                 }
             });
 
@@ -2434,8 +2758,18 @@
             });
 
             volumeSlider.addEventListener('input', (e) => {
-                audio.volume = e.target.value;
+                const val = e.target.value;
+                audio.volume = val;
+                if (currentActivePlayer === 'youtube' && ytPlayer && typeof ytPlayer.setVolume === 'function') {
+                    ytPlayer.setVolume(val * 100);
+                }
             });
+        }
+
+        // FAVORITES SYSTEM
+        function toggleFavoriteAction(event, id) {
+            event.stopPropagation();
+            toggleFavorite(id);
         }
 
         // FAVORITES SYSTEM
@@ -2500,6 +2834,11 @@
 
         // PERMANENT CACHE SYSTEM WITH BYPASS DOWNLOAD INJECTION
         async function downloadTrackOffline(track) {
+            if (getYouTubeId(track.src)) {
+                showToast("YouTube cloud streams cannot be cached offline.");
+                return;
+            }
+
             showToast("Starting permanent download sync...");
             
             const downloaderLink = document.createElement('a');
@@ -2717,6 +3056,12 @@
             }, 2500);
         }
 
+        // Open layout adjustments
+        function openFullscreenPlayer() {
+            fullscreenPlayer.classList.add('open');
+        }
+
+        // Open layout adjustments
         function openFullscreenPlayer() {
             fullscreenPlayer.classList.add('open');
         }
@@ -2743,7 +3088,7 @@
                     artist: track.artist,
                     album: track.album,
                     artwork: [
-                        { src: track.cover, sizes: '300x300', type: 'image/jpeg' }
+                        { src: track.cover || getFallbackCover(track.id), sizes: '300x300', type: 'image/jpeg' }
                     ]
                 });
             }
