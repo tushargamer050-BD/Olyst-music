@@ -265,6 +265,108 @@
             text-overflow: ellipsis;
         }
 
+        /* NEW ADDITION: Auto Sliding Hero Banner styles */
+        .hero-banner-container {
+            position: relative;
+            width: 100%;
+            height: 145px;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 16px var(--shadow-color);
+        }
+
+        .hero-slides-wrapper {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .hero-slide {
+            width: 33.3333%;
+            height: 100%;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 18px;
+            color: #ffffff;
+        }
+
+        .hero-overlay h2 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-overlay p {
+            font-size: 11px;
+            opacity: 0.9;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* NEW ADDITION: Explore grid like Instagram on Search Screen */
+        .explore-grid-container {
+            margin-bottom: 24px;
+        }
+
+        .explore-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 8px;
+            grid-auto-flow: dense;
+        }
+
+        .explore-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            aspect-ratio: 1 / 1;
+            cursor: pointer;
+            box-shadow: 0 2px 6px var(--shadow-color);
+            transition: transform 0.2s ease;
+        }
+
+        .explore-item:active {
+            transform: scale(0.96);
+        }
+
+        /* Creating Instagram asymmetrical structure */
+        .explore-item.tall {
+            grid-row: span 2;
+            aspect-ratio: auto;
+            height: 100%;
+        }
+
+        .explore-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .explore-item-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 8px;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
         /* Song List Row Settings */
         .song-list {
             display: flex;
@@ -1139,6 +1241,119 @@
             transform: scale(1.02);
         }
 
+        /* NEW ADDITION: Up Next Interactive Queue Manager Panel styling */
+        .queue-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 65%;
+            background-color: var(--bg-card);
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+            z-index: 260;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid var(--border-color);
+            box-shadow: 0 -4px 20px var(--shadow-color);
+        }
+
+        .queue-panel.open {
+            transform: translateY(0);
+        }
+
+        .queue-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .queue-header-row h3 {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .queue-header-row button {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .queue-list {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            scrollbar-width: none;
+        }
+
+        .queue-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        .queue-item {
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            padding: 8px 10px;
+            border-radius: 8px;
+        }
+
+        .queue-item.active-playing {
+            border-color: var(--primary-color);
+        }
+
+        .queue-item img {
+            width: 36px;
+            height: 36px;
+            border-radius: 4px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .queue-item-meta {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .queue-item-meta .title {
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .queue-item-meta .artist {
+            font-size: 10px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .queue-item-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .queue-item-controls button {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 12px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
         /* Toast Popup Alerts */
         .toast {
             position: fixed;
@@ -1242,6 +1457,43 @@
             
             <!-- 1. HOME SCREEN VIEW -->
             <section id="home-screen" class="tab-screen active">
+                
+                <!-- NEW ADDITION: Premium Auto Sliding Banner -->
+                <div class="hero-banner-container">
+                    <div class="hero-slides-wrapper" id="hero-banner-slides">
+                        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80')">
+                            <div class="hero-overlay">
+                                <h2>Feel the FIFA 2026 Vibes</h2>
+                                <p>Stream Vegedream and Nora Fatehi live on Olyst Music.</p>
+                            </div>
+                        </div>
+                        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&q=80')">
+                            <div class="hero-overlay">
+                                <h2>Your Ultimate Audio Gateway</h2>
+                                <p>Unlimited cloud tracks, custom offline uploads & dynamic sync.</p>
+                            </div>
+                        </div>
+                        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=600&q=80')">
+                            <div class="hero-overlay">
+                                <h2>Olyst Premium Engine</h2>
+                                <p>High-quality audio streaming combined with local file manager.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW ADDITION: Carousel Slider 1 (Fresh Hits) -->
+                <div class="section-title">Fresh Hits</div>
+                <div class="horizontal-scroll" id="carousel-slider-1">
+                    <!-- Dynamic Loading via JS -->
+                </div>
+
+                <!-- NEW ADDITION: Carousel Slider 2 (Global Sensations) -->
+                <div class="section-title">Global Sensations</div>
+                <div class="horizontal-scroll" id="carousel-slider-2">
+                    <!-- Dynamic Loading via JS -->
+                </div>
+
                 <div class="section-title">Featured Albums</div>
                 <div class="horizontal-scroll" id="featured-songs-container">
                     <!-- Loaded dynamically via JS -->
@@ -1261,6 +1513,15 @@
                         <input type="text" id="search-input" class="search-input" placeholder="Search tracks, artists, albums...">
                     </div>
                 </div>
+
+                <!-- NEW ADDITION: Instagram Explore style Grid Wrapper -->
+                <div class="explore-grid-container" id="explore-grid-wrapper">
+                    <div class="section-title">Explore Beats</div>
+                    <div class="explore-grid" id="explore-grid-content">
+                        <!-- Loaded dynamically via JS -->
+                    </div>
+                </div>
+
                 <div class="section-title" id="search-results-title">Search Results</div>
                 <div class="song-list" id="search-results-container">
                     <!-- JS Search Engine results -->
@@ -1384,7 +1645,10 @@
         <div class="player-header">
             <button onclick="closeFullscreenPlayer()"><i class="fa-solid fa-chevron-down"></i></button>
             <div class="track-origin">Olyst Media</div>
-            <button id="player-lyric-btn" onclick="toggleLyrics()"><i class="fa-solid fa-quote-right"></i></button>
+            <div style="display: flex; gap: 4px;">
+                <button id="player-queue-btn" onclick="toggleQueue()" title="Queue Manager" style="margin-right: 6px;"><i class="fa-solid fa-list-ul"></i></button>
+                <button id="player-lyric-btn" onclick="toggleLyrics()"><i class="fa-solid fa-quote-right"></i></button>
+            </div>
         </div>
 
         <div class="player-scroll-container">
@@ -1440,6 +1704,17 @@
             <button onclick="toggleLyrics()"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="lyrics-content" id="lyrics-content">
+            <!-- Loaded dynamically via JS -->
+        </div>
+    </div>
+
+    <!-- NEW ADDITION: Interactive Up Next Queue Manager Sheet -->
+    <div class="queue-panel" id="queue-panel">
+        <div class="queue-header-row">
+            <h3>Queue Manager</h3>
+            <button onclick="toggleQueue()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="queue-list" id="queue-list-content">
             <!-- Loaded dynamically via JS -->
         </div>
     </div>
@@ -1755,6 +2030,7 @@
             setupMediaSessionSupport();
             listenFirebaseNotifications(); // Start Live Firebase feed
             registerPWAOfflineWorker(); // Register Service Worker for seamless offline access
+            initHeroBannerAutoSlide(); // Initialize auto slide of upper banner
 
             const searchInput = document.getElementById('search-input');
             if (searchInput) {
@@ -1825,6 +2101,7 @@
             
             if(tabId === 'favorites') renderFavoritesScreen();
             if(tabId === 'downloads') renderDownloadsScreen();
+            if(tabId === 'search') renderExploreGrid(); // Generate exploration tiles
         }
 
         // PERMANENT SYSTEM SCANNER & INTERNALS
@@ -2262,6 +2539,18 @@
             return str.replace(/['"]/g, '\\$&');
         }
 
+        // AUTO SLIDING BANNER LOGIC
+        let activeHeroSlideIdx = 0;
+        function initHeroBannerAutoSlide() {
+            setInterval(() => {
+                activeHeroSlideIdx = (activeHeroSlideIdx + 1) % 3;
+                const slidesWrapper = document.getElementById('hero-banner-slides');
+                if (slidesWrapper) {
+                    slidesWrapper.style.transform = `translateX(-${activeHeroSlideIdx * 33.3333}%)`;
+                }
+            }, 5000);
+        }
+
         // HOME PAGE DATA GENERATOR
         function renderHomeScreen() {
             const featuredContainer = document.getElementById('featured-songs-container');
@@ -2269,6 +2558,39 @@
             
             featuredContainer.innerHTML = '';
             allSongsContainer.innerHTML = '';
+
+            // Render NEW Carousel Slider 1 (Contains first 5 tracks)
+            const slider1 = document.getElementById('carousel-slider-1');
+            slider1.innerHTML = '';
+            musicDatabase.slice(0, 5).forEach((track) => {
+                const card = document.createElement('div');
+                card.className = 'card-featured';
+                card.onclick = () => playAndOpen(track.id);
+                card.innerHTML = `
+                    <img id="sl1-img-${track.id}" src="${track.cover || getFallbackCover(track.id)}" alt="${track.title}">
+                    <div class="title">${track.title}</div>
+                    <div class="artist">${track.artist}</div>
+                `;
+                slider1.appendChild(card);
+                resolveTrackImage(track, `sl1-img-${track.id}`);
+            });
+
+            // Render NEW Carousel Slider 2 (Contains next 5 tracks or remaining)
+            const slider2 = document.getElementById('carousel-slider-2');
+            slider2.innerHTML = '';
+            const nextSet = musicDatabase.slice(2, 7); // Generates adjacent selection
+            nextSet.forEach((track) => {
+                const card = document.createElement('div');
+                card.className = 'card-featured';
+                card.onclick = () => playAndOpen(track.id);
+                card.innerHTML = `
+                    <img id="sl2-img-${track.id}" src="${track.cover || getFallbackCover(track.id)}" alt="${track.title}">
+                    <div class="title">${track.title}</div>
+                    <div class="artist">${track.artist}</div>
+                `;
+                slider2.appendChild(card);
+                resolveTrackImage(track, `sl2-img-${track.id}`);
+            });
 
             musicDatabase.slice(0, 3).forEach((track) => {
                 const card = document.createElement('div');
@@ -2301,6 +2623,26 @@
                 `;
                 allSongsContainer.appendChild(item);
                 resolveTrackImage(track, `list-img-${track.id}`);
+            });
+        }
+
+        // RENDER INSTAGRAM EXPLORE TILES (NEW FEATURE)
+        function renderExploreGrid() {
+            const gridContent = document.getElementById('explore-grid-content');
+            gridContent.innerHTML = '';
+
+            musicDatabase.forEach((track, index) => {
+                const tile = document.createElement('div');
+                // Give some cards asymmetric tall look like Instagram explore feed
+                const isTall = (index === 1 || index === 5) ? 'explore-item tall' : 'explore-item';
+                tile.className = isTall;
+                tile.onclick = () => playAndOpen(track.id);
+                tile.innerHTML = `
+                    <img id="explore-img-${track.id}" src="${track.cover || getFallbackCover(track.id)}" alt="${track.title}">
+                    <div class="explore-item-overlay">${track.title}</div>
+                `;
+                gridContent.appendChild(tile);
+                resolveTrackImage(track, `explore-img-${track.id}`);
             });
         }
 
@@ -2422,6 +2764,7 @@
 
             updateFavoriteIcon(track.id);
             renderRelatedSongs(track.id);
+            updateQueuePanelUI(); // Sync interactive Queue layout
             
             document.querySelectorAll('.song-item').forEach(item => item.classList.remove('playing'));
             const activeItem = document.getElementById(`item-${track.id}`);
@@ -2677,6 +3020,58 @@
             renderFavoritesScreen();
         }
 
+        // QUEUE MANAGER SHEET TOGGLE & SEQUENCER (NEW INTERACTIVE CONTROLLER)
+        function toggleQueue() {
+            const panel = document.getElementById('queue-panel');
+            const isOpen = panel.classList.toggle('open');
+            if (isOpen) {
+                updateQueuePanelUI();
+            }
+        }
+
+        function updateQueuePanelUI() {
+            const listContainer = document.getElementById('queue-list-content');
+            listContainer.innerHTML = '';
+
+            currentPlaylist.forEach((track, index) => {
+                const isActive = index === currentTrackIndex ? 'queue-item active-playing' : 'queue-item';
+                const div = document.createElement('div');
+                div.className = isActive;
+                div.innerHTML = `
+                    <img src="${track.cover || getFallbackCover(track.id)}" alt="Cover">
+                    <div class="queue-item-meta" onclick="loadTrack(${index}, true)">
+                        <div class="title">${track.title}</div>
+                        <div class="artist">${track.artist}</div>
+                    </div>
+                    <div class="queue-item-controls">
+                        <button onclick="moveQueueItem(${index}, -1)" title="Move Up"><i class="fa-solid fa-chevron-up"></i></button>
+                        <button onclick="moveQueueItem(${index}, 1)" title="Move Down"><i class="fa-solid fa-chevron-down"></i></button>
+                    </div>
+                `;
+                listContainer.appendChild(div);
+            });
+        }
+
+        function moveQueueItem(index, direction) {
+            const targetIdx = index + direction;
+            if (targetIdx < 0 || targetIdx >= currentPlaylist.length) return;
+
+            // Reorder playlist layout array coordinates
+            const temp = currentPlaylist[index];
+            currentPlaylist[index] = currentPlaylist[targetIdx];
+            currentPlaylist[targetIdx] = temp;
+
+            // Adjust current index mapping
+            if (currentTrackIndex === index) {
+                currentTrackIndex = targetIdx;
+            } else if (currentTrackIndex === targetIdx) {
+                currentTrackIndex = index;
+            }
+
+            updateQueuePanelUI();
+            showToast("Queue structure updated!");
+        }
+
         function updateFavoriteIcon(trackId) {
             if(favorites.includes(trackId)) {
                 favBtn.innerHTML = '<i class="fa-solid fa-heart"></i>';
@@ -2812,12 +3207,16 @@
         // MUSIC SEARCH COMPILER
         function handleSearchQuery(query) {
             const resultsContainer = document.getElementById('search-results-container');
+            const exploreWrapper = document.getElementById('explore-grid-wrapper');
             const term = query.toLowerCase().trim();
             
             if(term === '') {
-                resultsContainer.innerHTML = '<div style="text-align:center; padding: 50px 0; color: var(--text-muted)">Search something to find tracks...</div>';
+                resultsContainer.innerHTML = '';
+                exploreWrapper.style.display = 'block'; // Show Explore Grid if query is empty
                 return;
             }
+
+            exploreWrapper.style.display = 'none'; // Hide explore grid when searching
 
             const filtered = musicDatabase.filter(track => 
                 track.title.toLowerCase().includes(term) || 
@@ -2944,9 +3343,11 @@
             fullscreenPlayer.classList.add('open');
         }
 
+        // Close standalone player setup
         function closeFullscreenPlayer() {
             fullscreenPlayer.classList.remove('open');
             document.getElementById('lyrics-panel').classList.remove('open');
+            document.getElementById('queue-panel').classList.remove('open');
         }
 
         function setupMediaSessionSupport() {
