@@ -15,15 +15,6 @@
     
     <!-- YouTube Iframe API Load -->
     <script src="https://www.youtube.com/iframe_api"></script>
-
-    <!-- PushAlert Integration Code -->
-    <script type="text/javascript">
-        (function(d, t) {
-                var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
-                g.src = "https://cdn.pushalert.co/unified_7926a7a21516895df9023f2688ec3818.js";
-                s.parentNode.insertBefore(g, s);
-        }(document, 'script'));
-    </script>
     
     <style>
         /* CSS VARIABLE MANAGEMENT FOR MULTI-THEMES */
@@ -1051,143 +1042,8 @@
             opacity: 0.5;
         }
 
-        .player-artwork-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 10px 0 20px 0;
-        }
-
-        .player-artwork {
-            width: 240px;
-            height: 240px;
-            border-radius: 16px;
-            object-fit: cover;
-            box-shadow: 0 10px 22px var(--shadow-color);
-            transition: transform 0.3s ease;
-        }
-
-        .player-artwork.playing {
-            transform: scale(1.02);
-        }
-
-        .player-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 18px;
-        }
-
-        .player-meta-info {
-            overflow: hidden;
-            flex: 1;
-            padding-right: 12px;
-        }
-
-        .player-meta-info .title {
-            font-size: 19px;
-            font-weight: 700;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            color: var(--text-main);
-        }
-
-        .player-meta-info .artist {
-            font-size: 13px;
-            color: var(--text-muted);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-top: 2px;
-        }
-
-        .player-meta button {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .player-meta button.active-fav {
-            color: var(--primary-color);
-        }
-
-        .progress-area {
-            margin-bottom: 18px;
-        }
-
-        .progress-bar-wrapper {
-            position: relative;
-            width: 100%;
-            height: 5px;
-            background-color: var(--border-color);
-            border-radius: 3px;
-            cursor: pointer;
-            margin-bottom: 8px;
-        }
-
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background-color: var(--primary-color);
-            border-radius: 3px;
-            position: relative;
-        }
-
-        .time-stamps {
-            display: flex;
-            justify-content: space-between;
-            font-size: 10px;
-            color: var(--text-muted);
-        }
-
-        .player-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 22px;
-        }
-
-        .player-controls button {
-            background: none;
-            border: none;
-            color: var(--text-main);
-            font-size: 18px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0.8;
-            width: 40px;
-            height: 40px;
-        }
-
-        .player-controls button.shuffle-btn.active-control,
-        .player-controls button.repeat-btn.active-control {
-            color: var(--primary-color);
-            opacity: 1;
-        }
-
-        .player-controls button.play-pause-lg {
-            width: 58px;
-            height: 58px;
-            background-color: var(--text-main);
-            color: var(--bg-dark);
-            border-radius: 50%;
-            font-size: 20px;
-            box-shadow: 0 4px 8px var(--shadow-color);
-        }
-
-        .player-controls button.play-pause-lg i {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .player-controls button.play-pause-lg:disabled {
-            opacity: 0.5;
+        .player-controls button.play-pause-lg:active {
+            transform: scale(0.95);
         }
 
         .player-footer-tools {
@@ -1351,6 +1207,19 @@
             font-size: 11px;
         }
     </style>
+    <!-- start webpushr code -->
+    <script>
+    (function(w,d, s, id) {
+        if(typeof(w.webpushr)!=='undefined') return;
+        w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};
+        var js, fjs = d.getElementsByTagName(s)[0];
+        js = d.createElement(s); js.id = id;js.async=1;
+        js.src = "https://cdn.webpushr.com/app.min.js";
+        fjs.parentNode.appendChild(js);
+    }(window,document, 'script', 'webpushr-jssdk'));
+    webpushr('setup',{'key':'BLyC9BcCZhFEU3eGXh2WPk3q5OQXjpPU6BkDY65xFAxwuIKRwWcKcx23Dlz0QqDQziMvrDYih03ZFJUZjk0Easg' });
+    </script>
+    <!-- end webpushr code -->
 </head>
 <body class="theme-light"> <!-- Starts in Light Theme Default -->
 
@@ -1929,13 +1798,6 @@
             
             if(tabId === 'favorites') renderFavoritesScreen();
             if(tabId === 'downloads') renderDownloadsScreen();
-        }
-
-        // PERMANENT SYSTEM SCANNER & INTERNALS
-        function checkAndTriggerStorageDialog() {
-            if (storageAccessGranted !== 'true') {
-                document.getElementById('permission-overlay').style.display = 'flex';
-            }
         }
 
         // PERMANENT SYSTEM SCANNER & INTERNALS
@@ -2772,12 +2634,6 @@
             toggleFavorite(id);
         }
 
-        // FAVORITES SYSTEM
-        function toggleFavoriteAction(event, id) {
-            event.stopPropagation();
-            toggleFavorite(id);
-        }
-
         function toggleFavorite(id) {
             if(favorites.includes(id)) {
                 favorites = favorites.filter(favId => favId !== id);
@@ -3061,11 +2917,7 @@
             fullscreenPlayer.classList.add('open');
         }
 
-        // Open layout adjustments
-        function openFullscreenPlayer() {
-            fullscreenPlayer.classList.add('open');
-        }
-
+        // Close layout adjustments
         function closeFullscreenPlayer() {
             fullscreenPlayer.classList.remove('open');
             document.getElementById('lyrics-panel').classList.remove('open');
