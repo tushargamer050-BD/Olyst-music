@@ -1042,10 +1042,6 @@
             opacity: 0.5;
         }
 
-        .player-controls button.play-pause-lg:active {
-            transform: scale(0.95);
-        }
-
         .player-footer-tools {
             display: flex;
             justify-content: space-between;
@@ -1207,19 +1203,6 @@
             font-size: 11px;
         }
     </style>
-    <!-- start webpushr code -->
-    <script>
-    (function(w,d, s, id) {
-        if(typeof(w.webpushr)!=='undefined') return;
-        w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};
-        var js, fjs = d.getElementsByTagName(s)[0];
-        js = d.createElement(s); js.id = id;js.async=1;
-        js.src = "https://cdn.webpushr.com/app.min.js";
-        fjs.parentNode.appendChild(js);
-    }(window,document, 'script', 'webpushr-jssdk'));
-    webpushr('setup',{'key':'BLyC9BcCZhFEU3eGXh2WPk3q5OQXjpPU6BkDY65xFAxwuIKRwWcKcx23Dlz0QqDQziMvrDYih03ZFJUZjk0Easg' });
-    </script>
-    <!-- end webpushr code -->
 </head>
 <body class="theme-light"> <!-- Starts in Light Theme Default -->
 
@@ -2917,7 +2900,6 @@
             fullscreenPlayer.classList.add('open');
         }
 
-        // Close layout adjustments
         function closeFullscreenPlayer() {
             fullscreenPlayer.classList.remove('open');
             document.getElementById('lyrics-panel').classList.remove('open');
