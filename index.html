@@ -1135,6 +1135,13 @@
             opacity: 0.5;
         }
 
+        .player-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+
         .player-footer-tools {
             display: flex;
             justify-content: space-between;
@@ -1542,6 +1549,14 @@
             margin-top: 2px;
         }
     </style>
+    <!-- PushAlert Unified Code -->
+    <script type="text/javascript">
+            (function(d, t) {
+                    var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+                    g.src = "https://cdn.pushalert.co/unified_7926a7a21516895df9023f2688ec3818.js";
+                    s.parentNode.insertBefore(g, s);
+            }(document, 'script'));
+    </script>
 </head>
 <body class="theme-light">
 
@@ -3298,6 +3313,7 @@
             toggleFavorite(id);
         }
 
+        // FAVORITES SYSTEM
         function toggleFavorite(id) {
             if(favorites.includes(id)) {
                 favorites = favorites.filter(favId => favId !== id);
