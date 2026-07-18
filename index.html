@@ -87,7 +87,7 @@
             color: var(--text-main);
             overflow: hidden;
             height: 100vh;
-            height: 100dvh; /* Supports dynamic viewport height to prevent cutoff on mobile */
+            height: 100dvh;
             width: 100vw;
             user-select: none;
             transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
@@ -265,7 +265,7 @@
             text-overflow: ellipsis;
         }
 
-        /* NEW ADDITION: Auto Sliding Hero Banner styles */
+        /* Auto Sliding Hero Banner styles */
         .hero-banner-container {
             position: relative;
             width: 100%;
@@ -315,7 +315,7 @@
             text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
 
-        /* NEW ADDITION: Explore grid like Instagram on Search Screen */
+        /* Explore grid like Instagram on Search Screen */
         .explore-grid-container {
             margin-bottom: 24px;
         }
@@ -367,7 +367,7 @@
             text-overflow: ellipsis;
         }
 
-        /* Song List Row Settings */
+        /* RESTORED: Original Classical Vertical Song List Rows */
         .song-list {
             display: flex;
             flex-direction: column;
@@ -424,6 +424,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            margin-top: 2px;
         }
 
         .song-actions {
@@ -473,7 +474,7 @@
             outline: none;
         }
 
-        /* REDESIGNED: Premium Notification Instagram Feed CSS UI */
+        /* Premium Notification Instagram Feed CSS UI */
         .notification-feed {
             display: flex;
             flex-direction: column;
@@ -634,16 +635,6 @@
         .carousel-btn:disabled {
             opacity: 0;
             pointer-events: none;
-        }
-
-        .carousel-indicator-dots {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 5px;
-            z-index: 5;
         }
 
         .carousel-dot {
@@ -1241,13 +1232,13 @@
             transform: scale(1.02);
         }
 
-        /* NEW ADDITION: Up Next Interactive Queue Manager Panel styling */
+        /* Up Next Queue Manager Sheet UI */
         .queue-panel {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 65%;
+            height: 80%;
             background-color: var(--bg-card);
             border-top-left-radius: 16px;
             border-top-right-radius: 16px;
@@ -1285,17 +1276,24 @@
             cursor: pointer;
         }
 
-        .queue-list {
+        .queue-scroll-container {
             flex: 1;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 16px;
             scrollbar-width: none;
+            padding-bottom: 20px;
         }
 
-        .queue-list::-webkit-scrollbar {
+        .queue-scroll-container::-webkit-scrollbar {
             display: none;
+        }
+
+        .queue-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .queue-item {
@@ -1303,8 +1301,9 @@
             align-items: center;
             background-color: var(--bg-dark);
             border: 1px solid var(--border-color);
-            padding: 8px 10px;
-            border-radius: 8px;
+            padding: 10px;
+            border-radius: 10px;
+            gap: 8px;
         }
 
         .queue-item.active-playing {
@@ -1312,20 +1311,20 @@
         }
 
         .queue-item img {
-            width: 36px;
-            height: 36px;
-            border-radius: 4px;
+            width: 44px;
+            height: 44px;
+            border-radius: 6px;
             object-fit: cover;
-            margin-right: 10px;
         }
 
         .queue-item-meta {
             flex: 1;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .queue-item-meta .title {
-            font-size: 12px;
+            font-size: 12.5px;
             font-weight: 600;
             white-space: nowrap;
             overflow: hidden;
@@ -1333,7 +1332,7 @@
         }
 
         .queue-item-meta .artist {
-            font-size: 10px;
+            font-size: 10.5px;
             color: var(--text-muted);
             white-space: nowrap;
             overflow: hidden;
@@ -1342,6 +1341,7 @@
 
         .queue-item-controls {
             display: flex;
+            align-items: center;
             gap: 8px;
         }
 
@@ -1349,9 +1349,80 @@
             background: none;
             border: none;
             color: var(--text-muted);
-            font-size: 12px;
+            font-size: 13px;
             cursor: pointer;
-            padding: 4px;
+            padding: 6px;
+            border-radius: 4px;
+            transition: color 0.2s;
+        }
+
+        .queue-item-controls button:hover {
+            color: var(--text-main);
+        }
+
+        .queue-item-controls button.active-twice {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* Pull/Add Items Queue Sheet Styles */
+        .pull-section-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin: 10px 0 6px 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 4px;
+        }
+
+        .pull-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            gap: 10px;
+        }
+
+        .pull-item img {
+            width: 36px;
+            height: 36px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+
+        .pull-item-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .pull-item-info .title {
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .pull-item-info .artist {
+            font-size: 10px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .pull-item button {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 16px;
+            cursor: pointer;
+            padding: 6px;
         }
 
         /* Toast Popup Alerts */
@@ -1417,9 +1488,62 @@
             outline: none;
             font-size: 11px;
         }
+
+        /* History Item Styles */
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px 0;
+        }
+
+        .history-item {
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 10px;
+            gap: 12px;
+        }
+
+        .history-item img {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .history-item-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .history-item-info .title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .history-item-info .artist {
+            font-size: 11px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .history-item-info .time {
+            font-size: 9px;
+            color: var(--primary-color);
+            margin-top: 2px;
+        }
     </style>
 </head>
-<body class="theme-light"> <!-- Starts in Light Theme Default -->
+<body class="theme-light">
 
     <div class="app-container">
         <!-- YouTube Dynamic Player Container -->
@@ -1447,7 +1571,7 @@
                 <h1>Olyst <span>music</span></h1>
             </div>
             <div class="header-actions">
-                <button id="sleep-timer-btn" title="Sleep Timer"><i class="fa-regular fa-clock"></i></button>
+                <button id="sleep-timer-btn" title="Playback History" onclick="toggleHistory()"><i class="fa-regular fa-clock"></i></button>
                 <button onclick="switchTab('settings')" title="Settings"><i class="fa-solid fa-gear"></i></button>
             </div>
         </header>
@@ -1458,7 +1582,7 @@
             <!-- 1. HOME SCREEN VIEW -->
             <section id="home-screen" class="tab-screen active">
                 
-                <!-- NEW ADDITION: Premium Auto Sliding Banner -->
+                <!-- Premium Auto Sliding Banner -->
                 <div class="hero-banner-container">
                     <div class="hero-slides-wrapper" id="hero-banner-slides">
                         <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80')">
@@ -1482,13 +1606,13 @@
                     </div>
                 </div>
 
-                <!-- NEW ADDITION: Carousel Slider 1 (Fresh Hits) -->
+                <!-- Carousel Slider 1 (Fresh Hits) -->
                 <div class="section-title">Fresh Hits</div>
                 <div class="horizontal-scroll" id="carousel-slider-1">
                     <!-- Dynamic Loading via JS -->
                 </div>
 
-                <!-- NEW ADDITION: Carousel Slider 2 (Global Sensations) -->
+                <!-- Carousel Slider 2 (Global Sensations) -->
                 <div class="section-title">Global Sensations</div>
                 <div class="horizontal-scroll" id="carousel-slider-2">
                     <!-- Dynamic Loading via JS -->
@@ -1514,7 +1638,7 @@
                     </div>
                 </div>
 
-                <!-- NEW ADDITION: Instagram Explore style Grid Wrapper -->
+                <!-- Instagram Explore style Grid Wrapper -->
                 <div class="explore-grid-container" id="explore-grid-wrapper">
                     <div class="section-title">Explore Beats</div>
                     <div class="explore-grid" id="explore-grid-content">
@@ -1528,10 +1652,9 @@
                 </div>
             </section>
 
-            <!-- REDESIGNED: 3. NOTIFICATION SCREEN (Instagram Feed Layout) -->
+            <!-- 3. NOTIFICATION SCREEN (Instagram Feed Layout) -->
             <section id="notification-screen" class="tab-screen">
                 <div class="notification-feed" id="notification-feed-container">
-                    <!-- Dynamically Loaded via Firebase live updates -->
                     <div style="text-align: center; padding: 40px; color: var(--text-muted);">
                         <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 24px; margin-bottom: 10px;"></i>
                         <p style="font-size: 12px;">Loading admin updates...</p>
@@ -1592,10 +1715,49 @@
                         </select>
                     </div>
 
+                    <!-- Audio Streaming Quality -->
+                    <div class="settings-item">
+                        <div class="settings-item-info">
+                            <h4>Audio Streaming Quality</h4>
+                            <p>Select preferred compression parameters for audio</p>
+                        </div>
+                        <select id="audio-quality-select" class="settings-select" onchange="changeAudioQuality(this.value)">
+                            <option value="high">High (320 kbps)</option>
+                            <option value="medium">Medium (192 kbps)</option>
+                            <option value="normal">Normal (128 kbps)</option>
+                        </select>
+                    </div>
+
+                    <!-- Equalizer Presets -->
+                    <div class="settings-item">
+                        <div class="settings-item-info">
+                            <h4>Equalizer Sound Profile</h4>
+                            <p>Optimize output frequency spectrum</p>
+                        </div>
+                        <select id="eq-select" class="settings-select" onchange="changeEqualizerPreset(this.value)">
+                            <option value="normal">Normal</option>
+                            <option value="bass">Bass Booster</option>
+                            <option value="vocal">Vocal Booster</option>
+                            <option value="treble">Treble Booster</option>
+                        </select>
+                    </div>
+
+                    <!-- Auto-Play Next Toggle -->
+                    <div class="settings-item">
+                        <div class="settings-item-info">
+                            <h4>Auto-Play Next Track</h4>
+                            <p>Automatically fetch next music block when finished</p>
+                        </div>
+                        <select id="autoplay-select" class="settings-select" onchange="toggleAutoplayState(this.value)">
+                            <option value="enabled">Enabled</option>
+                            <option value="disabled">Disabled</option>
+                        </select>
+                    </div>
+
                     <div class="settings-item">
                         <div class="settings-item-info">
                             <h4>Playback Engine</h4>
-                            <p>Olyst Engine v4.0.0 (Firebase Integrated)</p>
+                            <p>Olyst Engine v4.5.0 (Hi-Fi Integrated)</p>
                         </div>
                     </div>
                 </div>
@@ -1708,14 +1870,37 @@
         </div>
     </div>
 
-    <!-- NEW ADDITION: Interactive Up Next Queue Manager Sheet -->
+    <!-- Playback History Sheet Panel -->
+    <div class="lyrics-panel" id="history-panel" style="z-index: 270;">
+        <div class="lyrics-header">
+            <h3>Playback History</h3>
+            <button onclick="toggleHistory()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="lyrics-content" style="text-align: left;">
+            <div class="history-list" id="history-list-content">
+                <!-- Loaded dynamically via Local Storage -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Revamped Interactive Queue Manager Sheet -->
     <div class="queue-panel" id="queue-panel">
         <div class="queue-header-row">
             <h3>Queue Manager</h3>
             <button onclick="toggleQueue()"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        <div class="queue-list" id="queue-list-content">
-            <!-- Loaded dynamically via JS -->
+        
+        <div class="queue-scroll-container">
+            <!-- Active custom queue list (Starts with only active track) -->
+            <div class="queue-list" id="queue-list-content">
+                <!-- Dynamically loaded via JS -->
+            </div>
+
+            <!-- Dynamic Pull System to easily pull songs from database -->
+            <div class="pull-section-title">Pull Songs to Queue</div>
+            <div id="queue-pull-list">
+                <!-- Dynamically populated with all other tracks -->
+            </div>
         </div>
     </div>
 
@@ -1838,8 +2023,7 @@
                 album: "",
                 cover: "https://i.postimg.cc/HnWnFVCC/20260716-024324.png",
                 src: "https://files.catbox.moe/ha2yc9",
-                lyrics: [
-                 ]
+                lyrics: []
             },
             {
                 id: "olyst.m3",
@@ -1848,20 +2032,16 @@
                 album: "",
                 cover: "https://i.postimg.cc/HkzN9wGV/20260717-030115.png",
                 src: "https://files.catbox.moe/suu7qv",
-                lyrics: [
-
-                ]
+                lyrics: []
             },
-         {
+            {
                 id: "olyst.m2026",
                 title: "Siir Siir (FIFA world cup 2026)",
                 artist: "Nora Fatehi, Vegedream, Sanjoy FIFA Sound - Siir Siir (FIFA world cup 2026™)",
                 album: "",
                 cover: "https://i.postimg.cc/KvQPVfGv/20260715-222030.png",
                 src: "https://files.catbox.moe/gkapgc",
-                lyrics: [
-
-                ]
+                lyrics: []
             },
             {
                 id: "olyst.m2",
@@ -1870,9 +2050,7 @@
                 album: "Andres Bocelli, David Guetta, EJAE, Megan Thee Stallion",
                 cover: "https://i.postimg.cc/0ymHv732/20260609-025259.png",
                 src: "https://files.catbox.moe/ijoxxz",
-                lyrics: [
-
-                ]
+                lyrics: []
             },
             {
                 id: "olyst.m4",
@@ -1881,9 +2059,7 @@
                 album: "",
                 cover: "https://i.postimg.cc/hGZzR5md/20260717-032953.png",
                 src: "https://files.catbox.moe/hpmdes",
-                lyrics: [
-
-                ]
+                lyrics: []
             },
             {
                 id: "olyst.m5",
@@ -1892,9 +2068,7 @@
                 album: "",
                 cover: "https://i.postimg.cc/kGd6sCcn/20260717-070224.png",
                 src: "https://files.catbox.moe/g5qnpt",
-                lyrics: [
-
-                ]
+                lyrics: []
             },
             {
                 id: "olystm7",
@@ -1903,9 +2077,7 @@
                 album: "",
                 cover: "https://i.postimg.cc/XvdQYjXP/20260717-072854.png",
                 src: "https://files.catbox.moe/2a841n",
-                lyrics: [
-
-                ]
+                lyrics: []
             },
         ];
 
@@ -1929,8 +2101,9 @@
         ];
 
         // APPLICATION RUNTIME VARIABLES
-        let currentPlaylist = [...musicDatabase];
-        let currentTrackIndex = 0;
+        let currentPlaylist = [...musicDatabase]; 
+        let activeQueue = []; 
+        let activeQueueIndex = 0; 
         let isPlaying = false;
         let isShuffle = false;
         let isRepeat = false;
@@ -1938,20 +2111,26 @@
         let targetCoverUploadTrackId = null;
         let generatedObjectUrls = []; 
         let lyricsArray = []; 
-        let likedPosts = []; // Stores IDs of notification posts liked locally
+        let likedPosts = []; 
+        let playTwiceMap = {}; 
+
+        // Settings default values
+        let currentAudioQuality = 'high';
+        let currentEqPreset = 'normal';
+        let isAutoplayEnabled = true;
 
         // YOUTUBE INTEGRATION ENGINES
         let ytPlayer = null;
         let isYTAPIReady = false;
-        let currentActivePlayer = 'native'; // 'native' or 'youtube'
+        let currentActivePlayer = 'native'; 
         let ytProgressInterval = null;
 
         // Retrieve local storage configs safely
         let favorites = [];
         try {
-            favorites = JSON.parse(localStorage.getItem('olyst_favorites')) || ["airtel_theme"];
+            favorites = JSON.parse(localStorage.getItem('olyst_favorites')) || [];
         } catch (e) {
-            favorites = ["airtel_theme"];
+            favorites = [];
         }
 
         try {
@@ -2016,7 +2195,7 @@
             console.log("YouTube Player API is ready.");
         }
 
-        // Helper function for fallback covers
+        // Helper for fallback covers
         function getFallbackCover(id) {
             const index = Math.abs(id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)) % fallbackCovers.length;
             return fallbackCovers[index];
@@ -2028,9 +2207,15 @@
             renderHomeScreen();
             initAudioEngineEvents();
             setupMediaSessionSupport();
-            listenFirebaseNotifications(); // Start Live Firebase feed
-            registerPWAOfflineWorker(); // Register Service Worker for seamless offline access
-            initHeroBannerAutoSlide(); // Initialize auto slide of upper banner
+            listenFirebaseNotifications(); 
+            registerPWAOfflineWorker(); 
+            initHeroBannerAutoSlide(); 
+
+            if (musicDatabase.length > 0) {
+                activeQueue = [JSON.parse(JSON.stringify(musicDatabase[0]))];
+                activeQueueIndex = 0;
+                loadTrackFromQueue(0, false);
+            }
 
             const searchInput = document.getElementById('search-input');
             if (searchInput) {
@@ -2087,9 +2272,8 @@
                 }
             }
 
-            // Custom adjustments for tabs
             if (tabId === 'notification') {
-                pauseTrack(); // Suspend play when entering notification feeds
+                pauseTrack(); 
                 document.getElementById('app-header').style.display = 'flex';
             } else {
                 pauseAllNotificationVideos();
@@ -2101,7 +2285,7 @@
             
             if(tabId === 'favorites') renderFavoritesScreen();
             if(tabId === 'downloads') renderDownloadsScreen();
-            if(tabId === 'search') renderExploreGrid(); // Generate exploration tiles
+            if(tabId === 'search') renderExploreGrid(); 
         }
 
         // PERMANENT SYSTEM SCANNER & INTERNALS
@@ -2262,7 +2446,7 @@
          * NOTIFICATION ENGINE (Instagram Premium Feed Integrated with Firebase)
          */
 
-        let carouselsState = {}; // Keeps sliding track indexes
+        let carouselsState = {}; 
 
         function listenFirebaseNotifications() {
             const notificationsRef = database.ref('notifications');
@@ -2280,7 +2464,6 @@
             container.innerHTML = '';
 
             if (!data) {
-                // If there's no data, render dynamic welcome placeholder
                 container.innerHTML = `
                     <div style="text-align: center; padding: 60px 20px; color: var(--text-muted);">
                         <i class="fa-regular fa-bell" style="font-size: 40px; margin-bottom: 12px; color: var(--primary-color);"></i>
@@ -2291,10 +2474,7 @@
                 return;
             }
 
-            // Convert firebase object or fallback array into list
             const rawList = Array.isArray(data) ? data : Object.keys(data).map(key => ({ id: key, ...data[key] }));
-            
-            // Sort list by reverse chronological timestamp
             const sortedList = rawList.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
 
             sortedList.forEach((post) => {
@@ -2377,7 +2557,7 @@
         function renderCarouselMarkup(postId, images) {
             if (!images || images.length === 0) return '';
             
-            carouselsState[postId] = 0; // Initialize tracking index for post
+            carouselsState[postId] = 0; 
             
             let itemsHTML = '';
             let dotsHTML = '';
@@ -2392,7 +2572,7 @@
                 dotsHTML += `<div class="carousel-dot ${activeDotClass}" id="dot-${postId}-${index}"></div>`;
             });
 
-            const hidePrevBtn = 'disabled'; // Hide prev initially
+            const hidePrevBtn = 'disabled'; 
             const hideNextBtn = images.length <= 1 ? 'disabled' : '';
 
             return `
@@ -2426,7 +2606,6 @@
             const track = document.getElementById(`track-${postId}`);
             track.style.transform = `translateX(-${activeIdx * 100}%)`;
 
-            // Adjust nav controls
             const prevBtn = document.getElementById(`btn-prev-${postId}`);
             const nextBtn = document.getElementById(`btn-next-${postId}`);
 
@@ -2436,7 +2615,6 @@
             if (activeIdx === total - 1) nextBtn.setAttribute('disabled', 'true');
             else nextBtn.removeAttribute('disabled');
 
-            // Synchronize pagination dots
             for (let i = 0; i < total; i++) {
                 const dot = document.getElementById(`dot-${postId}-${i}`);
                 if (dot) {
@@ -2470,8 +2648,6 @@
                     try {
                         localStorage.setItem('olyst_liked_posts', JSON.stringify(likedPosts));
                     } catch (e) {}
-                    
-                    // UI immediately updates via live firebase subscription handler automatically.
                 }
             });
         }
@@ -2486,7 +2662,7 @@
                 }).catch(err => console.log("Sharing suspended", err));
             } else {
                 navigator.clipboard.writeText(`${fallbackText} - Shared from Olyst Music`).then(() => {
-                    showToast("Link and description copied to clipboard!");
+                    showToast("Link copied to clipboard!");
                 });
             }
         }
@@ -2559,7 +2735,7 @@
             featuredContainer.innerHTML = '';
             allSongsContainer.innerHTML = '';
 
-            // Render NEW Carousel Slider 1 (Contains first 5 tracks)
+            // Render Carousel Slider 1 (Contains first 5 tracks)
             const slider1 = document.getElementById('carousel-slider-1');
             slider1.innerHTML = '';
             musicDatabase.slice(0, 5).forEach((track) => {
@@ -2575,10 +2751,10 @@
                 resolveTrackImage(track, `sl1-img-${track.id}`);
             });
 
-            // Render NEW Carousel Slider 2 (Contains next 5 tracks or remaining)
+            // Render Carousel Slider 2
             const slider2 = document.getElementById('carousel-slider-2');
             slider2.innerHTML = '';
-            const nextSet = musicDatabase.slice(2, 7); // Generates adjacent selection
+            const nextSet = musicDatabase.slice(2, 7); 
             nextSet.forEach((track) => {
                 const card = document.createElement('div');
                 card.className = 'card-featured';
@@ -2605,6 +2781,7 @@
                 resolveTrackImage(track, `feat-img-${track.id}`);
             });
 
+            // RESTORED: Discover All Music classic linear horizontal list
             musicDatabase.forEach((track) => {
                 const isFav = favorites.includes(track.id) ? 'fa-solid' : 'fa-regular';
                 const item = document.createElement('div');
@@ -2614,11 +2791,11 @@
                     <img id="list-img-${track.id}" src="${track.cover || getFallbackCover(track.id)}" alt="${track.title}" onclick="playAndOpen('${track.id}')">
                     <div class="song-info" onclick="playAndOpen('${track.id}')">
                         <div class="title">${track.title}</div>
-                        <div class="artist">${track.artist} - ${track.album}</div>
+                        <div class="artist">${track.artist}</div>
                     </div>
                     <div class="song-actions">
-                        <button onclick="downloadTrackOfflineFromGrid(event, '${track.id}')"><i class="fa-solid fa-cloud-arrow-down"></i></button>
-                        <button onclick="toggleFavoriteAction(event, '${track.id}')"><i class="${isFav} fa-heart" style="color: var(--primary-color)"></i></button>
+                        <button onclick="downloadTrackOfflineFromGrid(event, '${track.id}')" title="Save Offline"><i class="fa-solid fa-cloud-arrow-down"></i></button>
+                        <button onclick="toggleFavoriteAction(event, '${track.id}')" title="Favorite"><i class="${isFav} fa-heart" style="color: var(--primary-color)"></i></button>
                     </div>
                 `;
                 allSongsContainer.appendChild(item);
@@ -2626,14 +2803,13 @@
             });
         }
 
-        // RENDER INSTAGRAM EXPLORE TILES (NEW FEATURE)
+        // RENDER INSTAGRAM EXPLORE TILES
         function renderExploreGrid() {
             const gridContent = document.getElementById('explore-grid-content');
             gridContent.innerHTML = '';
 
             musicDatabase.forEach((track, index) => {
                 const tile = document.createElement('div');
-                // Give some cards asymmetric tall look like Instagram explore feed
                 const isTall = (index === 1 || index === 5) ? 'explore-item tall' : 'explore-item';
                 tile.className = isTall;
                 tile.onclick = () => playAndOpen(track.id);
@@ -2688,42 +2864,41 @@
                     </div>
                 `;
                 item.onclick = () => {
-                    const idx = musicDatabase.findIndex(t => t.id === track.id);
-                    if (idx !== -1) loadTrack(idx, true);
+                    playExplicitTrack(track.id);
                 };
                 container.appendChild(item);
                 resolveTrackImage(track, `rel-img-${track.id}`);
             });
         }
 
-        // PLAYBACK LOGIC SYNCED WITH INDEXEDDB BLOBS & YOUTUBE API
-        async function loadTrack(index, playImmediate = true) {
-            if (index < 0 || index >= currentPlaylist.length) return;
-            currentTrackIndex = index;
-            const track = currentPlaylist[index];
+        // PLAYBACK LOGIC SYNCED WITH REVOLVING ACTIVE-QUEUE ENGINE
+        async function loadTrackFromQueue(index, playImmediate = true) {
+            if (index < 0 || index >= activeQueue.length) return;
+            activeQueueIndex = index;
+            const track = activeQueue[index];
             
             generatedObjectUrls.forEach(url => URL.revokeObjectURL(url));
             generatedObjectUrls = [];
 
-            // Reset YouTube interface variables
             if (ytProgressInterval) {
                 clearInterval(ytProgressInterval);
                 ytProgressInterval = null;
             }
 
+            // Save entry to Playback History logs
+            saveToPlaybackHistory(track);
+
             const ytId = getYouTubeId(track.src);
 
             if (ytId) {
-                // Route playback through YouTube API Engine
                 currentActivePlayer = 'youtube';
-                audio.pause(); // Standard audio client release
+                audio.pause(); 
                 
                 miniCover.src = track.cover || getFallbackCover(track.id);
                 playerCover.src = track.cover || getFallbackCover(track.id);
 
                 initOrLoadYTPlayer(ytId, playImmediate);
             } else {
-                // Route playback through Native HTML5 Client Engine
                 currentActivePlayer = 'native';
                 if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
                     ytPlayer.pauseVideo();
@@ -2764,7 +2939,7 @@
 
             updateFavoriteIcon(track.id);
             renderRelatedSongs(track.id);
-            updateQueuePanelUI(); // Sync interactive Queue layout
+            updateQueuePanelUI(); 
             
             document.querySelectorAll('.song-item').forEach(item => item.classList.remove('playing'));
             const activeItem = document.getElementById(`item-${track.id}`);
@@ -2773,6 +2948,73 @@
             if (playImmediate && currentActivePlayer === 'native') {
                 playTrack();
             }
+        }
+
+        // HISTORY STORAGE SERVICE
+        function saveToPlaybackHistory(track) {
+            let history = [];
+            try {
+                history = JSON.parse(localStorage.getItem('olyst_playback_history')) || [];
+            } catch(e) {}
+
+            const historyItem = {
+                id: track.id,
+                title: track.title,
+                artist: track.artist,
+                cover: track.cover || getFallbackCover(track.id),
+                timestamp: new Date().toLocaleString()
+            };
+
+            history = history.filter(item => item.id !== track.id);
+            history.unshift(historyItem);
+
+            if (history.length > 40) history.pop();
+
+            try {
+                localStorage.setItem('olyst_playback_history', JSON.stringify(history));
+            } catch(e) {}
+        }
+
+        // HISTORY PANEL TOGGLER
+        function toggleHistory() {
+            const panel = document.getElementById('history-panel');
+            const isOpen = panel.classList.toggle('open');
+            if (isOpen) {
+                renderHistoryList();
+            }
+        }
+
+        function renderHistoryList() {
+            const container = document.getElementById('history-list-content');
+            container.innerHTML = '';
+
+            let history = [];
+            try {
+                history = JSON.parse(localStorage.getItem('olyst_playback_history')) || [];
+            } catch(e) {}
+
+            if (history.length === 0) {
+                container.innerHTML = '<div style="color: var(--text-muted); text-align: center; padding: 30px;">No playback history available yet.</div>';
+                return;
+            }
+
+            history.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'history-item';
+                div.onclick = () => {
+                    playAndOpen(item.id);
+                    toggleHistory();
+                };
+                div.innerHTML = `
+                    <img src="${item.cover}" alt="Cover">
+                    <div class="history-item-info">
+                        <div class="title">${item.title}</div>
+                        <div class="artist">${item.artist}</div>
+                        <div class="time"><i class="fa-regular fa-clock"></i> ${item.timestamp}</div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
         }
 
         // Initialize and control the dynamic hidden YouTube Player Client
@@ -2818,9 +3060,15 @@
 
         // Sync and handle state transitions of the YouTube core player
         function handleYTPlayerStateChange(event) {
-            // YT.PlayerState.ENDED (0)
             if (event.data === YT.PlayerState.ENDED) {
-                if (isRepeat) {
+                const currentTrack = activeQueue[activeQueueIndex];
+                if (playTwiceMap[currentTrack.id]) {
+                    playTwiceMap[currentTrack.id] = false; 
+                    updateQueuePanelUI();
+                    ytPlayer.seekTo(0, true);
+                    ytPlayer.playVideo();
+                    showToast("Playing once more (Play Twice active)");
+                } else if (isRepeat) {
                     ytPlayer.seekTo(0, true);
                     ytPlayer.playVideo();
                 } else {
@@ -2828,7 +3076,6 @@
                 }
             }
 
-            // Sync app UI based on play state
             if (event.data === YT.PlayerState.PLAYING) {
                 isPlaying = true;
                 syncPlaybackUIState(true);
@@ -2902,24 +3149,64 @@
         }
 
         function nextTrack() {
+            const currentTrack = activeQueue[activeQueueIndex];
+            
+            if (playTwiceMap[currentTrack.id]) {
+                playTwiceMap[currentTrack.id] = false; 
+                updateQueuePanelUI();
+                if (currentActivePlayer === 'native') {
+                    audio.currentTime = 0;
+                    playTrack();
+                } else if (currentActivePlayer === 'youtube' && ytPlayer) {
+                    ytPlayer.seekTo(0, true);
+                    ytPlayer.playVideo();
+                }
+                showToast("Playing once more (Play Twice active)");
+                return;
+            }
+
             if (isShuffle) {
-                let randomIndex = Math.floor(Math.random() * currentPlaylist.length);
-                loadTrack(randomIndex);
+                let randomIndex = Math.floor(Math.random() * musicDatabase.length);
+                const randomTrack = musicDatabase[randomIndex];
+                activeQueue.push(JSON.parse(JSON.stringify(randomTrack)));
+                activeQueueIndex = activeQueue.length - 1;
+                loadTrackFromQueue(activeQueueIndex, true);
+            } else if (activeQueueIndex + 1 < activeQueue.length) {
+                activeQueueIndex++;
+                loadTrackFromQueue(activeQueueIndex, true);
             } else {
-                let nextIndex = (currentTrackIndex + 1) % currentPlaylist.length;
-                loadTrack(nextIndex);
+                if (isAutoplayEnabled) {
+                    const currentId = currentTrack.id;
+                    const pool = musicDatabase.filter(t => t.id !== currentId);
+                    if (pool.length > 0) {
+                        const randomRec = pool[Math.floor(Math.random() * pool.length)];
+                        activeQueue.push(JSON.parse(JSON.stringify(randomRec)));
+                        activeQueueIndex = activeQueue.length - 1;
+                        loadTrackFromQueue(activeQueueIndex, true);
+                        showToast("Autoplay pulled next song recommendation");
+                    }
+                } else {
+                    showToast("Queue ended. Pull more songs inside Queue panel!");
+                }
             }
         }
 
         function prevTrack() {
-            let prevIndex = (currentTrackIndex - 1 + currentPlaylist.length) % currentPlaylist.length;
-            loadTrack(prevIndex);
+            if (activeQueueIndex - 1 >= 0) {
+                activeQueueIndex--;
+                loadTrackFromQueue(activeQueueIndex, true);
+            } else {
+                showToast("Start of play queue reached");
+            }
         }
 
+        // Sets up active queue starting WITH ONLY the selected track
         function playExplicitTrack(trackId) {
-            const trackIdx = currentPlaylist.findIndex(t => t.id === trackId);
-            if(trackIdx !== -1) {
-                loadTrack(trackIdx, true);
+            const track = musicDatabase.find(t => t.id === trackId);
+            if (track) {
+                activeQueue = [JSON.parse(JSON.stringify(track))]; 
+                activeQueueIndex = 0;
+                loadTrackFromQueue(0, true);
             }
         }
 
@@ -2938,7 +3225,14 @@
 
             audio.addEventListener('ended', () => {
                 if (currentActivePlayer === 'native') {
-                    if (isRepeat) {
+                    const currentTrack = activeQueue[activeQueueIndex];
+                    if (playTwiceMap[currentTrack.id]) {
+                        playTwiceMap[currentTrack.id] = false; 
+                        updateQueuePanelUI();
+                        audio.currentTime = 0;
+                        playTrack();
+                        showToast("Playing once more (Play Twice active)");
+                    } else if (isRepeat) {
                         audio.currentTime = 0;
                         playTrack();
                     } else {
@@ -3020,7 +3314,7 @@
             renderFavoritesScreen();
         }
 
-        // QUEUE MANAGER SHEET TOGGLE & SEQUENCER (NEW INTERACTIVE CONTROLLER)
+        // QUEUE MANAGER SYSTEM WITH REMOVE & PLAY TWICE CAPABILITY
         function toggleQueue() {
             const panel = document.getElementById('queue-panel');
             const isOpen = panel.classList.toggle('open');
@@ -3033,39 +3327,102 @@
             const listContainer = document.getElementById('queue-list-content');
             listContainer.innerHTML = '';
 
-            currentPlaylist.forEach((track, index) => {
-                const isActive = index === currentTrackIndex ? 'queue-item active-playing' : 'queue-item';
+            // Render current custom active queue tracks
+            activeQueue.forEach((track, index) => {
+                const isActive = index === activeQueueIndex ? 'queue-item active-playing' : 'queue-item';
+                const isTwiceActive = playTwiceMap[track.id] ? 'active-twice' : '';
                 const div = document.createElement('div');
                 div.className = isActive;
                 div.innerHTML = `
                     <img src="${track.cover || getFallbackCover(track.id)}" alt="Cover">
-                    <div class="queue-item-meta" onclick="loadTrack(${index}, true)">
+                    <div class="queue-item-meta" onclick="loadTrackFromQueue(${index}, true)">
                         <div class="title">${track.title}</div>
                         <div class="artist">${track.artist}</div>
                     </div>
                     <div class="queue-item-controls">
+                        <button class="${isTwiceActive}" onclick="toggleQueuePlayTwice('${track.id}')" title="Play Twice (2x)">
+                            <i class="fa-solid fa-repeat"></i> <span style="font-size:9px;">2x</span>
+                        </button>
                         <button onclick="moveQueueItem(${index}, -1)" title="Move Up"><i class="fa-solid fa-chevron-up"></i></button>
                         <button onclick="moveQueueItem(${index}, 1)" title="Move Down"><i class="fa-solid fa-chevron-down"></i></button>
+                        <button onclick="removeTrackFromQueue(${index})" style="color: #ef4444" title="Remove"><i class="fa-solid fa-xmark"></i></button>
                     </div>
                 `;
                 listContainer.appendChild(div);
             });
+
+            // Render Pullable songs below active queue
+            const pullContainer = document.getElementById('queue-pull-list');
+            pullContainer.innerHTML = '';
+
+            const queuedIds = activeQueue.map(item => item.id);
+            const pullableSongs = musicDatabase.filter(track => !queuedIds.includes(track.id));
+
+            if (pullableSongs.length === 0) {
+                pullContainer.innerHTML = '<div style="color: var(--text-muted); font-size:11px; text-align:center; padding:10px;">All database tracks are added to queue.</div>';
+                return;
+            }
+
+            pullableSongs.forEach(track => {
+                const div = document.createElement('div');
+                div.className = 'pull-item';
+                div.innerHTML = `
+                    <img src="${track.cover || getFallbackCover(track.id)}" alt="Cover">
+                    <div class="pull-item-info">
+                        <div class="title">${track.title}</div>
+                        <div class="artist">${track.artist}</div>
+                    </div>
+                    <button onclick="pullSongToQueue('${track.id}')" title="Pull/Add to Queue"><i class="fa-solid fa-plus"></i></button>
+                `;
+                pullContainer.appendChild(div);
+            });
+        }
+
+        function pullSongToQueue(trackId) {
+            const track = musicDatabase.find(t => t.id === trackId);
+            if (track) {
+                activeQueue.push(JSON.parse(JSON.stringify(track)));
+                updateQueuePanelUI();
+                showToast(`"${track.title}" added to queue`);
+            }
+        }
+
+        function removeTrackFromQueue(index) {
+            if (activeQueue.length <= 1) {
+                showToast("Cannot empty the queue entirely.");
+                return;
+            }
+            const removedTrack = activeQueue[index];
+            activeQueue.splice(index, 1);
+            
+            if (activeQueueIndex === index) {
+                activeQueueIndex = activeQueueIndex % activeQueue.length;
+                loadTrackFromQueue(activeQueueIndex, isPlaying);
+            } else if (activeQueueIndex > index) {
+                activeQueueIndex--;
+            }
+            updateQueuePanelUI();
+            showToast(`Removed "${removedTrack.title}" from queue`);
+        }
+
+        function toggleQueuePlayTwice(trackId) {
+            playTwiceMap[trackId] = !playTwiceMap[trackId];
+            updateQueuePanelUI();
+            showToast(playTwiceMap[trackId] ? "Set to play twice!" : "Reverted play count to standard");
         }
 
         function moveQueueItem(index, direction) {
             const targetIdx = index + direction;
-            if (targetIdx < 0 || targetIdx >= currentPlaylist.length) return;
+            if (targetIdx < 0 || targetIdx >= activeQueue.length) return;
 
-            // Reorder playlist layout array coordinates
-            const temp = currentPlaylist[index];
-            currentPlaylist[index] = currentPlaylist[targetIdx];
-            currentPlaylist[targetIdx] = temp;
+            const temp = activeQueue[index];
+            activeQueue[index] = activeQueue[targetIdx];
+            activeQueue[targetIdx] = temp;
 
-            // Adjust current index mapping
-            if (currentTrackIndex === index) {
-                currentTrackIndex = targetIdx;
-            } else if (currentTrackIndex === targetIdx) {
-                currentTrackIndex = index;
+            if (activeQueueIndex === index) {
+                activeQueueIndex = targetIdx;
+            } else if (activeQueueIndex === targetIdx) {
+                activeQueueIndex = index;
             }
 
             updateQueuePanelUI();
@@ -3212,11 +3569,11 @@
             
             if(term === '') {
                 resultsContainer.innerHTML = '';
-                exploreWrapper.style.display = 'block'; // Show Explore Grid if query is empty
+                exploreWrapper.style.display = 'block'; 
                 return;
             }
 
-            exploreWrapper.style.display = 'none'; // Hide explore grid when searching
+            exploreWrapper.style.display = 'none'; 
 
             const filtered = musicDatabase.filter(track => 
                 track.title.toLowerCase().includes(term) || 
@@ -3255,7 +3612,7 @@
         function loadLyrics() {
             const container = document.getElementById('lyrics-content');
             container.innerHTML = '';
-            const currentTrack = currentPlaylist[currentTrackIndex];
+            const currentTrack = activeQueue[activeQueueIndex];
             lyricsArray = [];
 
             if(!currentTrack.lyrics || currentTrack.lyrics.length === 0) {
@@ -3282,6 +3639,7 @@
             });
         }
 
+        // Highlighting active lyrics lines
         function updateLyricsHighlight(currentTime) {
             if (lyricsArray.length === 0) return;
             let activeLineIndex = -1;
@@ -3322,6 +3680,22 @@
             }
         }
 
+        // NEW SETTING CONTROLLERS
+        function changeAudioQuality(quality) {
+            currentAudioQuality = quality;
+            showToast(`Streaming quality set to: ${quality.toUpperCase()}`);
+        }
+
+        function changeEqualizerPreset(preset) {
+            currentEqPreset = preset;
+            showToast(`Equalizer profile set to: ${preset.toUpperCase()}`);
+        }
+
+        function toggleAutoplayState(state) {
+            isAutoplayEnabled = (state === 'enabled');
+            showToast(`Auto-Play Next is now ${state.toUpperCase()}`);
+        }
+
         // UTILITY DISPATCHERS
         function formatTime(seconds) {
             const min = Math.floor(seconds / 60);
@@ -3348,6 +3722,7 @@
             fullscreenPlayer.classList.remove('open');
             document.getElementById('lyrics-panel').classList.remove('open');
             document.getElementById('queue-panel').classList.remove('open');
+            document.getElementById('history-panel').classList.remove('open');
         }
 
         function setupMediaSessionSupport() {
@@ -3361,7 +3736,7 @@
 
         function updateMediaSessionMetadata() {
             if ('mediaSession' in navigator) {
-                const track = currentPlaylist[currentTrackIndex];
+                const track = activeQueue[activeQueueIndex];
                 navigator.mediaSession.metadata = new MediaMetadata({
                     title: track.title,
                     artist: track.artist,
