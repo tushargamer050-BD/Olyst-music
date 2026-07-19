@@ -656,18 +656,47 @@
             transform: scale(1.2);
         }
 
-        /* Post Video Style */
+        /* FIXED: Post Video Style to preserve correct natural aspect ratio */
         .video-wrapper {
             position: relative;
             width: 100%;
-            aspect-ratio: 16 / 9;
             background-color: #000000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            max-height: 480px;
         }
 
         .post-video-element {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            max-height: 480px;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* NEW: Beautiful Call-to-action Button for External Website Links */
+        .post-link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 0 14px 14px 14px;
+            padding: 11px 16px;
+            background-color: var(--primary-color);
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: opacity 0.2s, transform 0.2s;
+            text-align: center;
+            box-shadow: 0 2px 6px var(--shadow-color);
+        }
+
+        .post-link-btn:active {
+            transform: scale(0.98);
+            opacity: 0.9;
         }
 
         /* Warning Banner Post Style */
@@ -2038,6 +2067,17 @@
         // EMBEDDED SONG METADATA
         const musicDatabase = [
             {
+                id: "olyst m12",
+                title: "Dil Tu Jaan Tu",
+                artist: "Chet Singh, Arunima Sharma, Gurnazar (Female Version)",
+                album: "",
+                cover: "https://i.postimg.cc/JtVVx3t4/20260719-004050.png",
+                src: "https://files.catbox.moe/557v8x",
+                lyrics: [
+
+                ]
+            },
+            {
                 id: "olyst.m9",
                 title: "Kaar Jonne",
                 artist: "Sanjoy, Makhon",
@@ -2295,6 +2335,7 @@
             if (themeSelect) themeSelect.value = savedTheme;
         }
 
+        // MULTI-THEME CONFIGURATION
         function changeAppTheme(themeName) {
             document.body.className = themeName;
             savedTheme = themeName;
@@ -2513,6 +2554,7 @@
             });
         }
 
+        // FIXED AND ENHANCED: Render function supporting website redirect & unique playback
         function renderNotificationFeed(data) {
             const container = document.getElementById('notification-feed-container');
             container.innerHTML = '';
@@ -2547,9 +2589,10 @@
                 } else if (post.type === 'video') {
                     badgeClass = 'tag-video';
                     badgeText = 'Video';
+                    // Added onplay handler to manage video playback automatically
                     mediaHTML = `
                         <div class="video-wrapper">
-                            <video class="post-video-element" id="video-el-${post.id}" src="${post.videoUrl}" controls loop playsinline></video>
+                            <video class="post-video-element" id="video-el-${post.id}" src="${post.videoUrl}" controls loop playsinline onplay="handleVideoPlayback(this)"></video>
                         </div>
                     `;
                 } else {
@@ -2562,6 +2605,17 @@
                                 <strong>Alert:</strong> Dynamic warning dispatched directly from Olyst Media Admin Control center.
                             </div>
                         </div>
+                    `;
+                }
+
+                // If website URL was dispatched from Admin dashboard, display external redirection link
+                let linkButtonHTML = '';
+                if (post.linkUrl) {
+                    const btnText = post.linkText || 'Visit Website';
+                    linkButtonHTML = `
+                        <a href="${post.linkUrl}" target="_blank" class="post-link-btn">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> ${btnText}
+                        </a>
                     `;
                 }
 
@@ -2590,6 +2644,8 @@
                     
                     ${mediaHTML}
                     
+                    ${linkButtonHTML}
+                    
                     <div class="post-actions">
                         <div class="post-action-left">
                             <button class="action-btn ${likeClass}" onclick="toggleLikePost('${post.id}')">
@@ -2597,7 +2653,7 @@
                                 <span class="action-text" id="like-count-${post.id}">${totalLikes} Likes</span>
                             </button>
                         </div>
-                        <button class="action-btn" onclick="sharePost('${post.id}', '${escapeQuote(post.caption || '')}')">
+                        <button class="action-btn" onclick="sharePost('${post.id}', '${escapeQuote(post.caption || '')}', '${post.linkUrl || ''}')">
                             <i class="fa-solid fa-paper-plane"></i>
                             <span class="action-text">Share</span>
                         </button>
@@ -2606,6 +2662,20 @@
 
                 container.appendChild(card);
             });
+        }
+
+        // NEW FEATURE: Unique video playback helper logic
+        function handleVideoPlayback(playingVideo) {
+            // Stop other notification videos
+            const videos = document.querySelectorAll('.post-video-element');
+            videos.forEach(video => {
+                if (video !== playingVideo) {
+                    video.pause();
+                }
+            });
+
+            // Pause system background audio player 
+            pauseTrack();
         }
 
         function renderCarouselMarkup(postId, images) {
@@ -2706,16 +2776,21 @@
             });
         }
 
-        function sharePost(postId, caption) {
-            const fallbackText = caption ? caption : "Check out this update on Olyst Music App!";
+        // FIXED & ENHANCED: Native share integration
+        function sharePost(postId, caption, linkUrl) {
+            let sharedText = caption ? caption : "Check out this update on Olyst Music!";
+            if (linkUrl) {
+                sharedText += `\n\nLink: ${linkUrl}`;
+            }
+
             if (navigator.share) {
                 navigator.share({
                     title: 'Olyst Music Notification Update',
-                    text: fallbackText,
-                    url: window.location.href
-                }).catch(err => console.log("Sharing suspended", err));
+                    text: sharedText,
+                    url: linkUrl || window.location.href
+                }).catch(err => console.log("Sharing cancelled", err));
             } else {
-                navigator.clipboard.writeText(`${fallbackText} - Shared from Olyst Music`).then(() => {
+                navigator.clipboard.writeText(`${sharedText}`).then(() => {
                     showToast("Link copied to clipboard!");
                 });
             }
@@ -2735,7 +2810,9 @@
                     type: "warning",
                     caption: "সম্মানিত ওলিস্ট মিউজিক ইউজারস, আমাদের ডাটাবেজ সিস্টেমটি আপগ্রেড করা হচ্ছে। সাময়িক কোনো সমস্যা হলে দুঃখিত।",
                     timestamp: Date.now() - 3600000,
-                    likesCount: 142
+                    likesCount: 142,
+                    linkUrl: "https://olystmusic.com",
+                    linkText: "Visit Support Center"
                 },
                 {
                     id: "notice_fallback_2",
@@ -2746,7 +2823,9 @@
                         "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&q=80"
                     ],
                     timestamp: Date.now() - 7200000,
-                    likesCount: 389
+                    likesCount: 389,
+                    linkUrl: "https://olystmusic.com/albums",
+                    linkText: "Explore Albums"
                 }
             ];
         }
@@ -2836,7 +2915,6 @@
             });
 
             // DYNAMIC & ROW-CHUNKING ALL MUSIC CAROUSELS SYSTEM
-            // এটি প্রতি ৫টি গান পরপর একটি নতুন হরাইজন্টাল স্লাইডিং লাইন তৈরি করবে।
             const chunks = [];
             for (let i = 0; i < musicDatabase.length; i += 5) {
                 chunks.push(musicDatabase.slice(i, i + 5));
@@ -3018,7 +3096,6 @@
             renderRelatedSongs(track.id);
             updateQueuePanelUI(); 
             
-            // Remove active styles across classic list items as well as new layout card structures
             document.querySelectorAll('.song-item, .card-featured').forEach(item => item.classList.remove('playing'));
             const activeItem = document.getElementById(`item-${track.id}`);
             if(activeItem) activeItem.classList.add('playing');
@@ -3278,7 +3355,6 @@
             }
         }
 
-        // Sets up active queue starting WITH ONLY the selected track
         function playExplicitTrack(trackId) {
             const track = musicDatabase.find(t => t.id === trackId);
             if (track) {
@@ -3376,7 +3452,6 @@
             toggleFavorite(id);
         }
 
-        // FAVORITES SYSTEM
         function toggleFavorite(id) {
             if(favorites.includes(id)) {
                 favorites = favorites.filter(favId => favId !== id);
@@ -3718,7 +3793,6 @@
             });
         }
 
-        // Highlighting active lyrics lines
         function updateLyricsHighlight(currentTime) {
             if (lyricsArray.length === 0) return;
             let activeLineIndex = -1;
@@ -3765,7 +3839,6 @@
             showToast(`Streaming quality set to: ${quality.toUpperCase()}`);
         }
 
-        // Equalizer sound optimization profile changer
         function changeEqualizerPreset(preset) {
             currentEqPreset = preset;
             showToast(`Equalizer profile set to: ${preset.toUpperCase()}`);
@@ -3792,12 +3865,10 @@
             }, 2500);
         }
 
-        // Open layout adjustments
         function openFullscreenPlayer() {
             fullscreenPlayer.classList.add('open');
         }
 
-        // Close standalone player setup
         function closeFullscreenPlayer() {
             fullscreenPlayer.classList.remove('open');
             document.getElementById('lyrics-panel').classList.remove('open');
