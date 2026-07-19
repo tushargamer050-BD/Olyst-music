@@ -12,7 +12,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <!-- Premium Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Firebase Compat SDKs (For Notification Feature) -->
@@ -1979,9 +1979,18 @@
             appId: "1:346613172235:web:e403a89ece640f83791f0e"
         };
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
+        // Initialize Firebase with safety verification (Avoid offline setup crash)
+        let database = null;
+        if (typeof firebase !== 'undefined') {
+            try {
+                firebase.initializeApp(firebaseConfig);
+                database = firebase.database();
+            } catch (e) {
+                console.warn("Firebase execution blocked:", e);
+            }
+        } else {
+            console.warn("Firebase SDK is currently unavailable (App is running in Offline Mode).");
+        }
 
         /**
          * Olyst Music - Native IndexedDB Persistent Engine
@@ -2079,9 +2088,7 @@
                 album: "",
                 cover: "https://i.postimg.cc/JtVVx3t4/20260719-004050.png",
                 src: "https://files.catbox.moe/557v8x",
-                lyrics: [
-
-                ]
+                lyrics: []
             },
             {
                 id: "olyst.m9",
@@ -2090,9 +2097,7 @@
                 album: "",
                 cover: "https://i.postimg.cc/9FcpcM8k/20260718-104835.png",
                 src: "https://files.catbox.moe/1i6tu0",
-                lyrics: [
-
-                ]
+                lyrics: []
             },
             {
                 id: "olyst.m8",
@@ -2101,9 +2106,7 @@
                 album: "",
                 cover: "https://i.postimg.cc/J0DRkP0q/20260718-101100.png",
                 src: "https://files.catbox.moe/iptxik",
-                lyrics: [
-
-                ]
+                lyrics: []
             },
             {
                 id: "olyst.m1",
@@ -2175,9 +2178,7 @@
                 album: "",
                 cover: "https://i.postimg.cc/xdmymKMv/20260718-235930.png",
                 src: "https://files.catbox.moe/vz3hn1.webm",
-                lyrics: [
-
-                ]
+                lyrics: []
             },
         ];
 
@@ -2309,6 +2310,7 @@
             setupMediaSessionSupport();
             listenFirebaseNotifications(); 
             registerPWAOfflineWorker(); 
+            preCacheAppAssets(); // Dynamically caches resources on load for offline functionality
             initHeroBannerAutoSlide(); 
 
             if (musicDatabase.length > 0) {
@@ -2325,12 +2327,75 @@
             }
         });
 
-        // REGISTER OFFLINE PWA SERVICE WORKER
+        // MAIN THREAD CACHING (Caches resources immediately on load for offline use)
+        async function preCacheAppAssets() {
+            if ('caches' in window) {
+                try {
+                    const cache = await caches.open('olyst-static-cache-v1');
+                    const currentPath = window.location.pathname || '/';
+                    await cache.addAll([
+                        currentPath,
+                        window.location.href,
+                        'https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700&display=swap',
+                        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
+                        'https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js',
+                        'https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js',
+                        'https://www.youtube.com/iframe_api'
+                    ]);
+                    console.log("Offline Core Assets pre-cached.");
+                } catch(e) {
+                    console.warn("Main thread asset pre-caching was skipped or failed:", e);
+                }
+            }
+        }
+
+        // REGISTER OFFLINE PWA SERVICE WORKER (Uses dynamic Blob Registration without separate sw.js file)
         function registerPWAOfflineWorker() {
             if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('Olyst Offline Worker Loaded!', reg))
-                .catch(err => console.warn('PWA Worker creation blocked or unavailable:', err));
+                const swCode = `
+                    const CACHE_NAME = 'olyst-offline-cache-v1';
+                    const ASSETS = [
+                        '${window.location.pathname || "/"}',
+                        'https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700&display=swap',
+                        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
+                    ];
+
+                    self.addEventListener('install', (event) => {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME).then((cache) => {
+                                return cache.addAll(ASSETS);
+                            })
+                        );
+                    });
+
+                    self.addEventListener('fetch', (event) => {
+                        event.respondWith(
+                            caches.match(event.request).then((cachedResponse) => {
+                                if (cachedResponse) {
+                                    return cachedResponse;
+                                }
+                                return fetch(event.request).catch(() => {
+                                    if (event.request.mode === 'navigate') {
+                                        return caches.match('${window.location.pathname || "/"}');
+                                    }
+                                });
+                            })
+                        );
+                    });
+                `;
+                
+                try {
+                    const blob = new Blob([swCode], { type: 'application/javascript' });
+                    const blobURL = URL.createObjectURL(blob);
+                    navigator.serviceWorker.register(blobURL)
+                        .then(reg => console.log('Dynamic Offline Worker Loaded!', reg))
+                        .catch(err => {
+                            // Fallback to traditional local sw.js registration if Blob scope is locked
+                            navigator.serviceWorker.register('./sw.js').catch(e => {});
+                        });
+                } catch (e) {
+                    navigator.serviceWorker.register('./sw.js').catch(err => {});
+                }
             }
         }
 
@@ -2544,23 +2609,27 @@
         }
 
         /**
-         * NOTIFICATION ENGINE (Instagram Premium Feed Integrated with Firebase)
+         * NOTIFICATION ENGINE (Instagram Premium Feed Integrated with Firebase and Offline support)
          */
 
         let carouselsState = {}; 
 
         function listenFirebaseNotifications() {
-            const notificationsRef = database.ref('notifications');
-            notificationsRef.on('value', (snapshot) => {
-                const data = snapshot.val();
-                renderNotificationFeed(data);
-            }, (error) => {
-                console.error("Firebase fetch error, loading fallback dummy alerts: ", error);
+            if (database) {
+                const notificationsRef = database.ref('notifications');
+                notificationsRef.on('value', (snapshot) => {
+                    const data = snapshot.val();
+                    renderNotificationFeed(data);
+                }, (error) => {
+                    console.error("Firebase fetch error, loading fallback dummy alerts: ", error);
+                    renderNotificationFeed(getFallbackDummyNotifications());
+                });
+            } else {
+                console.warn("Database connection is offline. Loading offline notifications archive.");
                 renderNotificationFeed(getFallbackDummyNotifications());
-            });
+            }
         }
 
-        // FIXED AND ENHANCED: Render function supporting website redirect & unique playback
         function renderNotificationFeed(data) {
             const container = document.getElementById('notification-feed-container');
             container.innerHTML = '';
@@ -2595,7 +2664,6 @@
                 } else if (post.type === 'video') {
                     badgeClass = 'tag-video';
                     badgeText = 'Video';
-                    // Added onplay handler to manage video playback automatically
                     mediaHTML = `
                         <div class="video-wrapper">
                             <video class="post-video-element" id="video-el-${post.id}" src="${post.videoUrl}" controls loop playsinline onplay="handleVideoPlayback(this)"></video>
@@ -2614,7 +2682,6 @@
                     `;
                 }
 
-                // If website URL was dispatched from Admin dashboard, display external redirection link
                 let linkButtonHTML = '';
                 if (post.linkUrl) {
                     const btnText = post.linkText || 'Visit Website';
@@ -2670,17 +2737,13 @@
             });
         }
 
-        // NEW FEATURE: Unique video playback helper logic
         function handleVideoPlayback(playingVideo) {
-            // Stop other notification videos
             const videos = document.querySelectorAll('.post-video-element');
             videos.forEach(video => {
                 if (video !== playingVideo) {
                     video.pause();
                 }
             });
-
-            // Pause system background audio player 
             pauseTrack();
         }
 
@@ -2725,7 +2788,6 @@
             `;
         }
 
-        // Standard slider behavior
         function slideCarousel(postId, direction, total) {
             let activeIdx = carouselsState[postId];
             activeIdx += direction;
@@ -2757,8 +2819,28 @@
 
         function toggleLikePost(postId) {
             const isLiked = likedPosts.includes(postId);
-            const likesCountRef = database.ref(`notifications/${postId}/likesCount`);
+            if (!database) {
+                // Safeguard: Local toggle behavior if connection is offline
+                if (isLiked) {
+                    likedPosts = likedPosts.filter(id => id !== postId);
+                    showToast("Post unliked");
+                } else {
+                    likedPosts.push(postId);
+                    showToast("Liked Post");
+                }
+                try {
+                    localStorage.setItem('olyst_liked_posts', JSON.stringify(likedPosts));
+                } catch (e) {}
+                const localLikeCount = document.getElementById(`like-count-${postId}`);
+                if (localLikeCount) {
+                    localLikeCount.textContent = `${isLiked ? '0' : '1'} Likes`;
+                }
+                const btn = document.querySelector(`#post-${postId} .action-btn`);
+                if (btn) btn.classList.toggle('liked', !isLiked);
+                return;
+            }
 
+            const likesCountRef = database.ref(`notifications/${postId}/likesCount`);
             likesCountRef.transaction((currentLikes) => {
                 let updatedLikes = (currentLikes || 0);
                 if (isLiked) {
@@ -2783,7 +2865,6 @@
             });
         }
 
-        // FIXED & ENHANCED: Native share integration
         function sharePost(postId, caption, linkUrl) {
             let sharedText = caption ? caption : "Check out this update on Olyst Music!";
             if (linkUrl) {
@@ -2928,13 +3009,11 @@
             }
 
             chunks.forEach((chunk, index) => {
-                // Create dynamically labeled Title Header for each Row of 5
                 const rowHeader = document.createElement('div');
                 rowHeader.className = 'section-title';
                 rowHeader.innerHTML = `<span>Discover - Set ${index + 1}</span>`;
                 allSongsContainer.appendChild(rowHeader);
 
-                // Create Swipeable Row Container
                 const rowScroll = document.createElement('div');
                 rowScroll.className = 'horizontal-scroll';
                 rowScroll.style.marginBottom = '20px';
@@ -3047,7 +3126,6 @@
                 ytProgressInterval = null;
             }
 
-            // Save entry to Playback History logs
             saveToPlaybackHistory(track);
 
             const ytId = getYouTubeId(track.src);
@@ -3179,7 +3257,6 @@
             });
         }
 
-        // Initialize and control the dynamic hidden YouTube Player Client
         function initOrLoadYTPlayer(videoId, playImmediate) {
             if (!isYTAPIReady) {
                 showToast("Loading YouTube playback client...");
@@ -3220,7 +3297,6 @@
             }
         }
 
-        // Sync and handle state transitions of the YouTube core player
         function handleYTPlayerStateChange(event) {
             if (event.data === YT.PlayerState.ENDED) {
                 const currentTrack = activeQueue[activeQueueIndex];
@@ -3247,7 +3323,6 @@
             }
         }
 
-        // Track and render YouTube playback runtime coordinates
         function startYTProgressTracking() {
             if (ytProgressInterval) clearInterval(ytProgressInterval);
             ytProgressInterval = setInterval(() => {
@@ -3371,7 +3446,6 @@
             }
         }
 
-        // AUDIO ENGINE CONTROL EVENT LISTENERS
         function initAudioEngineEvents() {
             audio.addEventListener('timeupdate', () => {
                 if(audio.duration && currentActivePlayer === 'native') {
@@ -3488,7 +3562,6 @@
             const listContainer = document.getElementById('queue-list-content');
             listContainer.innerHTML = '';
 
-            // Render current custom active queue tracks
             activeQueue.forEach((track, index) => {
                 const isActive = index === activeQueueIndex ? 'queue-item active-playing' : 'queue-item';
                 const isTwiceActive = playTwiceMap[track.id] ? 'active-twice' : '';
@@ -3512,7 +3585,6 @@
                 listContainer.appendChild(div);
             });
 
-            // Render Pullable songs below active queue
             const pullContainer = document.getElementById('queue-pull-list');
             pullContainer.innerHTML = '';
 
