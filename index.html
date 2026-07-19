@@ -265,6 +265,12 @@
             text-overflow: ellipsis;
         }
 
+        /* Active styling support for featured-style card lists */
+        .card-featured.playing {
+            border-color: var(--primary-color);
+            background-color: var(--active-bg);
+        }
+
         /* Auto Sliding Hero Banner styles */
         .hero-banner-container {
             position: relative;
@@ -489,7 +495,7 @@
             border: 1px solid var(--border-color);
             border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 4px 16px var(--shadow-color);
+            box-shadow: 0 4px 166px var(--shadow-color);
             transition: background-color var(--transition-speed), border-color var(--transition-speed);
         }
 
@@ -1638,9 +1644,9 @@
                     <!-- Loaded dynamically via JS -->
                 </div>
 
-                <div class="section-title">Discover All Music</div>
-                <div class="song-list" id="all-songs-container">
-                    <!-- Loaded dynamically via JS -->
+                <!-- DYNAMIC ALL MUSIC CAROUSELS CONTAINER -->
+                <div id="all-songs-container">
+                    <!-- Loaded dynamically via JS into rows of 5 -->
                 </div>
             </section>
 
@@ -2032,10 +2038,21 @@
         // EMBEDDED SONG METADATA
         const musicDatabase = [
             {
+                id: "olyst.m9",
+                title: "Kaar Jonne",
+                artist: "Sanjoy, Makhon",
+                album: "",
+                cover: "https://i.postimg.cc/9FcpcM8k/20260718-104835.png",
+                src: "https://files.catbox.moe/1i6tu0",
+                lyrics: [
+
+                ]
+            },
+            {
                 id: "olyst.m8",
                 title: "SAPPHIRE",
-                artist: "",
-                album: "Ed Sheeran",
+                artist: "Ed Sheeran",
+                album: "",
                 cover: "https://i.postimg.cc/J0DRkP0q/20260718-101100.png",
                 src: "https://files.catbox.moe/iptxik",
                 lyrics: [
@@ -2072,8 +2089,8 @@
             {
                 id: "olyst.m2",
                 title: "DNA - ( FIFA world cup 2026™)",
-                artist: "",
-                album: "Andres Bocelli, David Guetta, EJAE, Megan Thee Stallion",
+                artist: "Andres Bocelli, David Guetta, EJAE, Megan Thee Stallion",
+                album: "",
                 cover: "https://i.postimg.cc/0ymHv732/20260609-025259.png",
                 src: "https://files.catbox.moe/ijoxxz",
                 lyrics: []
@@ -2104,6 +2121,17 @@
                 cover: "https://i.postimg.cc/XvdQYjXP/20260717-072854.png",
                 src: "https://files.catbox.moe/2a841n",
                 lyrics: []
+            },
+            {
+                id: "olyst.m11",
+                title: "Tum Tode Na Female",
+                artist: "A. R. Rahman, Shankar, Chiyaan Vikram",
+                album: "",
+                cover: "https://i.postimg.cc/xdmymKMv/20260718-235930.png",
+                src: "https://files.catbox.moe/vz3hn1.webm",
+                lyrics: [
+
+                ]
             },
         ];
 
@@ -2780,7 +2808,7 @@
             // Render Carousel Slider 2
             const slider2 = document.getElementById('carousel-slider-2');
             slider2.innerHTML = '';
-            const nextSet = musicDatabase.slice(2, 7); 
+            const nextSet = musicDatabase.slice(5, 10); 
             nextSet.forEach((track) => {
                 const card = document.createElement('div');
                 card.className = 'card-featured';
@@ -2807,25 +2835,48 @@
                 resolveTrackImage(track, `feat-img-${track.id}`);
             });
 
-            // RESTORED: Discover All Music classic linear horizontal list
-            musicDatabase.forEach((track) => {
-                const isFav = favorites.includes(track.id) ? 'fa-solid' : 'fa-regular';
-                const item = document.createElement('div');
-                item.className = 'song-item';
-                item.setAttribute('id', `item-${track.id}`);
-                item.innerHTML = `
-                    <img id="list-img-${track.id}" src="${track.cover || getFallbackCover(track.id)}" alt="${track.title}" onclick="playAndOpen('${track.id}')">
-                    <div class="song-info" onclick="playAndOpen('${track.id}')">
-                        <div class="title">${track.title}</div>
-                        <div class="artist">${track.artist}</div>
-                    </div>
-                    <div class="song-actions">
-                        <button onclick="downloadTrackOfflineFromGrid(event, '${track.id}')" title="Save Offline"><i class="fa-solid fa-cloud-arrow-down"></i></button>
-                        <button onclick="toggleFavoriteAction(event, '${track.id}')" title="Favorite"><i class="${isFav} fa-heart" style="color: var(--primary-color)"></i></button>
-                    </div>
-                `;
-                allSongsContainer.appendChild(item);
-                resolveTrackImage(track, `list-img-${track.id}`);
+            // DYNAMIC & ROW-CHUNKING ALL MUSIC CAROUSELS SYSTEM
+            // এটি প্রতি ৫টি গান পরপর একটি নতুন হরাইজন্টাল স্লাইডিং লাইন তৈরি করবে।
+            const chunks = [];
+            for (let i = 0; i < musicDatabase.length; i += 5) {
+                chunks.push(musicDatabase.slice(i, i + 5));
+            }
+
+            chunks.forEach((chunk, index) => {
+                // Create dynamically labeled Title Header for each Row of 5
+                const rowHeader = document.createElement('div');
+                rowHeader.className = 'section-title';
+                rowHeader.innerHTML = `<span>Discover - Set ${index + 1}</span>`;
+                allSongsContainer.appendChild(rowHeader);
+
+                // Create Swipeable Row Container
+                const rowScroll = document.createElement('div');
+                rowScroll.className = 'horizontal-scroll';
+                rowScroll.style.marginBottom = '20px';
+
+                chunk.forEach((track) => {
+                    const isFav = favorites.includes(track.id) ? 'fa-solid' : 'fa-regular';
+                    const card = document.createElement('div');
+                    card.className = 'card-featured';
+                    card.setAttribute('id', `item-${track.id}`);
+                    card.innerHTML = `
+                        <div style="position: relative;">
+                            <img id="list-img-${track.id}" src="${track.cover || getFallbackCover(track.id)}" alt="${track.title}" onclick="playAndOpen('${track.id}')">
+                            <button onclick="toggleFavoriteAction(event, '${track.id}')" style="position: absolute; top: 6px; right: 6px; background: rgba(0,0,0,0.6); border: none; color: var(--primary-color); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer;" title="Favorite">
+                                <i class="${isFav} fa-heart" style="font-size: 11px;"></i>
+                            </button>
+                            <button onclick="downloadTrackOfflineFromGrid(event, '${track.id}')" style="position: absolute; top: 6px; left: 6px; background: rgba(0,0,0,0.6); border: none; color: #ffffff; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer;" title="Save Offline">
+                                <i class="fa-solid fa-cloud-arrow-down" style="font-size: 11px;"></i>
+                            </button>
+                        </div>
+                        <div class="title" onclick="playAndOpen('${track.id}')" style="margin-top: 4px;">${track.title}</div>
+                        <div class="artist" onclick="playAndOpen('${track.id}')">${track.artist}</div>
+                    `;
+                    rowScroll.appendChild(card);
+                    resolveTrackImage(track, `list-img-${track.id}`);
+                });
+
+                allSongsContainer.appendChild(rowScroll);
             });
         }
 
@@ -2967,7 +3018,8 @@
             renderRelatedSongs(track.id);
             updateQueuePanelUI(); 
             
-            document.querySelectorAll('.song-item').forEach(item => item.classList.remove('playing'));
+            // Remove active styles across classic list items as well as new layout card structures
+            document.querySelectorAll('.song-item, .card-featured').forEach(item => item.classList.remove('playing'));
             const activeItem = document.getElementById(`item-${track.id}`);
             if(activeItem) activeItem.classList.add('playing');
 
@@ -3713,6 +3765,7 @@
             showToast(`Streaming quality set to: ${quality.toUpperCase()}`);
         }
 
+        // Equalizer sound optimization profile changer
         function changeEqualizerPreset(preset) {
             currentEqPreset = preset;
             showToast(`Equalizer profile set to: ${preset.toUpperCase()}`);
