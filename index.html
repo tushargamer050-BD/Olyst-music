@@ -1344,6 +1344,12 @@
             gap: 10px;
         }
 
+        .queue-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
         .queue-item {
             display: flex;
             align-items: center;
@@ -1590,14 +1596,6 @@
             margin-top: 2px;
         }
     </style>
-    <!-- PushAlert Unified Code -->
-    <script type="text/javascript">
-            (function(d, t) {
-                    var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
-                    g.src = "https://cdn.pushalert.co/unified_7926a7a21516895df9023f2688ec3818.js";
-                    s.parentNode.insertBefore(g, s);
-            }(document, 'script'));
-    </script>
 </head>
 <body class="theme-light">
 
@@ -3224,6 +3222,15 @@
             }
         }
 
+        // QUEUE MANAGER SYSTEM WITH REMOVE & PLAY TWICE CAPABILITY
+        function toggleQueue() {
+            const panel = document.getElementById('queue-panel');
+            const isOpen = panel.classList.toggle('open');
+            if (isOpen) {
+                updateQueuePanelUI();
+            }
+        }
+
         function renderHistoryList() {
             const container = document.getElementById('history-list-content');
             container.innerHTML = '';
@@ -3547,15 +3554,6 @@
             updateFavoriteIcon(id);
             renderHomeScreen();
             renderFavoritesScreen();
-        }
-
-        // QUEUE MANAGER SYSTEM WITH REMOVE & PLAY TWICE CAPABILITY
-        function toggleQueue() {
-            const panel = document.getElementById('queue-panel');
-            const isOpen = panel.classList.toggle('open');
-            if (isOpen) {
-                updateQueuePanelUI();
-            }
         }
 
         function updateQueuePanelUI() {
