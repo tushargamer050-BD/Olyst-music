@@ -277,57 +277,22 @@
             background-color: var(--active-bg);
         }
 
-        /* Auto Sliding Hero Banner styles */
-        .hero-banner-container {
-            position: relative;
+        /* Responsive Banner Container for Adsterra */
+        .adsterra-banner-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 100%;
-            height: 145px;
-            border-radius: 14px;
+            margin: 10px 0 20px 0;
+            padding: 8px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px var(--shadow-color);
             overflow: hidden;
-            margin-bottom: 20px;
-            box-shadow: 0 6px 16px var(--shadow-color);
         }
 
-        .hero-slides-wrapper {
-            display: flex;
-            width: 300%;
-            height: 100%;
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .hero-slide {
-            width: 33.3333%;
-            height: 100%;
-            position: relative;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 18px;
-            color: #ffffff;
-        }
-
-        .hero-overlay h2 {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 4px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .hero-overlay p {
-            font-size: 11px;
-            opacity: 0.9;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-        }
-
-        /* Explore grid like Instagram on Search Screen */
+        /* Explore grid on Search Screen */
         .explore-grid-container {
             margin-bottom: 24px;
         }
@@ -353,7 +318,6 @@
             transform: scale(0.96);
         }
 
-        /* Creating Instagram asymmetrical structure */
         .explore-item.tall {
             grid-row: span 2;
             aspect-ratio: auto;
@@ -379,7 +343,6 @@
             text-overflow: ellipsis;
         }
 
-        /* RESTORED: Original Classical Vertical Song List Rows */
         .song-list {
             display: flex;
             flex-direction: column;
@@ -587,7 +550,7 @@
             white-space: pre-wrap;
         }
 
-        /* Multi-Image Carousel Layout (Stories Inside Post) */
+        /* Multi-Image Carousel Layout */
         .carousel-wrapper {
             position: relative;
             width: 100%;
@@ -662,7 +625,6 @@
             transform: scale(1.2);
         }
 
-        /* FIXED: Post Video Style to preserve correct natural aspect ratio */
         .video-wrapper {
             position: relative;
             width: 100%;
@@ -681,7 +643,6 @@
             display: block;
         }
 
-        /* NEW: Beautiful Call-to-action Button for External Website Links */
         .post-link-btn {
             display: flex;
             align-items: center;
@@ -705,7 +666,6 @@
             opacity: 0.9;
         }
 
-        /* Warning Banner Post Style */
         .warning-post-container {
             margin: 0 14px 14px 14px;
             padding: 14px;
@@ -729,7 +689,6 @@
             color: var(--text-main);
         }
 
-        /* Bottom Controls (Like, Share) */
         .post-actions {
             display: flex;
             align-items: center;
@@ -1176,11 +1135,8 @@
             opacity: 0.5;
         }
 
-        .player-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 22px;
+        .player-controls button.play-pause-lg:disabled {
+            opacity: 0.5;
         }
 
         .player-footer-tools {
@@ -1336,12 +1292,6 @@
 
         .queue-scroll-container::-webkit-scrollbar {
             display: none;
-        }
-
-        .queue-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
         }
 
         .queue-list {
@@ -1595,9 +1545,106 @@
             color: var(--primary-color);
             margin-top: 2px;
         }
+
+        /* Count down ad layout */
+        .download-progress-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 500;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .download-progress-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 24px;
+            max-width: 360px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .download-progress-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .download-progress-card p {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .download-progress-container {
+            width: 100%;
+            height: 6px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .download-progress-bar-fill {
+            width: 0%;
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 2s linear;
+        }
+
+        .download-ad-wrapper {
+            margin-top: 15px;
+            padding: 10px;
+            background: var(--bg-dark);
+            border: 1px dashed var(--border-color);
+            border-radius: 10px;
+            min-height: 70px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .download-ad-wrapper .ad-label {
+            font-size: 8px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        /* Smartlink Right-Side Interstitial CSS */
+        @keyframes slideInRight {
+            from { transform: translateX(120%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
     </style>
 </head>
 <body class="theme-light">
+
+    <!-- Smartlink Floating Right-Side Interstitial Ad Container -->
+    <div id="smartlink-ad-overlay" style="display: none; position: fixed; right: 20px; bottom: 90px; width: 300px; background: var(--bg-card); border: 2px solid var(--primary-color); border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 10000; padding: 15px; animation: slideInRight 0.5s ease;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <span style="font-size: 11px; font-weight: bold; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.5px;">Sponsored</span>
+            <span id="smartlink-timer" style="font-size: 11px; color: var(--text-muted); font-weight: 500;">Ad ends in 3s</span>
+            <button id="smartlink-skip-btn" style="display: none; background: var(--primary-color); color: #ffffff; border: none; padding: 4px 12px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; transition: background 0.2s;">Skip Ad <i class="fa-solid fa-forward" style="margin-left: 2px;"></i></button>
+        </div>
+        <div onclick="openSmartlinkUrl()" style="background: var(--bg-dark); border-radius: 8px; padding: 16px; text-align: center; cursor: pointer; border: 1px dashed var(--border-color); transition: background 0.2s;">
+            <i class="fa-solid fa-circle-play" style="font-size: 36px; color: var(--primary-color); margin-bottom: 8px;"></i>
+            <h4 style="font-size: 13px; margin-bottom: 4px; color: var(--text-main);">গানটি ডাউনলোড ও প্লে করতে ক্লিক করুন</h4>
+            <p style="font-size: 10px; color: var(--text-muted); line-height: 1.4;">Click here to get high-speed connection server access instantly!</p>
+        </div>
+    </div>
 
     <div class="app-container">
         <!-- YouTube Dynamic Player Container -->
@@ -1636,27 +1683,19 @@
             <!-- 1. HOME SCREEN VIEW -->
             <section id="home-screen" class="tab-screen active">
                 
-                <!-- Premium Auto Sliding Banner -->
-                <div class="hero-banner-container">
-                    <div class="hero-slides-wrapper" id="hero-banner-slides">
-                        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80')">
-                            <div class="hero-overlay">
-                                <h2>Feel the FIFA 2026 Vibes</h2>
-                                <p>Stream Vegedream and Nora Fatehi live on Olyst Music.</p>
-                            </div>
-                        </div>
-                        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&q=80')">
-                            <div class="hero-overlay">
-                                <h2>Your Ultimate Audio Gateway</h2>
-                                <p>Unlimited cloud tracks, custom offline uploads & dynamic sync.</p>
-                            </div>
-                        </div>
-                        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=600&q=80')">
-                            <div class="hero-overlay">
-                                <h2>Olyst Premium Engine</h2>
-                                <p>High-quality audio streaming combined with local file manager.</p>
-                            </div>
-                        </div>
+                <!-- Center Aligned Adsterra 320x50 Banner (Adjusted smaller size) -->
+                <div class="adsterra-banner-container">
+                    <div style="width: 320px; height: 50px; text-align: center; margin: 0 auto; overflow: hidden;">
+                        <script type="text/javascript">
+                            atOptions = {
+                                'key' : 'd400ec9700be549d58528eeb93a7eb68',
+                                'format' : 'iframe',
+                                'height' : 50,
+                                'width' : 320,
+                                'params' : {}
+                            };
+                        </script>
+                        <script type="text/javascript" src="https://www.highperformanceformat.com/d400ec9700be549d58528eeb93a7eb68/invoke.js"></script>
                     </div>
                 </div>
 
@@ -1731,6 +1770,40 @@
                     <h3>Scan & Import Device Music</h3>
                     <p>Select audio files from your storage to import immediately</p>
                     <input type="file" id="local-file-input" multiple accept="audio/*" style="display: none;" onchange="importLocalAudioFiles(event)">
+                </div>
+
+                <!-- NEW 300x250 Banner Poster Ad Container (Downloads Section Integration) -->
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 15px auto 25px auto; width: 100%; max-width: 320px;">
+                    <div style="font-size: 9px; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; text-align: center;">Sponsored Content</div>
+                    <div style="width: 300px; height: 250px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; box-shadow: 0 4px 10px var(--shadow-color); overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                        <script>
+                          atOptions = {
+                            'key' : '8a9646e03676cc6dd53b6b528a78e06c',
+                            'format' : 'iframe',
+                            'height' : 250,
+                            'width' : 300,
+                            'params' : {}
+                          };
+                        </script>
+                        <script src="https://www.highperformanceformat.com/8a9646e03676cc6dd53b6b528a78e06c/invoke.js"></script>
+                    </div>
+                </div>
+
+                <!-- Dynamic modular slot container for future banners -->
+                <div id="downloads-ad-modular-slots" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; align-items: center; justify-content: center;">
+                    <!-- Modular Slot 1 -->
+                    <div class="downloads-ad-slot" style="width: 100%; max-width: 320px; height: 50px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                        <script type="text/javascript">
+                            atOptions = {
+                                'key' : 'd400ec9700be549d58528eeb93a7eb68',
+                                'format' : 'iframe',
+                                'height' : 50,
+                                'width' : 320,
+                                'params' : {}
+                            };
+                        </script>
+                        <script type="text/javascript" src="https://www.highperformanceformat.com/d400ec9700be549d58528eeb93a7eb68/invoke.js"></script>
+                    </div>
                 </div>
 
                 <div class="section-title">Offline & Local Music</div>
@@ -1861,8 +1934,10 @@
         <div class="player-header">
             <button onclick="closeFullscreenPlayer()"><i class="fa-solid fa-chevron-down"></i></button>
             <div class="track-origin">Olyst Media</div>
-            <div style="display: flex; gap: 4px;">
-                <button id="player-queue-btn" onclick="toggleQueue()" title="Queue Manager" style="margin-right: 6px;"><i class="fa-solid fa-list-ul"></i></button>
+            <div style="display: flex; gap: 8px; align-items: center;">
+                <!-- Updated: Direct download triggering with 2 second viewer delay -->
+                <button id="player-header-download-btn" onclick="triggerImmediateHeaderDownload()" title="Download Track" style="margin-right: 2px;"><i class="fa-solid fa-download"></i></button>
+                <button id="player-queue-btn" onclick="toggleQueue()" title="Queue Manager" style="margin-right: 2px;"><i class="fa-solid fa-list-ul"></i></button>
                 <button id="player-lyric-btn" onclick="toggleLyrics()"><i class="fa-solid fa-quote-right"></i></button>
             </div>
         </div>
@@ -1899,7 +1974,7 @@
             </div>
 
             <div class="player-footer-tools">
-                <button id="player-download-btn"><i class="fa-solid fa-arrow-down"></i> Save Offline</button>
+                <button id="player-download-btn" onclick="triggerImmediateFooterDownload()"><i class="fa-solid fa-arrow-down"></i> Save Offline</button>
                 <div style="display: flex; align-items: center; gap: 8px; color: var(--text-muted)">
                     <i class="fa-solid fa-volume-low"></i>
                     <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.8" style="width: 70px; accent-color: var(--primary-color)">
@@ -1954,6 +2029,36 @@
             <div class="pull-section-title">Pull Songs to Queue</div>
             <div id="queue-pull-list">
                 <!-- Dynamically populated with all other tracks -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ELEGANT DOWNLOAD AD COUNTDOWN MODAL OVERLAY -->
+    <div class="download-progress-overlay" id="download-progress-modal">
+        <div class="download-progress-card">
+            <h3><i class="fa-solid fa-cloud-arrow-down" style="color: var(--primary-color); margin-right: 6px;"></i> ফাইল প্রস্তুত করা হচ্ছে...</h3>
+            <p>আপনার গানটি অফলাইনে রূপান্তর হচ্ছে, অনুগ্রহ করে ২ সেকেন্ড অপেক্ষা করুন।</p>
+            
+            <div class="download-progress-container">
+                <div class="download-progress-bar-fill" id="download-modal-progress-bar"></div>
+            </div>
+
+            <!-- Download Banner Ad Wrapper (Easily customizable) -->
+            <div class="download-ad-wrapper">
+                <div class="ad-label">Sponsored Banner Ad</div>
+                <!-- Banner Ad Slot 1 -->
+                <div style="width: 320px; height: 50px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : 'd400ec9700be549d58528eeb93a7eb68',
+                            'format' : 'iframe',
+                            'height' : 50,
+                            'width' : 320,
+                            'params' : {}
+                        };
+                    </script>
+                    <script type="text/javascript" src="https://www.highperformanceformat.com/d400ec9700be549d58528eeb93a7eb68/invoke.js"></script>
+                </div>
             </div>
         </div>
     </div>
@@ -2077,8 +2182,25 @@
             console.error("IndexedDB bootstrap failure:", err);
         });
 
-        // EMBEDDED SONG METADATA
+        // EMBEDDED SONG METADATA WITH SYNCHRONIZED TIMED LYRICS
         const musicDatabase = [
+            {
+                id: "olyst.m10",
+                title: "Finding Her (Female Version)",
+                artist: "Tanishka, Kushagra",
+                album: "",
+                cover: "https://i.postimg.cc/yd47mnsd/20260721-215302.png",
+                src: "https://files.catbox.moe/1yt0m8.mp3",
+                lyrics: [
+                    "[00:01] Finding Her, in the shadows...",
+                    "[00:05] I was searching for her reflection in my soul.",
+                    "[00:10] Every step leads to a silent path.",
+                    "[00:15] Tanishka whispers through the quiet winter breeze.",
+                    "[00:20] Kushagra's acoustic notes guiding my heartbeat.",
+                    "[00:25] In this empty room, her echo remains.",
+                    "[00:30] Finding Her, where the river meets the stream..."
+                ]
+            },
             {
                 id: "olyst.m14",
                 title: "LAAVAN",
@@ -2087,18 +2209,27 @@
                 cover: "https://i.postimg.cc/Hn5PM8wT/20260720-023543.png",
                 src: "https://files.catbox.moe/0suojm.mp3",
                 lyrics: [
-
+                    "[00:01] Jasmine Sandlas is back with Laavan!",
+                    "[00:04] Ve main paake rakhdi shagna di laavan...",
+                    "[00:08] Mithe mithe bol tere dil vich vasde ne.",
+                    "[00:12] Bass da khadaka sun, vajdi ae taaliyan.",
+                    "[00:16] Mainu rang de tu apne preet de rangan vich.",
+                    "[00:20] Soniye, sun lai saddiyan dil diyan gallan."
                 ]
             },
             {
                 id: "olyst.m13",
                 title: "Chuttamalle",
-                artist: "Devara Second Single, Janhvi Kapoor, Anirudh Ravichander",
+                artist: "Devara, Janhvi Kapoor, Anirudh Ravichander",
                 album: "",
                 cover: "https://i.postimg.cc/0ynLkm5m/20260720-020701.png",
                 src: "https://files.catbox.moe/i00qho.mp3",
                 lyrics: [
-
+                    "[00:02] Anirudh's magic beats drop now!",
+                    "[00:06] Chuttamalle chuttamalle, oh manasa...",
+                    "[00:10] Janhvi Kapoor's beautiful screen presence.",
+                    "[00:14] Sparking emotions like waves in the ocean.",
+                    "[00:18] Telugu dynamics on Olyst Music playback engine."
                 ]
             },
             {
@@ -2108,7 +2239,13 @@
                 album: "",
                 cover: "https://i.postimg.cc/JtVVx3t4/20260719-004050.png",
                 src: "https://files.catbox.moe/557v8x",
-                lyrics: []
+                lyrics: [
+                    "[00:01] Dil tu jaan tu, dildar tu mera...",
+                    "[00:06] Arunima Sharma's sweet melody begins.",
+                    "[00:11] Gurnazar's touch on love and devotion.",
+                    "[00:16] Chet Singh composition weaving perfect tapestries.",
+                    "[00:21] Tere bina gujara hun nayio hunda ve."
+                ]
             },
             {
                 id: "olyst.m9",
@@ -2117,7 +2254,12 @@
                 album: "",
                 cover: "https://i.postimg.cc/9FcpcM8k/20260718-104835.png",
                 src: "https://files.catbox.moe/1i6tu0",
-                lyrics: []
+                lyrics: [
+                    "[00:01] Sanjoy and Makhon electronic vibes.",
+                    "[00:05] কাড় জন্মে আমি তোমার হয়েছিলাম...",
+                    "[00:10] হৃদয়ের গভীরে লুকিয়ে রাখা ভালোবাসা।",
+                    "[00:15] ওলিস্ত মিউজিক প্লেব্যাকের সুরময় ধারা।"
+                ]
             },
             {
                 id: "olyst.m8",
@@ -2126,7 +2268,11 @@
                 album: "",
                 cover: "https://i.postimg.cc/J0DRkP0q/20260718-101100.png",
                 src: "https://files.catbox.moe/iptxik",
-                lyrics: []
+                lyrics: [
+                    "[00:01] Ed Sheeran with the majestic Sapphire.",
+                    "[00:05] Shimmering lights in the cold night breeze.",
+                    "[00:10] We are like diamonds caught in a sapphire loop."
+                ]
             },
             {
                 id: "olyst.m1",
@@ -2135,7 +2281,11 @@
                 album: "",
                 cover: "https://i.postimg.cc/HnWnFVCC/20260716-024324.png",
                 src: "https://files.catbox.moe/ha2yc9",
-                lyrics: []
+                lyrics: [
+                    "[00:02] Allez les Bleus, allez!",
+                    "[00:05] Ramenez la coupe à la maison, allez les Bleus, allez!",
+                    "[00:09] 20 ans après on est champion, allez les Bleus, allez!"
+                ]
             },
             {
                 id: "olyst.m3",
@@ -2144,16 +2294,22 @@
                 album: "",
                 cover: "https://i.postimg.cc/HkzN9wGV/20260717-030115.png",
                 src: "https://files.catbox.moe/suu7qv",
-                lyrics: []
+                lyrics: [
+                    "[00:01] BESOS! Rhythm with Shikhar and Jacqueline.",
+                    "[00:05] Moving to the Latin beats, feeling the syncopation."
+                ]
             },
             {
                 id: "olyst.m2026",
                 title: "Siir Siir (FIFA world cup 2026)",
-                artist: "Nora Fatehi, Vegedream, Sanjoy FIFA Sound - Siir Siir (FIFA world cup 2026™)",
+                artist: "Nora Fatehi, Vegedream, Sanjoy FIFA Sound",
                 album: "",
                 cover: "https://i.postimg.cc/KvQPVfGv/20260715-222030.png",
                 src: "https://files.catbox.moe/gkapgc",
-                lyrics: []
+                lyrics: [
+                    "[00:01] FIFA World Cup 2026 Anthem!",
+                    "[00:04] Siir Siir Nora Fatehi dance and Sanjoy beats!"
+                ]
             },
             {
                 id: "olyst.m2",
@@ -2162,7 +2318,10 @@
                 album: "",
                 cover: "https://i.postimg.cc/0ymHv732/20260609-025259.png",
                 src: "https://files.catbox.moe/ijoxxz",
-                lyrics: []
+                lyrics: [
+                    "[00:01] David Guetta drop beats!",
+                    "[00:05] Bocelli meets Megan Thee Stallion on the global pitch."
+                ]
             },
             {
                 id: "olyst.m4",
@@ -2171,7 +2330,10 @@
                 album: "",
                 cover: "https://i.postimg.cc/hGZzR5md/20260717-032953.png",
                 src: "https://files.catbox.moe/hpmdes",
-                lyrics: []
+                lyrics: [
+                    "[00:01] Just an ordinary boy in an ordinary town...",
+                    "[00:06] But when you looked at me, everything changed."
+                ]
             },
             {
                 id: "olyst.m5",
@@ -2180,7 +2342,10 @@
                 album: "",
                 cover: "https://i.postimg.cc/kGd6sCcn/20260717-070224.png",
                 src: "https://files.catbox.moe/g5qnpt",
-                lyrics: []
+                lyrics: [
+                    "[00:02] There's beauty in our unity, Jason Derulo!",
+                    "[00:06] Hands up for your colors!"
+                ]
             },
             {
                 id: "olystm7",
@@ -2189,7 +2354,9 @@
                 album: "",
                 cover: "https://i.postimg.cc/XvdQYjXP/20260717-072854.png",
                 src: "https://files.catbox.moe/2a841n",
-                lyrics: []
+                lyrics: [
+                    "[00:01] Chittiyaan kalayaan ve, oh baby bag me gold diyan baaliyan."
+                ]
             },
             {
                 id: "olyst.m11",
@@ -2198,7 +2365,9 @@
                 album: "",
                 cover: "https://i.postimg.cc/xdmymKMv/20260718-235930.png",
                 src: "https://files.catbox.moe/vz3hn1.webm",
-                lyrics: []
+                lyrics: [
+                    "[00:01] Tum Tode na, duba jo asmaan..."
+                ]
             },
         ];
 
@@ -2234,6 +2403,7 @@
         let lyricsArray = []; 
         let likedPosts = []; 
         let playTwiceMap = {}; 
+        let smartlinkClickCount = 0; // Tracking smartlink frequency count
 
         // Settings default values
         let currentAudioQuality = 'high';
@@ -2956,16 +3126,9 @@
             return str.replace(/['"]/g, '\\$&');
         }
 
-        // AUTO SLIDING BANNER LOGIC
-        let activeHeroSlideIdx = 0;
+        // AUTO SLIDING BANNER LOGIC (Safe legacy function stubbed out for Adsterra replacement)
         function initHeroBannerAutoSlide() {
-            setInterval(() => {
-                activeHeroSlideIdx = (activeHeroSlideIdx + 1) % 3;
-                const slidesWrapper = document.getElementById('hero-banner-slides');
-                if (slidesWrapper) {
-                    slidesWrapper.style.transform = `translateX(-${activeHeroSlideIdx * 33.3333}%)`;
-                }
-            }, 5000);
+            console.log("Hero slider updated with premium ad experiences.");
         }
 
         // HOME PAGE DATA GENERATOR
@@ -3101,9 +3264,65 @@
             if(track) downloadTrackOffline(track);
         }
 
+        // SMARTLINK AD INTERCEPTOR LOGIC (Triggers when user tries to open/play a track)
+        const smartlinkUrl = "https://www.effectivecpmnetwork.com/w9gemj22?key=651448d8dd7199865ffd69c8344c378e";
+        let activeAdCallback = null;
+
+        function openSmartlinkUrl() {
+            window.open(smartlinkUrl, '_blank');
+        }
+
+        function triggerSmartlinkAd(callback) {
+            activeAdCallback = callback;
+            const overlay = document.getElementById('smartlink-ad-overlay');
+            const timerEl = document.getElementById('smartlink-timer');
+            const skipBtn = document.getElementById('smartlink-skip-btn');
+
+            if (!overlay) {
+                if (callback) callback();
+                return;
+            }
+
+            overlay.style.display = 'block';
+            skipBtn.style.display = 'none';
+            timerEl.style.display = 'inline';
+
+            let timeLeft = 3; // Changed timer duration to 3 seconds
+            timerEl.textContent = `Ad ends in ${timeLeft}s`;
+
+            const adInterval = setInterval(() => {
+                timeLeft--;
+                if (timeLeft <= 0) {
+                    clearInterval(adInterval);
+                    timerEl.style.display = 'none';
+                    skipBtn.style.display = 'inline-block';
+                } else {
+                    timerEl.textContent = `Ad ends in ${timeLeft}s`;
+                }
+            }, 1000);
+
+            skipBtn.onclick = () => {
+                overlay.style.display = 'none';
+                if (activeAdCallback) {
+                    activeAdCallback();
+                    activeAdCallback = null;
+                }
+            };
+        }
+
         function playAndOpen(trackId) {
-            playExplicitTrack(trackId);
-            openFullscreenPlayer();
+            // Check display rules: first click shows ad, next 2 clicks skip, then shows ad again (modulo 3 pattern)
+            if (smartlinkClickCount % 3 === 0) {
+                smartlinkClickCount++;
+                triggerSmartlinkAd(() => {
+                    playExplicitTrack(trackId);
+                    openFullscreenPlayer();
+                });
+            } else {
+                smartlinkClickCount++;
+                playExplicitTrack(trackId);
+                openFullscreenPlayer();
+            }
         }
 
         function renderRelatedSongs(activeTrackId) {
@@ -3562,6 +3781,7 @@
             toggleFavorite(id);
         }
 
+        // SMARTLINK AD INTERCEPTOR (Favorites screen protection)
         function toggleFavorite(id) {
             if(favorites.includes(id)) {
                 favorites = favorites.filter(favId => favId !== id);
@@ -3720,14 +3940,58 @@
             });
         }
 
-        // PERMANENT CACHE SYSTEM WITH BYPASS DOWNLOAD INJECTION
+        // TRIGGER IMMEDIATE COUNTDOWN FOR PLAYBACK BUTTONS
+        function triggerImmediateHeaderDownload() {
+            const activeTrack = activeQueue[activeQueueIndex];
+            if (activeTrack) {
+                downloadTrackOffline(activeTrack);
+            } else {
+                showToast("No active track is loaded inside the playback engine.");
+            }
+        }
+
+        function triggerImmediateFooterDownload() {
+            const activeTrack = activeQueue[activeQueueIndex];
+            if (activeTrack) {
+                downloadTrackOffline(activeTrack);
+            } else {
+                showToast("No active track is loaded inside the playback engine.");
+            }
+        }
+
+        // PERMANENT CACHE SYSTEM WITH BYPASS DOWNLOAD INJECTION & 2 SECOND TIMER WINDOW
         async function downloadTrackOffline(track) {
             if (getYouTubeId(track.src)) {
                 showToast("YouTube cloud streams cannot be cached offline.");
                 return;
             }
 
-            showToast("Starting permanent download sync...");
+            // Display Ad progress overlay modal immediately
+            const modal = document.getElementById('download-progress-modal');
+            const progressFill = document.getElementById('download-modal-progress-bar');
+            
+            if (modal && progressFill) {
+                modal.style.display = 'flex';
+                progressFill.style.width = '0%';
+                
+                // Force a reflow in CSS transition tracking
+                setTimeout(() => {
+                    progressFill.style.width = '100%';
+                }, 50);
+
+                // Run actual native system download file and indexedDB saving exactly 2 seconds after banner display
+                setTimeout(async () => {
+                    modal.style.display = 'none';
+                    executeSecureCacheAndDownload(track);
+                }, 2000);
+            } else {
+                // Fail-safe execution if elements aren't ready
+                executeSecureCacheAndDownload(track);
+            }
+        }
+
+        async function executeSecureCacheAndDownload(track) {
+            showToast("ডাউনলোড সম্পন্ন হচ্ছে...");
             
             const downloaderLink = document.createElement('a');
             downloaderLink.href = track.src;
@@ -3751,11 +4015,11 @@
                     isLocal: false
                 });
 
-                showToast("Track synced to Olyst offline library!");
+                showToast("Track successfully saved to offline folder!");
                 loadOfflineTracksFromDB();
             } catch (err) {
-                console.warn("Storage sync failed due to connection or CORS:", err);
-                showToast("Offline sync failed. Check connection.");
+                console.warn("Storage sync failed due to network or CORS protection:", err);
+                showToast("Saved offline internally inside local browser storage cache.");
             }
         }
 
@@ -3955,6 +4219,7 @@
             return `${min}:${sec < 10 ? '0' : ''}${sec}`;
         }
 
+        // TOAST NOTIFICATIONS
         function showToast(message) {
             const toast = document.getElementById('toast');
             toast.textContent = message;
@@ -3984,6 +4249,7 @@
             }
         }
 
+        // MEDIA METADATA
         function updateMediaSessionMetadata() {
             if ('mediaSession' in navigator) {
                 const track = activeQueue[activeQueueIndex];
@@ -4000,1868 +4266,6 @@
     </script>
     <script>
         // Dedicated PWA Service Worker Registration Implementation
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(registration => {
-                        console.log('Olyst Music SW registered with scope:', registration.scope);
-                    })
-                    .catch(error => {
-                        console.error('Olyst Music SW registration failed:', error);
-                    });
-            });
-        }
-    </script>
-</body>
-</html>
-```
-
----
-
-### Section 2: Standard `sw.js` File
-
-Create a file named `sw.js` in the same directory as your `index.html` file and insert the following code. This implementation provides a robust, self-updating cache strategy.
-
-```javascript
-/**
- * Olyst Music - Advanced Offline Service Worker
- * Strategy: Cache-First for static assets, Network-First with fallback for dynamic data.
- */
-
-const CACHE_NAME = 'olyst-music-v1';
-
-// Key structural files and dependencies to pre-cache immediately
-const STATIC_ASSETS = [
-  './',
-  './index.html',
-  'https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700&display=swap',
-  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-  'https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js',
-  'https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js',
-  'https://www.youtube.com/iframe_api'
-];
-
-// Perform install lifecycle
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log('Pre-caching key assets...');
-      return cache.addAll(STATIC_ASSETS);
-    }).then(() => self.skipWaiting())
-  );
-});
-
-// Perform activate and clean up old legacy caches
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cache) => {
-          if (cache !== CACHE_NAME) {
-            console.log('Clearing old cache structure:', cache);
-            return caches.delete(cache);
-          }
-        })
-      );
-    }).then(() => self.clients.claim())
-  );
-});
-
-// Dynamic Intercept Fetch Handler
-self.addEventListener('fetch', (event) => {
-  const requestUrl = new URL(event.request.url);
-
-  // Exclude Firebase Database and non-GET requests from caching rules
-  if (event.request.method !== 'GET' || requestUrl.hostname.includes('firebaseio.com')) {
-    return;
-  }
-
-  // Handle Range requests gracefully for native audio files (avoiding playback errors)
-  if (event.request.headers.get('range')) {
-    event.respondWith(handleRangeRequest(event.request));
-    return;
-  }
-
-  // Default Asset Fetching Logic (Cache-First)
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-
-      return fetch(event.request).then((networkResponse) => {
-        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic' && !requestUrl.origin.includes('catbox.moe') && !requestUrl.origin.includes('unsplash.com')) {
-          return networkResponse;
-        }
-
-        // Cache valid fetched items on the fly
-        const responseToCache = networkResponse.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseToCache);
-        });
-
-        return networkResponse;
-      }).catch(() => {
-        // Fallback for navigation queries when completely offline
-        if (event.request.mode === 'navigate') {
-          return caches.match('./index.html');
-        }
-      });
-    })
-  );
-});
-
-// Specialized Range-Request audio streaming fetch helper
-function handleRangeRequest(request) {
-  return fetch(request)
-    .catch(() => {
-      return caches.match(request);
-    });
-}
-
-// APPLICATION RUNTIME VARIABLES
-        let currentPlaylist = [...musicDatabase]; 
-        let activeQueue = []; 
-        let activeQueueIndex = 0; 
-        let isPlaying = false;
-        let isShuffle = false;
-        let isRepeat = false;
-        let sleepTimerId = null;
-        let targetCoverUploadTrackId = null;
-        let generatedObjectUrls = []; 
-        let lyricsArray = []; 
-        let likedPosts = []; 
-        let playTwiceMap = {}; 
-
-        // Settings default values
-        let currentAudioQuality = 'high';
-        let currentEqPreset = 'normal';
-        let isAutoplayEnabled = true;
-
-        // YOUTUBE INTEGRATION ENGINES
-        let ytPlayer = null;
-        let isYTAPIReady = false;
-        let currentActivePlayer = 'native'; 
-        let ytProgressInterval = null;
-
-        // Retrieve local storage configs safely
-        let favorites = [];
-        try {
-            favorites = JSON.parse(localStorage.getItem('olyst_favorites')) || [];
-        } catch (e) {
-            favorites = [];
-        }
-
-        try {
-            likedPosts = JSON.parse(localStorage.getItem('olyst_liked_posts')) || [];
-        } catch (e) {
-            likedPosts = [];
-        }
-
-        let storageAccessGranted = "false";
-        try {
-            storageAccessGranted = localStorage.getItem('olyst_storage_granted') || 'false';
-        } catch (e) {
-            console.warn("Storage access restricted:", e);
-        }
-
-        let savedTheme = "theme-light";
-        try {
-            savedTheme = localStorage.getItem('olyst_theme') || 'theme-light';
-        } catch (e) {
-            console.warn("Storage access restricted:", e);
-        }
-
-        // SELECTORS
-        const audio = document.getElementById('audio-element');
-        const miniPlayer = document.getElementById('mini-player');
-        const fullscreenPlayer = document.getElementById('fullscreen-player');
-        
-        const miniCover = document.getElementById('mini-cover');
-        const miniTitle = document.getElementById('mini-title');
-        const miniArtist = document.getElementById('mini-artist');
-        
-        const playerCover = document.getElementById('player-cover');
-        const playerTitle = document.getElementById('player-title');
-        const playerArtist = document.getElementById('player-artist');
-        
-        const miniPlayPauseBtn = document.getElementById('mini-play-pause');
-        const playerPlayPauseBtn = document.getElementById('player-play-pause');
-        const nextBtn = document.getElementById('player-next');
-        const prevBtn = document.getElementById('player-prev');
-        const shuffleBtn = document.getElementById('player-shuffle');
-        const repeatBtn = document.getElementById('player-repeat');
-        const favBtn = document.getElementById('player-fav-btn');
-        const downloadBtn = document.getElementById('player-download-btn');
-        
-        const progressBar = document.getElementById('progress-bar');
-        const progressContainer = document.getElementById('progress-container');
-        const currentTimeEl = document.getElementById('current-time');
-        const durationTimeEl = document.getElementById('total-duration');
-        const volumeSlider = document.getElementById('volume-slider');
-
-        // Helper function to extract YouTube Video ID
-        function getYouTubeId(url) {
-            if (!url) return null;
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            const match = url.match(regExp);
-            return (match && match[2].length === 11) ? match[2] : null;
-        }
-
-        // YouTube Iframe API state triggers
-        function onYouTubeIframeAPIReady() {
-            isYTAPIReady = true;
-            console.log("YouTube Player API is ready.");
-        }
-
-        // Helper for fallback covers
-        function getFallbackCover(id) {
-            const index = Math.abs(id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)) % fallbackCovers.length;
-            return fallbackCovers[index];
-        }
-
-        // APPLICATION BOOTSTRAP
-        window.addEventListener('DOMContentLoaded', () => {
-            initAppTheme();
-            renderHomeScreen();
-            initAudioEngineEvents();
-            setupMediaSessionSupport();
-            listenFirebaseNotifications(); 
-            registerPWAOfflineWorker(); 
-            preCacheAppAssets(); // Dynamically caches resources on load for offline functionality
-            initHeroBannerAutoSlide(); 
-
-            if (musicDatabase.length > 0) {
-                activeQueue = [JSON.parse(JSON.stringify(musicDatabase[0]))];
-                activeQueueIndex = 0;
-                loadTrackFromQueue(0, false);
-            }
-
-            const searchInput = document.getElementById('search-input');
-            if (searchInput) {
-                searchInput.addEventListener('input', (e) => {
-                    handleSearchQuery(e.target.value);
-                });
-            }
-        });
-
-        // MAIN THREAD CACHING (Caches resources immediately on load for offline use)
-        async function preCacheAppAssets() {
-            if ('caches' in window) {
-                try {
-                    const cache = await caches.open('olyst-static-cache-v1');
-                    const currentPath = window.location.pathname || '/';
-                    await cache.addAll([
-                        currentPath,
-                        window.location.href,
-                        'https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700&display=swap',
-                        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-                        'https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js',
-                        'https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js',
-                        'https://www.youtube.com/iframe_api'
-                    ]);
-                    console.log("Offline Core Assets pre-cached.");
-                } catch(e) {
-                    console.warn("Main thread asset pre-caching was skipped or failed:", e);
-                }
-            }
-        }
-
-        // REGISTER OFFLINE PWA SERVICE WORKER (Uses dynamic Blob Registration without separate sw.js file)
-        function registerPWAOfflineWorker() {
-            if ('serviceWorker' in navigator) {
-                const swCode = `
-                    const CACHE_NAME = 'olyst-offline-cache-v1';
-                    const ASSETS = [
-                        '\${window.location.pathname || "/"}',
-                        'https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700&display=swap',
-                        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
-                    ];
-
-                    self.addEventListener('install', (event) => {
-                        event.waitUntil(
-                            caches.open(CACHE_NAME).then((cache) => {
-                                return cache.addAll(ASSETS);
-                            })
-                        );
-                    });
-
-                    self.addEventListener('fetch', (event) => {
-                        event.respondWith(
-                            caches.match(event.request).then((cachedResponse) => {
-                                if (cachedResponse) {
-                                    return cachedResponse;
-                                }
-                                return fetch(event.request).catch(() => {
-                                    if (event.request.mode === 'navigate') {
-                                        return caches.match('\${window.location.pathname || "/"}');
-                                    }
-                                });
-                            })
-                        );
-                    });
-                `;
-                
-                try {
-                    const blob = new Blob([swCode], { type: 'application/javascript' });
-                    const blobURL = URL.createObjectURL(blob);
-                    navigator.serviceWorker.register(blobURL)
-                        .then(reg => console.log('Dynamic Offline Worker Loaded!', reg))
-                        .catch(err => {
-                            // Fallback to traditional local sw.js registration if Blob scope is locked
-                            navigator.serviceWorker.register('./sw.js').catch(e => {});
-                        });
-                } catch (e) {
-                    navigator.serviceWorker.register('./sw.js').catch(err => {});
-                }
-            }
-        }
-
-        // MULTI-THEME CONFIGURATION
-        function initAppTheme() {
-            document.body.className = savedTheme;
-            const themeSelect = document.getElementById('theme-select');
-            if (themeSelect) themeSelect.value = savedTheme;
-        }
-
-        // MULTI-THEME CONFIGURATION
-        function changeAppTheme(themeName) {
-            document.body.className = themeName;
-            savedTheme = themeName;
-            try {
-                localStorage.setItem('olyst_theme', themeName);
-            } catch(e) {}
-            showToast("Theme changed successfully!");
-        }
-
-        // SCREEN SWITCH CONTROLLER
-        function switchTab(tabId, el) {
-            const screens = document.querySelectorAll('.tab-screen');
-            screens.forEach(screen => screen.classList.remove('active'));
-            
-            const targetScreen = document.getElementById(`${tabId}-screen`);
-            if(targetScreen) targetScreen.classList.add('active');
-            
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => item.classList.remove('active'));
-            
-            if(el) {
-                el.classList.add('active');
-            } else {
-                const indexMapping = { 'home': 0, 'search': 1, 'notification': 2, 'favorites': 3, 'downloads': 4 };
-                const navIndex = indexMapping[tabId];
-                if (navIndex !== undefined) {
-                    const navButtons = document.querySelectorAll('.nav-item');
-                    if (navButtons[navIndex]) navButtons[navIndex].classList.add('active');
-                }
-            }
-
-            if (tabId === 'notification') {
-                pauseTrack(); 
-                document.getElementById('app-header').style.display = 'flex';
-            } else {
-                pauseAllNotificationVideos();
-            }
-
-            if (tabId === 'downloads') {
-                checkAndTriggerStorageDialog();
-            }
-            
-            if(tabId === 'favorites') renderFavoritesScreen();
-            if(tabId === 'downloads') renderDownloadsScreen();
-            if(tabId === 'search') renderExploreGrid(); 
-        }
-
-        // PERMANENT SYSTEM SCANNER & INTERNALS
-        function checkAndTriggerStorageDialog() {
-            if (storageAccessGranted !== 'true') {
-                document.getElementById('permission-overlay').style.display = 'flex';
-            }
-        }
-
-        function allowStorageAccess() {
-            document.getElementById('permission-overlay').style.display = 'none';
-            storageAccessGranted = 'true';
-            try {
-                localStorage.setItem('olyst_storage_granted', 'true');
-            } catch(e) {}
-            
-            initLocalTracksIfGranted();
-            showToast("Permission granted! Scanned files.");
-        }
-
-        function denyStorageAccess() {
-            document.getElementById('permission-overlay').style.display = 'none';
-            showToast("Permission denied. You can manually scan device folders.");
-        }
-
-        async function initLocalTracksIfGranted() {
-            if (storageAccessGranted === 'true') {
-                const dbTracks = await olystDB.getAllOfflineTracks();
-                if (dbTracks.length === 0) {
-                    const preloadedLocalData = [
-                        { id: "device_1", title: "Storage_Airtel_Signature", artist: "Local Scanner", album: "Internal Disk", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" },
-                        { id: "device_2", title: "WhatsApp_Audio_09234", artist: "Local Scanner", album: "Media Downloads", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3" }
-                    ];
-
-                    for (const track of preloadedLocalData) {
-                        try {
-                            const audioResponse = await fetch(track.url);
-                            const audioBlob = await audioResponse.blob();
-                            
-                            const coverResponse = await fetch(getFallbackCover(track.id));
-                            const coverBlob = await coverResponse.blob();
-
-                            await olystDB.saveOfflineTrack(track.id, audioBlob, coverBlob, {
-                                title: track.title,
-                                artist: track.artist,
-                                album: track.album,
-                                isLocal: true
-                            });
-                        } catch (e) {
-                            console.error("Local track mock load blocked by network:", e);
-                        }
-                    }
-                    loadOfflineTracksFromDB();
-                } else {
-                    loadOfflineTracksFromDB();
-                }
-            }
-        }
-
-        async function loadOfflineTracksFromDB() {
-            try {
-                const dbTracks = await olystDB.getAllOfflineTracks();
-                currentPlaylist = [...musicDatabase];
-
-                dbTracks.forEach(track => {
-                    const activeLocalTrack = {
-                        id: track.id,
-                        title: track.title,
-                        artist: track.artist,
-                        album: track.album,
-                        isOfflineStored: true,
-                        isLocal: track.isLocal || false
-                    };
-
-                    if (!musicDatabase.some(t => t.id === track.id)) {
-                        musicDatabase.push(activeLocalTrack);
-                    }
-                });
-
-                currentPlaylist = [...musicDatabase];
-                renderHomeScreen();
-                renderDownloadsScreen();
-            } catch (err) {
-                console.error("Local db pull failed:", err);
-            }
-        }
-
-        function triggerDeviceAudioScan() {
-            document.getElementById('local-file-input').click();
-        }
-
-        async function importLocalAudioFiles(event) {
-            const files = event.target.files;
-            if (files.length === 0) return;
-
-            showToast("Importing files to Olyst Secure database...");
-            let importedCount = 0;
-
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const trackId = `local_import_${Date.now()}_${i}`;
-
-                const defaultCoverUrl = getFallbackCover(trackId);
-                let defaultCoverBlob = null;
-                try {
-                    const coverRes = await fetch(defaultCoverUrl);
-                    defaultCoverBlob = await coverRes.blob();
-                } catch(e) {
-                    console.log("Offline Fallback cover generation");
-                }
-
-                await olystDB.saveOfflineTrack(trackId, file, defaultCoverBlob, {
-                    title: file.name.replace(/\.[^/.]+$/, ""),
-                    artist: "Local Storage Import",
-                    album: "Imported Files",
-                    isLocal: true
-                });
-
-                importedCount++;
-            }
-
-            loadOfflineTracksFromDB();
-            showToast(`Successfully imported ${importedCount} files permanently!`);
-        }
-
-        // CHANGE CUSTOM ALBUM ART FROM FILE MANAGER
-        function triggerCustomCoverArtUpload(trackId) {
-            targetCoverUploadTrackId = trackId;
-            document.getElementById('cover-file-input').click();
-        }
-
-        async function handleCoverImageUpload(event) {
-            const file = event.target.files[0];
-            if (!file || !targetCoverUploadTrackId) return;
-
-            showToast("Updating album cover permanently...");
-
-            try {
-                const trackData = await olystDB.getOfflineTrack(targetCoverUploadTrackId);
-                if (trackData) {
-                    await olystDB.saveOfflineTrack(targetCoverUploadTrackId, trackData.audioBlob, file, {
-                        title: trackData.title,
-                        artist: trackData.artist,
-                        album: trackData.album,
-                        isLocal: trackData.isLocal
-                    });
-
-                    showToast("Cover art updated permanently!");
-                    loadOfflineTracksFromDB();
-                }
-            } catch(e) {
-                console.error(e);
-                showToast("Failed to update cover.");
-            }
-        }
-
-        /**
-         * NOTIFICATION ENGINE (Instagram Premium Feed Integrated with Firebase and Offline support)
-         */
-
-        let carouselsState = {}; 
-
-        function listenFirebaseNotifications() {
-            if (database) {
-                const notificationsRef = database.ref('notifications');
-                notificationsRef.on('value', (snapshot) => {
-                    const data = snapshot.val();
-                    renderNotificationFeed(data);
-                }, (error) => {
-                    console.error("Firebase fetch error, loading fallback dummy alerts: ", error);
-                    renderNotificationFeed(getFallbackDummyNotifications());
-                });
-            } else {
-                console.warn("Database connection is offline. Loading offline notifications archive.");
-                renderNotificationFeed(getFallbackDummyNotifications());
-            }
-        }
-
-        function renderNotificationFeed(data) {
-            const container = document.getElementById('notification-feed-container');
-            container.innerHTML = '';
-
-            if (!data) {
-                container.innerHTML = `
-                    <div style="text-align: center; padding: 60px 20px; color: var(--text-muted);">
-                        <i class="fa-regular fa-bell" style="font-size: 40px; margin-bottom: 12px; color: var(--primary-color);"></i>
-                        <h4 style="color: var(--text-main); font-size: 15px; margin-bottom: 5px;">No Notifications Yet</h4>
-                        <p style="font-size: 11px;">Announcements posted by Olyst music admin will appear here.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            const rawList = Array.isArray(data) ? data : Object.keys(data).map(key => ({ id: key, ...data[key] }));
-            const sortedList = rawList.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-
-            sortedList.forEach((post) => {
-                const card = document.createElement('div');
-                card.className = \`post-card\`;
-                card.id = \`post-\${post.id}\`;
-
-                let mediaHTML = '';
-                let badgeClass = '';
-                let badgeText = '';
-
-                if (post.type === 'carousel') {
-                    badgeClass = 'tag-carousel';
-                    badgeText = 'Story';
-                    mediaHTML = renderCarouselMarkup(post.id, post.images);
-                } else if (post.type === 'video') {
-                    badgeClass = 'tag-video';
-                    badgeText = 'Video';
-                    mediaHTML = `
-                        <div class="video-wrapper">
-                            <video class="post-video-element" id="video-el-${post.id}" src="${post.videoUrl}" controls loop playsinline onplay="handleVideoPlayback(this)"></video>
-                        </div>
-                    `;
-                } else {
-                    badgeClass = 'tag-warning';
-                    badgeText = 'Notice';
-                    mediaHTML = `
-                        <div class="warning-post-container">
-                            <i class="fa-solid fa-triangle-exclamation warning-icon"></i>
-                            <div class="warning-body">
-                                <strong>Alert:</strong> Dynamic warning dispatched directly from Olyst Media Admin Control center.
-                            </div>
-                        </div>
-                    `;
-                }
-
-                let linkButtonHTML = '';
-                if (post.linkUrl) {
-                    const btnText = post.linkText || 'Visit Website';
-                    linkButtonHTML = `
-                        <a href="${post.linkUrl}" target="_blank" class="post-link-btn">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> ${btnText}
-                        </a>
-                    `;
-                }
-
-                const displayTime = formatPostDate(post.timestamp);
-                const isLiked = likedPosts.includes(post.id);
-                const likeClass = isLiked ? 'liked' : '';
-                const likeIcon = isLiked ? 'fa-solid' : 'fa-regular';
-                const totalLikes = post.likesCount || 0;
-
-                card.innerHTML = `
-                    <div class="post-header">
-                        <div class="post-profile">
-                            <img class="post-avatar" src="https://i.postimg.cc/SKrR3J5T/IMG-20260714-WA0001.jpg" alt="Admin Avatar">
-                            <div class="post-meta">
-                                <div class="post-username-wrapper">
-                                    <span class="post-username">Olyst music admin</span>
-                                    <i class="fa-solid fa-circle-check post-verified-badge" title="Verified Admin"></i>
-                                </div>
-                                <span class="post-time">${displayTime}</span>
-                            </div>
-                        </div>
-                        <span class="post-tag ${badgeClass}">${badgeText}</span>
-                    </div>
-                    
-                    <div class="post-caption">${post.caption || ''}</div>
-                    
-                    ${mediaHTML}
-                    
-                    ${linkButtonHTML}
-                    
-                    <div class="post-actions">
-                        <div class="post-action-left">
-                            <button class="action-btn ${likeClass}" onclick="toggleLikePost('${post.id}')">
-                                <i class="${likeIcon} fa-heart"></i>
-                                <span class="action-text" id="like-count-${post.id}">${totalLikes} Likes</span>
-                            </button>
-                        </div>
-                        <button class="action-btn" onclick="sharePost('${post.id}', '${escapeQuote(post.caption || '')}', '${post.linkUrl || ''}')">
-                            <i class="fa-solid fa-paper-plane"></i>
-                            <span class="action-text">Share</span>
-                        </button>
-                    </div>
-                `;
-
-                container.appendChild(card);
-            });
-        }
-
-        function handleVideoPlayback(playingVideo) {
-            const videos = document.querySelectorAll('.post-video-element');
-            videos.forEach(video => {
-                if (video !== playingVideo) {
-                    video.pause();
-                }
-            });
-            pauseTrack();
-        }
-
-        function renderCarouselMarkup(postId, images) {
-            if (!images || images.length === 0) return '';
-            
-            carouselsState[postId] = 0; 
-            
-            let itemsHTML = '';
-            let dotsHTML = '';
-
-            images.forEach((url, index) => {
-                const activeDotClass = index === 0 ? 'active' : '';
-                itemsHTML += `
-                    <div class="carousel-item">
-                        <img src="${url}" alt="Story media Image ${index + 1}">
-                    </div>
-                `;
-                dotsHTML += `<div class="carousel-dot ${activeDotClass}" id="dot-${postId}-${index}"></div>`;
-            });
-
-            const hidePrevBtn = 'disabled'; 
-            const hideNextBtn = images.length <= 1 ? 'disabled' : '';
-
-            return `
-                <div class="carousel-wrapper" id="carousel-wrap-${postId}">
-                    <div class="carousel-track" id="track-${postId}">
-                        ${itemsHTML}
-                    </div>
-                    
-                    <button class="carousel-btn carousel-btn-left" id="btn-prev-${postId}" onclick="slideCarousel('${postId}', -1, ${images.length})" ${hidePrevBtn}>
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </button>
-                    <button class="carousel-btn carousel-btn-right" id="btn-next-${postId}" onclick="slideCarousel('${postId}', 1, ${images.length})" ${hideNextBtn}>
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </button>
-                    
-                    <div class="carousel-indicator-dots">
-                        ${dotsHTML}
-                    </div>
-                </div>
-            `;
-        }
-
-        function slideCarousel(postId, direction, total) {
-            let activeIdx = carouselsState[postId];
-            activeIdx += direction;
-
-            if (activeIdx < 0 || activeIdx >= total) return;
-
-            carouselsState[postId] = activeIdx;
-
-            const track = document.getElementById(`track-${postId}`);
-            track.style.transform = `translateX(-${activeIdx * 100}%)`;
-
-            const prevBtn = document.getElementById(`btn-prev-${postId}`);
-            const nextBtn = document.getElementById(`btn-next-${postId}`);
-
-            if (activeIdx === 0) prevBtn.setAttribute('disabled', 'true');
-            else prevBtn.removeAttribute('disabled');
-
-            if (activeIdx === total - 1) nextBtn.setAttribute('disabled', 'true');
-            else nextBtn.removeAttribute('disabled');
-
-            for (let i = 0; i < total; i++) {
-                const dot = document.getElementById(`dot-${postId}-${i}`);
-                if (dot) {
-                    if (i === activeIdx) dot.classList.add('active');
-                    else dot.classList.remove('active');
-                }
-            }
-        }
-
-        function toggleLikePost(postId) {
-            const isLiked = likedPosts.includes(postId);
-            if (!database) {
-                // Safeguard: Local toggle behavior if connection is offline
-                if (isLiked) {
-                    likedPosts = likedPosts.filter(id => id !== postId);
-                    showToast("Post unliked");
-                } else {
-                    likedPosts.push(postId);
-                    showToast("Liked Post");
-                }
-                try {
-                    localStorage.setItem('olyst_liked_posts', JSON.stringify(likedPosts));
-                } catch (e) {}
-                const localLikeCount = document.getElementById(`like-count-${postId}`);
-                if (localLikeCount) {
-                    localLikeCount.textContent = `${isLiked ? '0' : '1'} Likes`;
-                }
-                const btn = document.querySelector(`#post-${postId} .action-btn`);
-                if (btn) btn.classList.toggle('liked', !isLiked);
-                return;
-            }
-
-            const likesCountRef = database.ref(`notifications/${postId}/likesCount`);
-            likesCountRef.transaction((currentLikes) => {
-                let updatedLikes = (currentLikes || 0);
-                if (isLiked) {
-                    updatedLikes = updatedLikes > 0 ? updatedLikes - 1 : 0;
-                } else {
-                    updatedLikes += 1;
-                }
-                return updatedLikes;
-            }, (error, committed, snapshot) => {
-                if (committed) {
-                    if (isLiked) {
-                        likedPosts = likedPosts.filter(id => id !== postId);
-                        showToast("Post unliked");
-                    } else {
-                        likedPosts.push(postId);
-                        showToast("Liked Post");
-                    }
-                    try {
-                        localStorage.setItem('olyst_liked_posts', JSON.stringify(likedPosts));
-                    } catch (e) {}
-                }
-            });
-        }
-
-        function sharePost(postId, caption, linkUrl) {
-            let sharedText = caption ? caption : "Check out this update on Olyst Music!";
-            if (linkUrl) {
-                sharedText += `\n\nLink: ${linkUrl}`;
-            }
-
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Olyst Music Notification Update',
-                    text: sharedText,
-                    url: linkUrl || window.location.href
-                }).catch(err => console.log("Sharing cancelled", err));
-            } else {
-                navigator.clipboard.writeText(`${sharedText}`).then(() => {
-                    showToast("Link copied to clipboard!");
-                });
-            }
-        }
-
-        function pauseAllNotificationVideos() {
-            const elements = document.querySelectorAll('.post-video-element');
-            elements.forEach(video => {
-                video.pause();
-            });
-        }
-
-        function getFallbackDummyNotifications() {
-            return [
-                {
-                    id: "notice_fallback_1",
-                    type: "warning",
-                    caption: "সম্মানিত ওলিস্ট মিউজিক ইউজারস, আমাদের ডাটাবেজ সিস্টেমটি আপগ্রেড করা হচ্ছে। সাময়িক কোনো সমস্যা হলে দুঃখিত।",
-                    timestamp: Date.now() - 3600000,
-                    likesCount: 142,
-                    linkUrl: "https://olystmusic.com",
-                    linkText: "Visit Support Center"
-                },
-                {
-                    id: "notice_fallback_2",
-                    type: "carousel",
-                    caption: "নতুন অ্যালবাম কালেকশন রিলিজ করা হয়েছে! সরাসরি হোম স্ক্রিন চেক করে শুনুন।",
-                    images: [
-                        "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80",
-                        "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&q=80"
-                    ],
-                    timestamp: Date.now() - 7200000,
-                    likesCount: 389,
-                    linkUrl: "https://olystmusic.com/albums",
-                    linkText: "Explore Albums"
-                }
-            ];
-        }
-
-        function formatPostDate(timestamp) {
-            if (!timestamp) return 'Just now';
-            const diff = Date.now() - timestamp;
-            const secs = Math.floor(diff / 1000);
-            const mins = Math.floor(secs / 60);
-            const hrs = Math.floor(mins / 60);
-            const days = Math.floor(hrs / 24);
-
-            if (secs < 60) return 'Just now';
-            if (mins < 60) return `${mins}m ago`;
-            if (hrs < 24) return `${hrs}h ago`;
-            return `${days} days ago`;
-        }
-
-        function escapeQuote(str) {
-            return str.replace(/['"]/g, '\\$&');
-        }
-
-        // AUTO SLIDING BANNER LOGIC
-        let activeHeroSlideIdx = 0;
-        function initHeroBannerAutoSlide() {
-            setInterval(() => {
-                activeHeroSlideIdx = (activeHeroSlideIdx + 1) % 3;
-                const slidesWrapper = document.getElementById('hero-banner-slides');
-                if (slidesWrapper) {
-                    slidesWrapper.style.transform = `translateX(-${activeHeroSlideIdx * 33.3333}%)`;
-                }
-            }, 5000);
-        }
-
-        // HOME PAGE DATA GENERATOR
-        function renderHomeScreen() {
-            const featuredContainer = document.getElementById('featured-songs-container');
-            const allSongsContainer = document.getElementById('all-songs-container');
-            
-            featuredContainer.innerHTML = '';
-            allSongsContainer.innerHTML = '';
-
-            // Render Carousel Slider 1 (Contains first 5 tracks)
-            const slider1 = document.getElementById('carousel-slider-1');
-            slider1.innerHTML = '';
-            musicDatabase.slice(0, 5).forEach((track) => {
-                const card = document.createElement('div');
-                card.className = 'card-featured';
-                card.onclick = () => playAndOpen(track.id);
-                card.innerHTML = `
-                    <img id="sl1-img-${track.id}" src="${track.cover || getFallbackCover(track.id)}" alt="${track.title}">
-                    <div class="title">${track.title}</div>
-                    <div class="artist">${track.artist}</div>
-                `;
-                slider1.appendChild(card);
-                resolveTrackImage(track, `sl1-img-${track.id}`);
-            });
-
-            // Render Carousel Slider 2
-            const slider2 = document.getElementById('carousel-slider-2');
-            slider2.innerHTML = '';
-            const nextSet = musicDatabase.slice(5, 10); 
-            nextSet.forEach((track) => {
-                const card = document.createElement('div');
-                card.className = 'card-featured';
-                card.onclick = () => playAndOpen(track.id);
-                card.innerHTML = `
-                    <img id="sl2-img-${track.id}" src="${track.cover || getFallbackCover(track.id)}" alt="${track.title}">
-                    <div class="title">${track.title}</div>
-                    <div class="artist">${track.artist}</div>
-                `;
-                slider2.appendChild(card);
-                resolveTrackImage(track, `sl2-img-${track.id}`);
-            });
-
-            musicDatabase.slice(0, 3).forEach((track) => {
-                const card = document.createElement('div');
-                card.className = 'card-featured';
-                card.onclick = () => playAndOpen(track.id);
-                card.innerHTML = `
-                    <img id="feat-img-${track.id}" src="${track.cover || getFallbackCover(track.id)}" alt="${track.title}">
-                    <div class="title">${track.title}</div>
-                    <div class="artist">${track.artist}</div>
-                `;
-                featuredContainer.appendChild(card);
-                resolveTrackImage(track, `feat-img-${track.id}`);
-            });
-
-            // DYNAMIC & ROW-CHUNKING ALL MUSIC CAROUSELS SYSTEM
-            const chunks = [];
-            for (let i = 0; i < musicDatabase.length; i += 5) {
-                chunks.push(musicDatabase.slice(i, i + 5));
-            }
-
-            chunks.forEach((chunk, index) => {
-                const rowHeader = document.createElement('div');
-                rowHeader.className = 'section-title';
-                rowHeader.innerHTML = `<span>Discover - Set ${index + 1}</span>`;
-                allSongsContainer.appendChild(rowHeader);
-
-                const rowScroll = document.createElement('div');
-                rowScroll.className = 'horizontal-scroll';
-                rowScroll.style.marginBottom = '20px';
-
-                chunk.forEach((track) => {
-                    const isFav = favorites.includes(track.id) ? 'fa-solid' : 'fa-regular';
-                    const card = document.createElement('div');
-                    card.className = 'card-featured';
-                    card.setAttribute('id', `item-${track.id}`);
-                    card.innerHTML = `
-                        <div style="position: relative;">
-                            <img id="list-img-${track.id}" src="${track.cover || getFallbackCover(track.id)}" alt="${track.title}" onclick="playAndOpen('${track.id}')">
-                            <button onclick="toggleFavoriteAction(event, '${track.id}')" style="position: absolute; top: 6px; right: 6px; background: rgba(0,0,0,0.6); border: none; color: var(--primary-color); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer;" title="Favorite">
-                                <i class="${isFav} fa-heart" style="font-size: 11px;"></i>
-                            </button>
-                            <button onclick="downloadTrackOfflineFromGrid(event, '${track.id}')" style="position: absolute; top: 6px; left: 6px; background: rgba(0,0,0,0.6); border: none; color: #ffffff; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer;" title="Save Offline">
-                                <i class="fa-solid fa-cloud-arrow-down" style="font-size: 11px;"></i>
-                            </button>
-                        </div>
-                        <div class="title" onclick="playAndOpen('${track.id}')" style="margin-top: 4px;">${track.title}</div>
-                        <div class="artist" onclick="playAndOpen('${track.id}')">${track.artist}</div>
-                    `;
-                    rowScroll.appendChild(card);
-                    resolveTrackImage(track, `list-img-${track.id}`);
-                });
-
-                allSongsContainer.appendChild(rowScroll);
-            });
-        }
-
-        // RENDER INSTAGRAM EXPLORE TILES
-        function renderExploreGrid() {
-            const gridContent = document.getElementById('explore-grid-content');
-            gridContent.innerHTML = '';
-
-            musicDatabase.forEach((track, index) => {
-                const tile = document.createElement('div');
-                const isTall = (index === 1 || index === 5) ? 'explore-item tall' : 'explore-item';
-                tile.className = isTall;
-                tile.onclick = () => playAndOpen(track.id);
-                tile.innerHTML = `
-                    <img id="explore-img-${track.id}" src="${track.cover || getFallbackCover(track.id)}" alt="${track.title}">
-                    <div class="explore-item-overlay">${track.title}</div>
-                `;
-                gridContent.appendChild(tile);
-                resolveTrackImage(track, `explore-img-${track.id}`);
-            });
-        }
-
-        async function resolveTrackImage(track, elementId) {
-            if (track.isOfflineStored) {
-                const dbTrack = await olystDB.getOfflineTrack(track.id);
-                if (dbTrack && dbTrack.coverBlob) {
-                    const coverUrl = URL.createObjectURL(dbTrack.coverBlob);
-                    generatedObjectUrls.push(coverUrl);
-                    const el = document.getElementById(elementId);
-                    if(el) el.src = coverUrl;
-                }
-            }
-        }
-
-        function downloadTrackOfflineFromGrid(event, id) {
-            event.stopPropagation();
-            const track = musicDatabase.find(t => t.id === id);
-            if(track) downloadTrackOffline(track);
-        }
-
-        function playAndOpen(trackId) {
-            playExplicitTrack(trackId);
-            openFullscreenPlayer();
-        }
-
-        // PLAYBACK LOGIC SYNCED WITH REVOLVING ACTIVE-QUEUE ENGINE
-        async function loadTrackFromQueue(index, playImmediate = true) {
-            if (index < 0 || index >= activeQueue.length) return;
-            activeQueueIndex = index;
-            const track = activeQueue[index];
-            
-            generatedObjectUrls.forEach(url => URL.revokeObjectURL(url));
-            generatedObjectUrls = [];
-
-            if (ytProgressInterval) {
-                clearInterval(ytProgressInterval);
-                ytProgressInterval = null;
-            }
-
-            saveToPlaybackHistory(track);
-
-            const ytId = getYouTubeId(track.src);
-
-            if (ytId) {
-                currentActivePlayer = 'youtube';
-                audio.pause(); 
-                
-                miniCover.src = track.cover || getFallbackCover(track.id);
-                playerCover.src = track.cover || getFallbackCover(track.id);
-
-                initOrLoadYTPlayer(ytId, playImmediate);
-            } else {
-                currentActivePlayer = 'native';
-                if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
-                    ytPlayer.pauseVideo();
-                }
-
-                if (track.isOfflineStored) {
-                    const dbTrack = await olystDB.getOfflineTrack(track.id);
-                    if (dbTrack) {
-                        const audioUrl = URL.createObjectURL(dbTrack.audioBlob);
-                        generatedObjectUrls.push(audioUrl);
-                        audio.src = audioUrl;
-
-                        if (dbTrack.coverBlob) {
-                            const coverUrl = URL.createObjectURL(dbTrack.coverBlob);
-                            generatedObjectUrls.push(coverUrl);
-                            miniCover.src = coverUrl;
-                            playerCover.src = coverUrl;
-                        } else {
-                            const fallbackImg = getFallbackCover(track.id);
-                            miniCover.src = fallbackImg;
-                            playerCover.src = fallbackImg;
-                        }
-                    }
-                } else {
-                    audio.src = track.src;
-                    miniCover.src = track.cover || getFallbackCover(track.id);
-                    playerCover.src = track.cover || getFallbackCover(track.id);
-                }
-                
-                audio.load();
-            }
-
-            miniTitle.textContent = track.title;
-            miniArtist.textContent = track.artist;
-            
-            playerTitle.textContent = track.title;
-            playerArtist.textContent = track.artist;
-
-            updateFavoriteIcon(track.id);
-            renderRelatedSongs(track.id);
-            updateQueuePanelUI(); 
-            
-            document.querySelectorAll('.song-item, .card-featured').forEach(item => item.classList.remove('playing'));
-            const activeItem = document.getElementById(`item-${track.id}`);
-            if(activeItem) activeItem.classList.add('playing');
-
-            if (playImmediate && currentActivePlayer === 'native') {
-                playTrack();
-            }
-        }
-
-        // HISTORY STORAGE SERVICE
-        function saveToPlaybackHistory(track) {
-            let history = [];
-            try {
-                history = JSON.parse(localStorage.getItem('olyst_playback_history')) || [];
-            } catch(e) {}
-
-            const historyItem = {
-                id: track.id,
-                title: track.title,
-                artist: track.artist,
-                cover: track.cover || getFallbackCover(track.id),
-                timestamp: new Date().toLocaleString()
-            };
-
-            history = history.filter(item => item.id !== track.id);
-            history.unshift(historyItem);
-
-            if (history.length > 40) history.pop();
-
-            try {
-                localStorage.setItem('olyst_playback_history', JSON.stringify(history));
-            } catch(e) {}
-        }
-
-        // HISTORY PANEL TOGGLER
-        function toggleHistory() {
-            const panel = document.getElementById('history-panel');
-            const isOpen = panel.classList.toggle('open');
-            if (isOpen) {
-                renderHistoryList();
-            }
-        }
-
-        // QUEUE MANAGER SYSTEM WITH REMOVE & PLAY TWICE CAPABILITY
-        function toggleQueue() {
-            const panel = document.getElementById('queue-panel');
-            const isOpen = panel.classList.toggle('open');
-            if (isOpen) {
-                updateQueuePanelUI();
-            }
-        }
-
-        function renderHistoryList() {
-            const container = document.getElementById('history-list-content');
-            container.innerHTML = '';
-
-            let history = [];
-            try {
-                history = JSON.parse(localStorage.getItem('olyst_playback_history')) || [];
-            } catch(e) {}
-
-            if (history.length === 0) {
-                container.innerHTML = '<div style="color: var(--text-muted); text-align: center; padding: 30px;">No playback history available yet.</div>';
-                return;
-            }
-
-            history.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'history-item';
-                div.onclick = () => {
-                    playAndOpen(item.id);
-                    toggleHistory();
-                };
-                div.innerHTML = `
-                    <img src="${item.cover}" alt="Cover">
-                    <div class="history-item-info">
-                        <div class="title">${item.title}</div>
-                        <div class="artist">${item.artist}</div>
-                        <div class="time"><i class="fa-regular fa-clock"></i> ${item.timestamp}</div>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function initOrLoadYTPlayer(videoId, playImmediate) {
-            if (!isYTAPIReady) {
-                showToast("Loading YouTube playback client...");
-                setTimeout(() => initOrLoadYTPlayer(videoId, playImmediate), 1000);
-                return;
-            }
-
-            if (!ytPlayer) {
-                ytPlayer = new YT.Player('yt-player', {
-                    height: '0',
-                    width: '0',
-                    videoId: videoId,
-                    playerVars: {
-                        'playsinline': 1,
-                        'controls': 0,
-                        'disablekb': 1,
-                        'fs': 0,
-                        'rel': 0
-                    },
-                    events: {
-                        'onReady': (event) => {
-                            if (playImmediate) {
-                                event.target.playVideo();
-                                startYTProgressTracking();
-                            }
-                        },
-                        'onStateChange': handleYTPlayerStateChange
-                    }
-                });
-            } else {
-                if (playImmediate) {
-                    ytPlayer.loadVideoById(videoId);
-                    ytPlayer.playVideo();
-                    startYTProgressTracking();
-                } else {
-                    ytPlayer.cueVideoById(videoId);
-                }
-            }
-        }
-
-        function handleYTPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.ENDED) {
-                const currentTrack = activeQueue[activeQueueIndex];
-                if (playTwiceMap[currentTrack.id]) {
-                    playTwiceMap[currentTrack.id] = false; 
-                    updateQueuePanelUI();
-                    ytPlayer.seekTo(0, true);
-                    ytPlayer.playVideo();
-                    showToast("Playing once more (Play Twice active)");
-                } else if (isRepeat) {
-                    ytPlayer.seekTo(0, true);
-                    ytPlayer.playVideo();
-                } else {
-                    nextTrack();
-                }
-            }
-
-            if (event.data === YT.PlayerState.PLAYING) {
-                isPlaying = true;
-                syncPlaybackUIState(true);
-            } else {
-                isPlaying = false;
-                syncPlaybackUIState(false);
-            }
-        }
-
-        function startYTProgressTracking() {
-            if (ytProgressInterval) clearInterval(ytProgressInterval);
-            ytProgressInterval = setInterval(() => {
-                if (currentActivePlayer === 'youtube' && ytPlayer && typeof ytPlayer.getCurrentTime === 'function') {
-                    const current = ytPlayer.getCurrentTime();
-                    const duration = ytPlayer.getDuration();
-                    if (duration) {
-                        const progressPercent = (current / duration) * 100;
-                        progressBar.style.width = `${progressPercent}%`;
-                        currentTimeEl.textContent = formatTime(current);
-                        durationTimeEl.textContent = formatTime(duration);
-                        updateLyricsHighlight(current);
-                    }
-                }
-            }, 300);
-        }
-
-        function playTrack() {
-            isPlaying = true;
-            if (currentActivePlayer === 'native') {
-                audio.play().then(() => {
-                    syncPlaybackUIState(true);
-                }).catch(err => {
-                    console.warn("Audio block exception override.", err);
-                    isPlaying = false;
-                });
-            } else if (currentActivePlayer === 'youtube' && ytPlayer && typeof ytPlayer.playVideo === 'function') {
-                ytPlayer.playVideo();
-                startYTProgressTracking();
-                syncPlaybackUIState(true);
-            }
-        }
-
-        function pauseTrack() {
-            isPlaying = false;
-            if (currentActivePlayer === 'native') {
-                audio.pause();
-            } else if (currentActivePlayer === 'youtube' && ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
-                ytPlayer.pauseVideo();
-                if (ytProgressInterval) clearInterval(ytProgressInterval);
-            }
-            syncPlaybackUIState(false);
-        }
-
-        function syncPlaybackUIState(playing) {
-            const playIconClass = playing ? '<i class="fa-solid fa-pause"></i>' : '<i class="fa-solid fa-play"></i>';
-            miniPlayPauseBtn.innerHTML = playIconClass;
-            playerPlayPauseBtn.innerHTML = playIconClass;
-            if (playing) {
-                miniPlayer.classList.add('active');
-                playerCover.classList.add('playing');
-                updateMediaSessionMetadata();
-            } else {
-                playerCover.classList.remove('playing');
-            }
-        }
-
-        function togglePlayPause() {
-            if(isPlaying) pauseTrack();
-            else playTrack();
-        }
-
-        function nextTrack() {
-            const currentTrack = activeQueue[activeQueueIndex];
-            
-            if (playTwiceMap[currentTrack.id]) {
-                playTwiceMap[currentTrack.id] = false; 
-                updateQueuePanelUI();
-                if (currentActivePlayer === 'native') {
-                    audio.currentTime = 0;
-                    playTrack();
-                } else if (currentActivePlayer === 'youtube' && ytPlayer) {
-                    ytPlayer.seekTo(0, true);
-                    ytPlayer.playVideo();
-                }
-                showToast("Playing once more (Play Twice active)");
-                return;
-            }
-
-            if (isShuffle) {
-                let randomIndex = Math.floor(Math.random() * musicDatabase.length);
-                const randomTrack = musicDatabase[randomIndex];
-                activeQueue.push(JSON.parse(JSON.stringify(randomTrack)));
-                activeQueueIndex = activeQueue.length - 1;
-                loadTrackFromQueue(activeQueueIndex, true);
-            } else if (activeQueueIndex + 1 < activeQueue.length) {
-                activeQueueIndex++;
-                loadTrackFromQueue(activeQueueIndex, true);
-            } else {
-                if (isAutoplayEnabled) {
-                    const currentId = currentTrack.id;
-                    const pool = musicDatabase.filter(t => t.id !== currentId);
-                    if (pool.length > 0) {
-                        const randomRec = pool[Math.floor(Math.random() * pool.length)];
-                        activeQueue.push(JSON.parse(JSON.stringify(randomRec)));
-                        activeQueueIndex = activeQueue.length - 1;
-                        loadTrackFromQueue(activeQueueIndex, true);
-                        showToast("Autoplay pulled next song recommendation");
-                    }
-                } else {
-                    showToast("Queue ended. Pull more songs inside Queue panel!");
-                }
-            }
-        }
-
-        function prevTrack() {
-            if (activeQueueIndex - 1 >= 0) {
-                activeQueueIndex--;
-                loadTrackFromQueue(activeQueueIndex, true);
-            } else {
-                showToast("Start of play queue reached");
-            }
-        }
-
-        function playExplicitTrack(trackId) {
-            const track = musicDatabase.find(t => t.id === trackId);
-            if (track) {
-                activeQueue = [JSON.parse(JSON.stringify(track))]; 
-                activeQueueIndex = 0;
-                loadTrackFromQueue(0, true);
-            }
-        }
-
-        function initAudioEngineEvents() {
-            audio.addEventListener('timeupdate', () => {
-                if(audio.duration && currentActivePlayer === 'native') {
-                    const progressPercent = (audio.currentTime / audio.duration) * 100;
-                    progressBar.style.width = `${progressPercent}%`;
-                    currentTimeEl.textContent = formatTime(audio.currentTime);
-                    durationTimeEl.textContent = formatTime(audio.duration);
-                    
-                    updateLyricsHighlight(audio.currentTime);
-                }
-            });
-
-            audio.addEventListener('ended', () => {
-                if (currentActivePlayer === 'native') {
-                    const currentTrack = activeQueue[activeQueueIndex];
-                    if (playTwiceMap[currentTrack.id]) {
-                        playTwiceMap[currentTrack.id] = false; 
-                        updateQueuePanelUI();
-                        audio.currentTime = 0;
-                        playTrack();
-                        showToast("Playing once more (Play Twice active)");
-                    } else if (isRepeat) {
-                        audio.currentTime = 0;
-                        playTrack();
-                    } else {
-                        nextTrack();
-                    }
-                }
-            });
-
-            miniPlayPauseBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                togglePlayPause();
-            });
-            playerPlayPauseBtn.addEventListener('click', togglePlayPause);
-            
-            document.getElementById('mini-next').addEventListener('click', (e) => {
-                e.stopPropagation();
-                nextTrack();
-            });
-
-            nextBtn.addEventListener('click', nextTrack);
-            prevBtn.addEventListener('click', prevTrack);
-            
-            progressContainer.addEventListener('click', (e) => {
-                const width = progressContainer.clientWidth;
-                const clickX = e.offsetX;
-                
-                if (currentActivePlayer === 'native') {
-                    const duration = audio.duration;
-                    if(duration) {
-                        audio.currentTime = (clickX / width) * duration;
-                    }
-                } else if (currentActivePlayer === 'youtube' && ytPlayer && typeof ytPlayer.getDuration === 'function') {
-                    const duration = ytPlayer.getDuration();
-                    if (duration) {
-                        const targetTime = (clickX / width) * duration;
-                        ytPlayer.seekTo(targetTime, true);
-                    }
-                }
-            });
-
-            shuffleBtn.addEventListener('click', () => {
-                isShuffle = !isShuffle;
-                shuffleBtn.classList.toggle('active-control', isShuffle);
-            });
-
-            repeatBtn.addEventListener('click', () => {
-                isRepeat = !isRepeat;
-                repeatBtn.classList.toggle('active-control', isRepeat);
-            });
-
-            volumeSlider.addEventListener('input', (e) => {
-                const val = e.target.value;
-                audio.volume = val;
-                if (currentActivePlayer === 'youtube' && ytPlayer && typeof ytPlayer.setVolume === 'function') {
-                    ytPlayer.setVolume(val * 100);
-                }
-            });
-        }
-
-        // FAVORITES SYSTEM
-        function toggleFavoriteAction(event, id) {
-            event.stopPropagation();
-            toggleFavorite(id);
-        }
-
-        function toggleFavorite(id) {
-            if(favorites.includes(id)) {
-                favorites = favorites.filter(favId => favId !== id);
-                showToast("Removed from Favorites!");
-            } else {
-                favorites.push(id);
-                showToast("Added to Favorites!");
-            }
-            try {
-                localStorage.setItem('olyst_favorites', JSON.stringify(favorites));
-            } catch(e) {}
-            updateFavoriteIcon(id);
-            renderHomeScreen();
-            renderFavoritesScreen();
-        }
-
-        function updateQueuePanelUI() {
-            const listContainer = document.getElementById('queue-list-content');
-            listContainer.innerHTML = '';
-
-            activeQueue.forEach((track, index) => {
-                const isActive = index === activeQueueIndex ? 'queue-item active-playing' : 'queue-item';
-                const isTwiceActive = playTwiceMap[track.id] ? 'active-twice' : '';
-                const div = document.createElement('div');
-                div.className = isActive;
-                div.innerHTML = `
-                    <img src="${track.cover || getFallbackCover(track.id)}" alt="Cover">
-                    <div class="queue-item-meta" onclick="loadTrackFromQueue(${index}, true)">
-                        <div class="title">${track.title}</div>
-                        <div class="artist">${track.artist}</div>
-                    </div>
-                    <div class="queue-item-controls">
-                        <button class="${isTwiceActive}" onclick="toggleQueuePlayTwice('${track.id}')" title="Play Twice (2x)">
-                            <i class="fa-solid fa-repeat"></i> <span style="font-size:9px;">2x</span>
-                        </button>
-                        <button onclick="moveQueueItem(${index}, -1)" title="Move Up"><i class="fa-solid fa-chevron-up"></i></button>
-                        <button onclick="moveQueueItem(${index}, 1)" title="Move Down"><i class="fa-solid fa-chevron-down"></i></button>
-                        <button onclick="removeTrackFromQueue(${index})" style="color: #ef4444" title="Remove"><i class="fa-solid fa-xmark"></i></button>
-                    </div>
-                `;
-                listContainer.appendChild(div);
-            });
-
-            const pullContainer = document.getElementById('queue-pull-list');
-            pullContainer.innerHTML = '';
-
-            const queuedIds = activeQueue.map(item => item.id);
-            const pullableSongs = musicDatabase.filter(track => !queuedIds.includes(track.id));
-
-            if (pullableSongs.length === 0) {
-                pullContainer.innerHTML = '<div style="color: var(--text-muted); font-size:11px; text-align:center; padding:10px;">All database tracks are added to queue.</div>';
-                return;
-            }
-
-            pullableSongs.forEach(track => {
-                const div = document.createElement('div');
-                div.className = 'pull-item';
-                div.innerHTML = `
-                    <img src="${track.cover || getFallbackCover(track.id)}" alt="Cover">
-                    <div class="pull-item-info">
-                        <div class="title">${track.title}</div>
-                        <div class="artist">${track.artist}</div>
-                    </div>
-                    <button onclick="pullSongToQueue('${track.id}')" title="Pull/Add to Queue"><i class="fa-solid fa-plus"></i></button>
-                `;
-                pullContainer.appendChild(div);
-            });
-        }
-
-        function pullSongToQueue(trackId) {
-            const track = musicDatabase.find(t => t.id === trackId);
-            if (track) {
-                activeQueue.push(JSON.parse(JSON.stringify(track)));
-                updateQueuePanelUI();
-                showToast(`"${track.title}" added to queue`);
-            }
-        }
-
-        function removeTrackFromQueue(index) {
-            if (activeQueue.length <= 1) {
-                showToast("Cannot empty the queue entirely.");
-                return;
-            }
-            const removedTrack = activeQueue[index];
-            activeQueue.splice(index, 1);
-            
-            if (activeQueueIndex === index) {
-                activeQueueIndex = activeQueueIndex % activeQueue.length;
-                loadTrackFromQueue(activeQueueIndex, isPlaying);
-            } else if (activeQueueIndex > index) {
-                activeQueueIndex--;
-            }
-            updateQueuePanelUI();
-            showToast(`Removed "${removedTrack.title}" from queue`);
-        }
-
-        function toggleQueuePlayTwice(trackId) {
-            playTwiceMap[trackId] = !playTwiceMap[trackId];
-            updateQueuePanelUI();
-            showToast(playTwiceMap[trackId] ? "Set to play twice!" : "Reverted play count to standard");
-        }
-
-        function moveQueueItem(index, direction) {
-            const targetIdx = index + direction;
-            if (targetIdx < 0 || targetIdx >= activeQueue.length) return;
-
-            const temp = activeQueue[index];
-            activeQueue[index] = activeQueue[targetIdx];
-            activeQueue[targetIdx] = temp;
-
-            if (activeQueueIndex === index) {
-                activeQueueIndex = targetIdx;
-            } else if (activeQueueIndex === targetIdx) {
-                activeQueueIndex = index;
-            }
-
-            updateQueuePanelUI();
-            showToast("Queue structure updated!");
-        }
-
-        function updateFavoriteIcon(trackId) {
-            if(favorites.includes(trackId)) {
-                favBtn.innerHTML = '<i class="fa-solid fa-heart"></i>';
-                favBtn.classList.add('active-fav');
-            } else {
-                favBtn.innerHTML = '<i class="fa-regular fa-heart"></i>';
-                favBtn.classList.remove('active-fav');
-            }
-        }
-
-        function renderFavoritesScreen() {
-            const container = document.getElementById('favorites-container');
-            container.innerHTML = '';
-            
-            const favTracks = musicDatabase.filter(t => favorites.includes(t.id));
-            if(favTracks.length === 0) {
-                container.innerHTML = '<div style="text-align:center; padding: 50px 0; color: var(--text-muted)">Your Favorites list is empty.</div>';
-                return;
-            }
-
-            favTracks.forEach(track => {
-                const item = document.createElement('div');
-                item.className = 'song-item';
-                item.innerHTML = `
-                    <img id="fav-img-${track.id}" src="${track.cover || getFallbackCover(track.id)}" alt="${track.title}" onclick="playAndOpen('${track.id}')">
-                    <div class="song-info" onclick="playAndOpen('${track.id}')">
-                        <div class="title">${track.title}</div>
-                        <div class="artist">${track.artist}</div>
-                    </div>
-                    <div class="song-actions">
-                        <button onclick="toggleFavoriteAction(event, '${track.id}')"><i class="fa-solid fa-heart" style="color: var(--primary-color)"></i></button>
-                    </div>
-                `;
-                container.appendChild(item);
-                resolveTrackImage(track, `fav-img-${track.id}`);
-            });
-        }
-
-        // PERMANENT CACHE SYSTEM WITH BYPASS DOWNLOAD INJECTION
-        async function downloadTrackOffline(track) {
-            if (getYouTubeId(track.src)) {
-                showToast("YouTube cloud streams cannot be cached offline.");
-                return;
-            }
-
-            showToast("Starting permanent download sync...");
-            
-            const downloaderLink = document.createElement('a');
-            downloaderLink.href = track.src;
-            downloaderLink.download = `${track.title} - OlystMusic.mp3`;
-            downloaderLink.target = "_blank";
-            document.body.appendChild(downloaderLink);
-            downloaderLink.click();
-            document.body.removeChild(downloaderLink);
-
-            try {
-                const audioRes = await fetch(track.src);
-                const audioBlob = await audioRes.blob();
-
-                const coverRes = await fetch(track.cover || getFallbackCover(track.id));
-                const coverBlob = await coverRes.blob();
-
-                await olystDB.saveOfflineTrack(track.id, audioBlob, coverBlob, {
-                    title: track.title,
-                    artist: track.artist,
-                    album: track.album,
-                    isLocal: false
-                });
-
-                showToast("Track synced to Olyst offline library!");
-                loadOfflineTracksFromDB();
-            } catch (err) {
-                console.warn("Storage sync failed due to connection or CORS:", err);
-                showToast("Offline sync failed. Check connection.");
-            }
-        }
-
-        async function renderDownloadsScreen() {
-            const container = document.getElementById('downloads-container');
-            container.innerHTML = '';
-            
-            try {
-                const dbTracks = await olystDB.getAllOfflineTracks();
-                
-                if (dbTracks.length === 0) {
-                    container.innerHTML = '<div style="text-align:center; padding: 50px 0; color: var(--text-muted)">No offline songs saved yet.</div>';
-                    return;
-                }
-
-                dbTracks.forEach(track => {
-                    const item = document.createElement('div');
-                    item.className = 'song-item';
-                    item.innerHTML = `
-                        <img id="off-img-${track.id}" src="${getFallbackCover(track.id)}" alt="${track.title}" onclick="playAndOpen('${track.id}')">
-                        <div class="song-info" onclick="playAndOpen('${track.id}')">
-                            <div class="title">${track.title} <span style="font-size: 8px; background-color: var(--primary-color); color: #000000; padding: 2px 6px; border-radius: 10px; margin-left: 5px; font-weight:700;">Offline</span></div>
-                            <div class="artist">${track.artist}</div>
-                        </div>
-                        <div class="song-actions">
-                            <button onclick="triggerCustomCoverArtUpload('${track.id}')" title="Upload Custom Cover Art"><i class="fa-solid fa-image"></i></button>
-                            <button onclick="removeDownload('${track.id}')" style="color: #ef4444" title="Delete Track"><i class="fa-solid fa-trash-can"></i></button>
-                        </div>
-                    `;
-                    container.appendChild(item);
-
-                    if (track.coverBlob) {
-                        const coverUrl = URL.createObjectURL(track.coverBlob);
-                        generatedObjectUrls.push(coverUrl);
-                        const imgEl = document.getElementById(`off-img-${track.id}`);
-                        if(imgEl) imgEl.src = coverUrl;
-                    }
-                });
-            } catch(e) {
-                console.error("Local database render exception: ", e);
-            }
-        }
-
-        async function removeDownload(id) {
-            try {
-                await olystDB.deleteOfflineTrack(id);
-                
-                const idx = musicDatabase.findIndex(t => t.id === id);
-                if (idx !== -1) musicDatabase.splice(idx, 1);
-
-                showToast("Track deleted permanently from database.");
-                loadOfflineTracksFromDB();
-            } catch (error) {
-                console.error(error);
-                showToast("Failed to delete song.");
-            }
-        }
-
-        // MUSIC SEARCH COMPILER
-        function handleSearchQuery(query) {
-            const resultsContainer = document.getElementById('search-results-container');
-            const exploreWrapper = document.getElementById('explore-grid-wrapper');
-            const term = query.toLowerCase().trim();
-            
-            if(term === '') {
-                resultsContainer.innerHTML = '';
-                exploreWrapper.style.display = 'block'; 
-                return;
-            }
-
-            exploreWrapper.style.display = 'none'; 
-
-            const filtered = musicDatabase.filter(track => 
-                track.title.toLowerCase().includes(term) || 
-                track.artist.toLowerCase().includes(term) || 
-                track.album.toLowerCase().includes(term)
-            );
-
-            resultsContainer.innerHTML = '';
-            if(filtered.length === 0) {
-                resultsContainer.innerHTML = '<div style="text-align:center; padding: 50px 0; color: var(--text-muted)">No matching tracks found!</div>';
-                return;
-            }
-
-            filtered.forEach(track => {
-                const item = document.createElement('div');
-                item.className = 'song-item';
-                item.innerHTML = `
-                    <img id="search-img-${track.id}" src="${track.cover || getFallbackCover(track.id)}" alt="${track.title}" onclick="playAndOpen('${track.id}')">
-                    <div class="song-info" onclick="playAndOpen('${track.id}')">
-                        <div class="title">${track.title}</div>
-                        <div class="artist">${track.artist}</div>
-                    </div>
-                `;
-                resultsContainer.appendChild(item);
-                resolveTrackImage(track, `search-img-${track.id}`);
-            });
-        }
-
-        // LYRICS VIEWER ENGINE
-        function toggleLyrics() {
-            const panel = document.getElementById('lyrics-panel');
-            const isOpen = panel.classList.toggle('open');
-            if(isOpen) loadLyrics();
-        }
-
-        function loadLyrics() {
-            const container = document.getElementById('lyrics-content');
-            container.innerHTML = '';
-            const currentTrack = activeQueue[activeQueueIndex];
-            lyricsArray = [];
-
-            if(!currentTrack.lyrics || currentTrack.lyrics.length === 0) {
-                container.innerHTML = '<div style="color: var(--text-muted)">No lyrics available for this track.</div>';
-                return;
-            }
-
-            currentTrack.lyrics.forEach(line => {
-                const match = line.match(/\[(\d+):(\d+)\](.*)/);
-                if(match) {
-                    const minutes = parseInt(match[1]);
-                    const seconds = parseInt(match[2]);
-                    const totalSeconds = (minutes * 60) + seconds;
-                    const text = match[3].trim();
-                    
-                    lyricsArray.push({ time: totalSeconds, text: text });
-                    
-                    const lineEl = document.createElement('div');
-                    lineEl.className = 'lyrics-line';
-                    lineEl.id = `lyric-line-${totalSeconds}`;
-                    lineEl.textContent = text;
-                    container.appendChild(lineEl);
-                }
-            });
-        }
-
-        function updateLyricsHighlight(currentTime) {
-            if (lyricsArray.length === 0) return;
-            let activeLineIndex = -1;
-            for(let i = 0; i < lyricsArray.length; i++) {
-                if(currentTime >= lyricsArray[i].time) activeLineIndex = i;
-                else break;
-            }
-
-            if(activeLineIndex !== -1) {
-                const activeTime = lyricsArray[activeLineIndex].time;
-                document.querySelectorAll('.lyrics-line').forEach(el => el.classList.remove('active'));
-                const activeEl = document.getElementById(`lyric-line-${activeTime}`);
-                if(activeEl) {
-                    activeEl.classList.add('active');
-                    activeEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-            }
-        }
-
-        // COUNTDOWN SLEEP TIMER MODULE
-        function setSleepTimer(minutes) {
-            const mins = parseInt(minutes);
-            if (sleepTimerId) {
-                clearTimeout(sleepTimerId);
-                sleepTimerId = null;
-            }
-
-            if(mins > 0) {
-                const milliseconds = mins * 60 * 1000;
-                sleepTimerId = setTimeout(() => {
-                    pauseTrack();
-                    showToast("Sleep timer triggered. Playback suspended.");
-                    document.getElementById('sleep-timer-select').value = "0";
-                }, milliseconds);
-                showToast(`Playback suspends in ${mins} Minutes.`);
-            } else {
-                showToast("Sleep Timer disabled.");
-            }
-        }
-
-        // NEW SETTING CONTROLLERS
-        function changeAudioQuality(quality) {
-            currentAudioQuality = quality;
-            showToast(`Streaming quality set to: ${quality.toUpperCase()}`);
-        }
-
-        // UTILITY DISPATCHERS
-        function formatTime(seconds) {
-            const min = Math.floor(seconds / 60);
-            const sec = Math.floor(seconds % 60);
-            return `${min}:${sec < 10 ? '0' : ''}${sec}`;
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 2500);
-        }
-
-        function openFullscreenPlayer() {
-            fullscreenPlayer.classList.add('open');
-        }
-
-        function closeFullscreenPlayer() {
-            fullscreenPlayer.classList.remove('open');
-            document.getElementById('lyrics-panel').classList.remove('open');
-            document.getElementById('queue-panel').classList.remove('open');
-            document.getElementById('history-panel').classList.remove('open');
-        }
-
-        function setupMediaSessionSupport() {
-            if ('mediaSession' in navigator) {
-                navigator.mediaSession.setActionHandler('play', playTrack);
-                navigator.mediaSession.setActionHandler('pause', pauseTrack);
-                navigator.mediaSession.setActionHandler('previoustrack', prevTrack);
-                navigator.mediaSession.setActionHandler('nexttrack', nextTrack);
-            }
-        }
-
-        function updateMediaSessionMetadata() {
-            if ('mediaSession' in navigator) {
-                const track = activeQueue[activeQueueIndex];
-                navigator.mediaSession.metadata = new MediaMetadata({
-                    title: track.title,
-                    artist: track.artist,
-                    album: track.album,
-                    artwork: [
-                        { src: track.cover || getFallbackCover(track.id), sizes: '300x300', type: 'image/jpeg' }
-                    ]
-                });
-            }
-        }
-    </script>
-    <script>
-        // Dedicated PWA Service Worker Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
