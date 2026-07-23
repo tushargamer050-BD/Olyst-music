@@ -916,18 +916,19 @@
             justify-content: center;
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 10px;
+            font-size: 8px; /* Dynamic size to natively fit 6 elements on smaller screens */
             background: none;
             border: none;
             cursor: pointer;
-            gap: 4px;
+            gap: 2px;
             flex: 1;
             height: 100%;
             transition: color 0.2s;
+            min-width: 0;
         }
 
         .nav-item i {
-            font-size: 16px;
+            font-size: 15px;
         }
 
         .nav-item.active {
@@ -1008,7 +1009,7 @@
             height: 240px;
             border-radius: 16px;
             object-fit: cover;
-            box-shadow: 0 10px 22px var(--shadow-color);
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4);
             transition: transform 0.3s ease;
         }
 
@@ -1055,7 +1056,7 @@
             cursor: pointer;
         }
 
-        .player-meta button.active-fav {
+        .player-meta button.active-fav i {
             color: var(--primary-color);
         }
 
@@ -1129,10 +1130,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .player-controls button.play-pause-lg:disabled {
-            opacity: 0.5;
         }
 
         .player-controls button.play-pause-lg:disabled {
@@ -1641,8 +1638,36 @@
         </div>
         <div onclick="openSmartlinkUrl()" style="background: var(--bg-dark); border-radius: 8px; padding: 16px; text-align: center; cursor: pointer; border: 1px dashed var(--border-color); transition: background 0.2s;">
             <i class="fa-solid fa-circle-play" style="font-size: 36px; color: var(--primary-color); margin-bottom: 8px;"></i>
-            <h4 style="font-size: 13px; margin-bottom: 4px; color: var(--text-main);">গানটি ডাউনলোড ও প্লে করতে ক্লিক করুন</h4>
+            <h4 style="font-size: 13px; margin-bottom: 4px; color: var(--text-main);">Click here to play & download track instantly</h4>
             <p style="font-size: 10px; color: var(--text-muted); line-height: 1.4;">Click here to get high-speed connection server access instantly!</p>
+        </div>
+    </div>
+
+    <!-- SMVD INTERSTITIAL AD OVERLAY -->
+    <div id="smvd-ad-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10001; align-items: center; justify-content: center; backdrop-filter: blur(8px);">
+        <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 18px; padding: 24px; max-width: 360px; width: 90%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <span style="font-size: 11px; font-weight: bold; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.5px;">Sponsored Content</span>
+                <span id="smvd-timer-text" style="font-size: 12px; color: var(--text-main); font-weight: 600;">Ad ends in 8s</span>
+            </div>
+            
+            <!-- Largest 300x250 Banner Ad -->
+            <div style="width: 300px; height: 250px; background: #000; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; border: 1px solid var(--border-color);">
+                <script>
+                  atOptions = {
+                    'key' : '8a9646e03676cc6dd53b6b528a78e06c',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                  };
+                </script>
+                <script src="https://www.highperformanceformat.com/8a9646e03676cc6dd53b6b528a78e06c/invoke.js"></script>
+            </div>
+            
+            <button id="smvd-skip-btn" style="width: 100%; background: var(--primary-color); color: #000000; border: none; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: not-allowed; opacity: 0.5; transition: background 0.2s;" disabled>
+                Please wait... (8s)
+            </button>
         </div>
     </div>
 
@@ -1745,7 +1770,78 @@
                 </div>
             </section>
 
-            <!-- 3. NOTIFICATION SCREEN (Instagram Feed Layout) -->
+            <!-- 3. SOCIAL MEDIA VIDEO DOWNLOADER (SMVD) VIEW -->
+            <section id="smvd-screen" class="tab-screen">
+                <!-- Mini size banner ads at top -->
+                <div class="adsterra-banner-container" style="margin-bottom: 15px;">
+                    <div style="width: 320px; height: 50px; text-align: center; margin: 0 auto; overflow: hidden;">
+                        <script type="text/javascript">
+                            atOptions = {
+                                'key' : 'd400ec9700be549d58528eeb93a7eb68',
+                                'format' : 'iframe',
+                                'height' : 50,
+                                'width' : 320,
+                                'params' : {}
+                            };
+                        </script>
+                        <script type="text/javascript" src="https://www.highperformanceformat.com/d400ec9700be549d58528eeb93a7eb68/invoke.js"></script>
+                    </div>
+                </div>
+
+                <div class="section-title">Video Downloader</div>
+                <div style="background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 20px;">
+                    <i class="fa-solid fa-cloud-arrow-down" style="font-size: 32px; color: var(--primary-color); margin-bottom: 10px;"></i>
+                    <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 6px;">Social Media Video Downloader (SMVD)</h3>
+                    <p style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">
+                        Paste your copied shared link here and download your favorite videos from major platforms.
+                    </p>
+                </div>
+
+                <!-- SMVD Downloader Portal Selection Grid -->
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <!-- YouTube Downloader Card -->
+                    <div onclick="triggerSMVDAd('https://savefrom.space/')" style="display: flex; align-items: center; background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px; cursor: pointer; transition: transform 0.2s;">
+                        <i class="fa-brands fa-youtube" style="font-size: 28px; color: #ff0000; margin-right: 15px;"></i>
+                        <div style="flex: 1;">
+                            <h4 style="font-size: 13px; font-weight: 600; color: var(--text-main);">YouTube Video Downloader</h4>
+                            <p style="font-size: 10px; color: var(--text-muted);">Download YouTube videos in high quality</p>
+                        </div>
+                        <i class="fa-solid fa-angle-right" style="color: var(--text-muted); font-size: 14px;"></i>
+                    </div>
+
+                    <!-- TikTok Downloader Card -->
+                    <div onclick="triggerSMVDAd('https://ssstik.io/#google_vignette')" style="display: flex; align-items: center; background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px; cursor: pointer; transition: transform 0.2s;">
+                        <i class="fa-brands fa-tiktok" style="font-size: 28px; color: var(--text-main); margin-right: 15px;"></i>
+                        <div style="flex: 1;">
+                            <h4 style="font-size: 13px; font-weight: 600; color: var(--text-main);">TikTok Video Downloader</h4>
+                            <p style="font-size: 10px; color: var(--text-muted);">Save TikTok videos without watermark</p>
+                        </div>
+                        <i class="fa-solid fa-angle-right" style="color: var(--text-muted); font-size: 14px;"></i>
+                    </div>
+
+                    <!-- Instagram Downloader Card -->
+                    <div onclick="triggerSMVDAd('https://downreels.com/instagram-video-downloader-free/')" style="display: flex; align-items: center; background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px; cursor: pointer; transition: transform 0.2s;">
+                        <i class="fa-brands fa-instagram" style="font-size: 28px; color: #e1306c; margin-right: 15px;"></i>
+                        <div style="flex: 1;">
+                            <h4 style="font-size: 13px; font-weight: 600; color: var(--text-main);">Instagram Video Downloader</h4>
+                            <p style="font-size: 10px; color: var(--text-muted);">Download Reels and IG videos</p>
+                        </div>
+                        <i class="fa-solid fa-angle-right" style="color: var(--text-muted); font-size: 14px;"></i>
+                    </div>
+
+                    <!-- Facebook Downloader Card -->
+                    <div onclick="triggerSMVDAd('https://fdown.net/')" style="display: flex; align-items: center; background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px; cursor: pointer; transition: transform 0.2s;">
+                        <i class="fa-brands fa-facebook" style="font-size: 28px; color: #1877f2; margin-right: 15px;"></i>
+                        <div style="flex: 1;">
+                            <h4 style="font-size: 13px; font-weight: 600; color: var(--text-main);">Facebook Video Downloader</h4>
+                            <p style="font-size: 10px; color: var(--text-muted);">Save Facebook clips and stories</p>
+                        </div>
+                        <i class="fa-solid fa-angle-right" style="color: var(--text-muted); font-size: 14px;"></i>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. NOTIFICATION SCREEN (Instagram Feed Layout) -->
             <section id="notification-screen" class="tab-screen">
                 <div class="notification-feed" id="notification-feed-container">
                     <div style="text-align: center; padding: 40px; color: var(--text-muted);">
@@ -1755,7 +1851,7 @@
                 </div>
             </section>
 
-            <!-- 4. FAVORITES VIEW -->
+            <!-- 5. FAVORITES VIEW -->
             <section id="favorites-screen" class="tab-screen">
                 <div class="section-title">My Favorites</div>
                 <div class="song-list" id="favorites-container">
@@ -1763,7 +1859,7 @@
                 </div>
             </section>
 
-            <!-- 5. OFFLINE STORAGE & SCANNER WINDOW -->
+            <!-- 6. OFFLINE STORAGE & SCANNER WINDOW -->
             <section id="downloads-screen" class="tab-screen">
                 <div class="scan-box" onclick="triggerDeviceAudioScan()">
                     <i class="fa-solid fa-folder-open"></i>
@@ -1812,7 +1908,7 @@
                 </div>
             </section>
 
-            <!-- 6. PLAYBACK ENGINE / SETTINGS VIEW MODULE -->
+            <!-- 7. PLAYBACK ENGINE / SETTINGS VIEW MODULE -->
             <section id="settings-screen" class="tab-screen">
                 <div class="section-title">System Settings</div>
                 <div class="settings-list">
@@ -1904,7 +2000,7 @@
             </div>
         </div>
 
-        <!-- Tab Navigation Menu -->
+        <!-- Tab Navigation Menu (Integrated with new SMVD Tab) -->
         <nav class="bottom-nav">
             <button class="nav-item active" onclick="switchTab('home', this)">
                 <i class="fa-solid fa-house"></i>
@@ -1914,9 +2010,13 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <span>Search</span>
             </button>
+            <button class="nav-item" onclick="switchTab('smvd', this)">
+                <i class="fa-solid fa-circle-down"></i>
+                <span>SMVD</span>
+            </button>
             <button class="nav-item" onclick="switchTab('notification', this)">
                 <i class="fa-solid fa-bell"></i>
-                <span>Notification</span>
+                <span>Notice</span>
             </button>
             <button class="nav-item" onclick="switchTab('favorites', this)">
                 <i class="fa-solid fa-heart"></i>
@@ -1935,7 +2035,6 @@
             <button onclick="closeFullscreenPlayer()"><i class="fa-solid fa-chevron-down"></i></button>
             <div class="track-origin">Olyst Media</div>
             <div style="display: flex; gap: 8px; align-items: center;">
-                <!-- Updated: Direct download triggering with 2 second viewer delay -->
                 <button id="player-header-download-btn" onclick="triggerImmediateHeaderDownload()" title="Download Track" style="margin-right: 2px;"><i class="fa-solid fa-download"></i></button>
                 <button id="player-queue-btn" onclick="toggleQueue()" title="Queue Manager" style="margin-right: 2px;"><i class="fa-solid fa-list-ul"></i></button>
                 <button id="player-lyric-btn" onclick="toggleLyrics()"><i class="fa-solid fa-quote-right"></i></button>
@@ -2020,12 +2119,10 @@
         </div>
         
         <div class="queue-scroll-container">
-            <!-- Active custom queue list (Starts with only active track) -->
             <div class="queue-list" id="queue-list-content">
                 <!-- Dynamically loaded via JS -->
             </div>
 
-            <!-- Dynamic Pull System to easily pull songs from database -->
             <div class="pull-section-title">Pull Songs to Queue</div>
             <div id="queue-pull-list">
                 <!-- Dynamically populated with all other tracks -->
@@ -2036,14 +2133,14 @@
     <!-- ELEGANT DOWNLOAD AD COUNTDOWN MODAL OVERLAY -->
     <div class="download-progress-overlay" id="download-progress-modal">
         <div class="download-progress-card">
-            <h3><i class="fa-solid fa-cloud-arrow-down" style="color: var(--primary-color); margin-right: 6px;"></i> ফাইল প্রস্তুত করা হচ্ছে...</h3>
-            <p>আপনার গানটি অফলাইনে রূপান্তর হচ্ছে, অনুগ্রহ করে ২ সেকেন্ড অপেক্ষা করুন।</p>
+            <h3><i class="fa-solid fa-cloud-arrow-down" style="color: var(--primary-color); margin-right: 6px;"></i> Preparing File...</h3>
+            <p>Your track is converting for offline use. Please wait 2 seconds.</p>
             
             <div class="download-progress-container">
                 <div class="download-progress-bar-fill" id="download-modal-progress-bar"></div>
             </div>
 
-            <!-- Download Banner Ad Wrapper (Easily customizable) -->
+            <!-- Download Banner Ad Wrapper -->
             <div class="download-ad-wrapper">
                 <div class="ad-label">Sponsored Banner Ad</div>
                 <!-- Banner Ad Slot 1 -->
@@ -2098,7 +2195,6 @@
         /**
          * Olyst Music - Native IndexedDB Persistent Engine
          */
-
         class OlystDatabase {
             constructor() {
                 this.dbName = "OlystMusicDatabase";
@@ -2191,9 +2287,7 @@
                 album: "",
                 cover: "https://i.postimg.cc/4NXfWH1r/20260722-000106.png",
                 src: "https://files.catbox.moe/a5pgf2.mp3",
-                lyrics: [
-
-                ]
+                lyrics: []
             },
             {
                 id: "olyst.m16",
@@ -2202,9 +2296,7 @@
                 album: "",
                 cover: "https://i.postimg.cc/Gt2MpQCq/20260721-235443.png",
                 src: "https://files.catbox.moe/98mdkh.mp3",
-                lyrics: [
-
-                ]
+                lyrics: []
             },
             {
                 id: "olyst.m17",
@@ -2213,9 +2305,7 @@
                 album: "",
                 cover: "https://i.postimg.cc/50f7hJkY/20260721-235926.png",
                 src: "https://files.catbox.moe/2ipbkn.mp3",
-                lyrics: [
-
-                ]
+                lyrics: []
             },
             {
                 id: "olyst.m18",
@@ -2224,9 +2314,7 @@
                 album: "",
                 cover: "https://i.postimg.cc/wx4ggxYY/20260722-225534.png",
                 src: "https://files.catbox.moe/o5n0x4.mp3",
-                lyrics: [
-
-                ]
+                lyrics: []
             },
             {
                 id: "olyst.m19",
@@ -2235,9 +2323,7 @@
                 album: "",
                 cover: "https://i.postimg.cc/2yrwtNT7/20260722-230856.png",
                 src: "https://files.catbox.moe/cjrc5b.mp3",
-                lyrics: [
-
-                ]
+                lyrics: []
             },
             {
                 id: "olyst.m20",
@@ -2246,11 +2332,8 @@
                 album: "",
                 cover: "https://i.postimg.cc/fbvkK436/20260722-231631.png",
                 src: "https://files.catbox.moe/cw4cld.mp3",
-                lyrics: [
-
-                ]
+                lyrics: []
             },
-
             {
                 id: "olyst.m10",
                 title: "Finding Her (Female Version)",
@@ -2323,9 +2406,9 @@
                 src: "https://files.catbox.moe/1i6tu0",
                 lyrics: [
                     "[00:01] Sanjoy and Makhon electronic vibes.",
-                    "[00:05] কাড় জন্মে আমি তোমার হয়েছিলাম...",
-                    "[00:10] হৃদয়ের গভীরে লুকিয়ে রাখা ভালোবাসা।",
-                    "[00:15] ওলিস্ত মিউজিক প্লেব্যাকের সুরময় ধারা।"
+                    "[00:05] Sritir shorote tumi ele...",
+                    "[00:10] Ridoyer gohire lukiye rakha bhalobasha.",
+                    "[00:15] Olyst music playback engine online flow."
                 ]
             },
             {
@@ -2470,7 +2553,7 @@
         let lyricsArray = []; 
         let likedPosts = []; 
         let playTwiceMap = {}; 
-        let smartlinkClickCount = 0; // Tracking smartlink frequency count
+        let smartlinkClickCount = 0;
 
         // Settings default values
         let currentAudioQuality = 'high';
@@ -2567,7 +2650,7 @@
             setupMediaSessionSupport();
             listenFirebaseNotifications(); 
             registerPWAOfflineWorker(); 
-            preCacheAppAssets(); // Dynamically caches resources on load for offline functionality
+            preCacheAppAssets();
             initHeroBannerAutoSlide(); 
 
             if (musicDatabase.length > 0) {
@@ -2584,8 +2667,12 @@
             }
         });
 
-        // MAIN THREAD CACHING (Caches resources immediately on load for offline use)
+        // MAIN THREAD CACHING (Bypasses gracefully on local file:/// protocol)
         async function preCacheAppAssets() {
+            if (window.location.protocol === 'file:') {
+                console.warn("Static assets pre-caching skipped: running under local file:/// environment.");
+                return;
+            }
             if ('caches' in window) {
                 try {
                     const cache = await caches.open('olyst-static-cache-v1');
@@ -2601,13 +2688,17 @@
                     ]);
                     console.log("Offline Core Assets pre-cached.");
                 } catch(e) {
-                    console.warn("Main thread asset pre-caching was skipped or failed:", e);
+                    console.warn("Static assets caching was skipped or blocked:", e);
                 }
             }
         }
 
-        // REGISTER OFFLINE PWA SERVICE WORKER (Uses dynamic Blob Registration without separate sw.js file)
+        // REGISTER OFFLINE PWA SERVICE WORKER (Safe verification for local files)
         function registerPWAOfflineWorker() {
+            if (window.location.protocol === 'file:') {
+                console.warn("Service Worker registration skipped: running under local file:/// environment.");
+                return;
+            }
             if ('serviceWorker' in navigator) {
                 const swCode = `
                     const CACHE_NAME = 'olyst-offline-cache-v1';
@@ -2647,7 +2738,6 @@
                     navigator.serviceWorker.register(blobURL)
                         .then(reg => console.log('Dynamic Offline Worker Loaded!', reg))
                         .catch(err => {
-                            // Fallback to traditional local sw.js registration if Blob scope is locked
                             navigator.serviceWorker.register('./sw.js').catch(e => {});
                         });
                 } catch (e) {
@@ -2673,7 +2763,7 @@
             showToast("Theme changed successfully!");
         }
 
-        // SCREEN SWITCH CONTROLLER
+        // SCREEN SWITCH CONTROLLER (Integrated with SMVD)
         function switchTab(tabId, el) {
             const screens = document.querySelectorAll('.tab-screen');
             screens.forEach(screen => screen.classList.remove('active'));
@@ -2687,7 +2777,7 @@
             if(el) {
                 el.classList.add('active');
             } else {
-                const indexMapping = { 'home': 0, 'search': 1, 'notification': 2, 'favorites': 3, 'downloads': 4 };
+                const indexMapping = { 'home': 0, 'search': 1, 'smvd': 2, 'notification': 3, 'favorites': 4, 'downloads': 5 };
                 const navIndex = indexMapping[tabId];
                 if (navIndex !== undefined) {
                     const navButtons = document.querySelectorAll('.nav-item');
@@ -2866,9 +2956,8 @@
         }
 
         /**
-         * NOTIFICATION ENGINE (Instagram Premium Feed Integrated with Firebase and Offline support)
+         * NOTIFICATION ENGINE
          */
-
         let carouselsState = {}; 
 
         function listenFirebaseNotifications() {
@@ -3077,7 +3166,6 @@
         function toggleLikePost(postId) {
             const isLiked = likedPosts.includes(postId);
             if (!database) {
-                // Safeguard: Local toggle behavior if connection is offline
                 if (isLiked) {
                     likedPosts = likedPosts.filter(id => id !== postId);
                     showToast("Post unliked");
@@ -3153,7 +3241,7 @@
                 {
                     id: "notice_fallback_1",
                     type: "warning",
-                    caption: "সম্মানিত ওলিস্ট মিউজিক ইউজারস, আমাদের ডাটাবেজ সিস্টেমটি আপগ্রেড করা হচ্ছে। সাময়িক কোনো সমস্যা হলে দুঃখিত।",
+                    caption: "Dear Olyst Music Users, our database system is currently undergoing an upgrade. Apologies for any temporary issues.",
                     timestamp: Date.now() - 3600000,
                     likesCount: 142,
                     linkUrl: "https://olystmusic.com",
@@ -3162,7 +3250,7 @@
                 {
                     id: "notice_fallback_2",
                     type: "carousel",
-                    caption: "নতুন অ্যালবাম কালেকশন রিলিজ করা হয়েছে! সরাসরি হোম স্ক্রিন চেক করে শুনুন।",
+                    caption: "New album collections have been released! Head over to the Home screen to check them out.",
                     images: [
                         "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80",
                         "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&q=80"
@@ -3193,7 +3281,6 @@
             return str.replace(/['"]/g, '\\$&');
         }
 
-        // AUTO SLIDING BANNER LOGIC (Safe legacy function stubbed out for Adsterra replacement)
         function initHeroBannerAutoSlide() {
             console.log("Hero slider updated with premium ad experiences.");
         }
@@ -3331,7 +3418,7 @@
             if(track) downloadTrackOffline(track);
         }
 
-        // SMARTLINK AD INTERCEPTOR LOGIC (Triggers when user tries to open/play a track)
+        // SMARTLINK AD INTERCEPTOR LOGIC
         const smartlinkUrl = "https://www.effectivecpmnetwork.com/w9gemj22?key=651448d8dd7199865ffd69c8344c378e";
         let activeAdCallback = null;
 
@@ -3354,7 +3441,7 @@
             skipBtn.style.display = 'none';
             timerEl.style.display = 'inline';
 
-            let timeLeft = 3; // Changed timer duration to 3 seconds
+            let timeLeft = 3;
             timerEl.textContent = `Ad ends in ${timeLeft}s`;
 
             const adInterval = setInterval(() => {
@@ -3378,7 +3465,6 @@
         }
 
         function playAndOpen(trackId) {
-            // Check display rules: first click shows ad, next 2 clicks skip, then shows ad again (modulo 3 pattern)
             if (smartlinkClickCount % 3 === 0) {
                 smartlinkClickCount++;
                 triggerSmartlinkAd(() => {
@@ -3390,6 +3476,50 @@
                 playExplicitTrack(trackId);
                 openFullscreenPlayer();
             }
+        }
+
+        // SOCIAL MEDIA VIDEO DOWNLOADER COUNTDOWN SYSTEM
+        let smvdAdInterval = null;
+        function triggerSMVDAd(targetUrl) {
+            const overlay = document.getElementById('smvd-ad-overlay');
+            const timerText = document.getElementById('smvd-timer-text');
+            const skipBtn = document.getElementById('smvd-skip-btn');
+
+            if (!overlay) {
+                window.open(targetUrl, '_blank');
+                return;
+            }
+
+            overlay.style.display = 'flex';
+            skipBtn.disabled = true;
+            skipBtn.style.cursor = 'not-allowed';
+            skipBtn.style.opacity = '0.5';
+            skipBtn.textContent = 'Please wait... (8s)';
+
+            let timeLeft = 8;
+            timerText.textContent = `Ad ends in ${timeLeft}s`;
+
+            if (smvdAdInterval) clearInterval(smvdAdInterval);
+
+            smvdAdInterval = setInterval(() => {
+                timeLeft--;
+                if (timeLeft <= 0) {
+                    clearInterval(smvdAdInterval);
+                    timerText.textContent = `Ad completed`;
+                    skipBtn.disabled = false;
+                    skipBtn.style.cursor = 'pointer';
+                    skipBtn.style.opacity = '1';
+                    skipBtn.style.color = '#ffffff';
+                    skipBtn.textContent = 'Skip Ad & Open Downloader';
+                    skipBtn.onclick = () => {
+                        overlay.style.display = 'none';
+                        window.open(targetUrl, '_blank');
+                    };
+                } else {
+                    timerText.textContent = `Ad ends in ${timeLeft}s`;
+                    skipBtn.textContent = `Please wait... (${timeLeft}s)`;
+                }
+            }, 1000);
         }
 
         function renderRelatedSongs(activeTrackId) {
@@ -3840,6 +3970,14 @@
                     ytPlayer.setVolume(val * 100);
                 }
             });
+
+            // Player Favorite Button Event Listener (Direct Fix)
+            favBtn.addEventListener('click', () => {
+                const track = activeQueue[activeQueueIndex];
+                if(track) {
+                    toggleFavorite(track.id);
+                }
+            });
         }
 
         // FAVORITES SYSTEM
@@ -3848,7 +3986,6 @@
             toggleFavorite(id);
         }
 
-        // SMARTLINK AD INTERCEPTOR (Favorites screen protection)
         function toggleFavorite(id) {
             if(favorites.includes(id)) {
                 favorites = favorites.filter(favId => favId !== id);
@@ -3860,9 +3997,15 @@
             try {
                 localStorage.setItem('olyst_favorites', JSON.stringify(favorites));
             } catch(e) {}
+            
             updateFavoriteIcon(id);
             renderHomeScreen();
             renderFavoritesScreen();
+
+            const searchInput = document.getElementById('search-input');
+            if (searchInput && searchInput.value) {
+                handleSearchQuery(searchInput.value);
+            }
         }
 
         function updateQueuePanelUI() {
@@ -4033,7 +4176,6 @@
                 return;
             }
 
-            // Display Ad progress overlay modal immediately
             const modal = document.getElementById('download-progress-modal');
             const progressFill = document.getElementById('download-modal-progress-bar');
             
@@ -4041,24 +4183,21 @@
                 modal.style.display = 'flex';
                 progressFill.style.width = '0%';
                 
-                // Force a reflow in CSS transition tracking
                 setTimeout(() => {
                     progressFill.style.width = '100%';
                 }, 50);
 
-                // Run actual native system download file and indexedDB saving exactly 2 seconds after banner display
                 setTimeout(async () => {
                     modal.style.display = 'none';
                     executeSecureCacheAndDownload(track);
                 }, 2000);
             } else {
-                // Fail-safe execution if elements aren't ready
                 executeSecureCacheAndDownload(track);
             }
         }
 
         async function executeSecureCacheAndDownload(track) {
-            showToast("ডাউনলোড সম্পন্ন হচ্ছে...");
+            showToast("Finalizing download...");
             
             const downloaderLink = document.createElement('a');
             downloaderLink.href = track.src;
@@ -4332,8 +4471,8 @@
         }
     </script>
     <script>
-        // Dedicated PWA Service Worker Registration Implementation
-        if ('serviceWorker' in navigator) {
+        // Dedicated PWA Service Worker Registration Implementation (Safe Protocol check)
+        if ('serviceWorker' in navigator && window.location.protocol !== 'file:') {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
                     .then(registration => {
@@ -4343,6 +4482,8 @@
                         console.error('Olyst Music SW registration failed:', error);
                     });
             });
+        } else {
+            console.warn("Service worker skipped locally (running on file:/// protocol)");
         }
     </script>
 </body>
